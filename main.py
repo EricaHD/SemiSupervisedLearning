@@ -1,10 +1,6 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from torchvision import datasets, transforms
-import matplotlib.pyplot as plt
-import numpy
 
 from load import get_train_loader, get_test_loader, get_unsup_loader
 from cnn_model import CNN
