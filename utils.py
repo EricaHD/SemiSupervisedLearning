@@ -19,20 +19,26 @@ def find_norm_params():
     fst_moment = torch.empty(3)
     snd_moment = torch.empty(3)
 
-    for data, target in train_loader:
+    print("Supervised training data...") # 64,000
+    for batch_idx, (data, target) in enumerate(train_loader):
+        if (batch_idx + 1) % 1000 == 0:
+            print(batch_idx + 1)
         b, c, h, w = data.shape
         nb_pixels = b * h * w
-        sum_ = torch.sum(data, dim=[0, 2, 3])
-        sum_of_square = torch.sum(data ** 2, dim=[0, 2, 3])
+        sum_ = torch.sum(data, dim=(0, 2, 3))
+        sum_of_square = torch.sum(data ** 2, dim=(0, 2, 3))
         fst_moment = (cnt * fst_moment + sum_) / (cnt + nb_pixels)
         snd_moment = (cnt * snd_moment + sum_of_square) / (cnt + nb_pixels)
         cnt += nb_pixels
 
-    for data, target in unsup_loader:
+    print("Unsupervised training data...") # 512,000
+    for batch_idx, (data, target) in enumerate(unsup_loader):
+        if (batch_idx + 1) % 1000 == 0:
+            print(batch_idx + 1)
         b, c, h, w = data.shape
         nb_pixels = b * h * w
-        sum_ = torch.sum(data, dim=[0, 2, 3])
-        sum_of_square = torch.sum(data ** 2, dim=[0, 2, 3])
+        sum_ = torch.sum(data, dim=(0, 2, 3))
+        sum_of_square = torch.sum(data ** 2, dim=(0, 2, 3))
         fst_moment = (cnt * fst_moment + sum_) / (cnt + nb_pixels)
         snd_moment = (cnt * snd_moment + sum_of_square) / (cnt + nb_pixels)
         cnt += nb_pixels
