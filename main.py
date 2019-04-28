@@ -20,8 +20,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 ######################################################
 
 train_loader = get_train_loader('/scratch/ehd255/ssl_data_96/supervised/train/', batch_size=32)
-test_loader = get_test_loader('/scratch/ehd255/ssl_data_96/supervised/val/', batch_size=32)
 # unsup_loader = get_unsup_loader('/scratch/ehd255/ssl_data_96/unsupervised/', batch_size=32)
+test_loader = get_test_loader('/scratch/ehd255/ssl_data_96/supervised/val/', batch_size=32)
 
 ######################################################
 # BUILD MODEL
@@ -58,7 +58,7 @@ def train(num_epochs=10):
                     loss.item())
                 )
 
-train(num_epochs=1)
+train()
 
 ######################################################
 # TEST MODEL
