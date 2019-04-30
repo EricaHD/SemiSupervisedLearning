@@ -173,7 +173,7 @@ class ResNet32x32(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.avgpool(x)
-            x = x.view(x.size(0), -1)
+        x = x.view(x.size(0), -1)
         return self.fc1(x), self.fc2(x)
 
 

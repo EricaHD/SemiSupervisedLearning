@@ -267,7 +267,7 @@ def copy_all_vars(modelin, modelout, statedict=True):
 def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, optimizer, epoch, log, device=device):
     global global_step
 
-    class_criterion = nn.CrossEntropyLoss(size_average=False, ignore_index=NO_LABEL).to(device)
+    class_criterion = nn.CrossEntropyLoss(reduction='sum', ignore_index=NO_LABEL).to(device)
     if args.consistency_type == 'mse':
         consistency_criterion = losses.softmax_mse_loss
     elif args.consistency_type == 'kl':
@@ -366,8 +366,10 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
         # measure elapsed time
         meters.update('batch_time', time.time() - end)
         end = time.time()
+        
 
         if i % args.print_freq == 0:
+            
             LOG.info(
                 'Epoch: [{0}][{1}/{2}]\t'
                 'Time {meters[batch_time]:.3f}\t'
@@ -386,7 +388,7 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
 
 
 def validate(eval_loader, model, log, global_step, epoch, device=device):
-    class_criterion = nn.CrossEntropyLoss(size_average=False, ignore_index=NO_LABEL).to(device)
+    class_criterion = nn.CrossEntropyLoss(reduction='sum', ignore_index=NO_LABEL).to(device)
     meters = AverageMeterSet()
     model.eval()
 

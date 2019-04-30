@@ -50,13 +50,31 @@ class AverageMeterSet:
             meter.reset()
 
     def values(self, postfix=''):
-        return {name + postfix: meter.val for name, meter in self.meters.items()}
+        d = {}
+        for name, meter in self.meters.items():
+            if isinstance(meter.val, (int, float, complex)):
+                d[name + postfix] = meter.val
+            else:
+                d[name + postfix] = meter.val.item()
+        return d
 
     def averages(self, postfix='/avg'):
-        return {name + postfix: meter.avg for name, meter in self.meters.items()}
+        d = {}
+        for name, meter in self.meters.items():
+            if isinstance(meter.avg, (int, float, complex)):
+                d[name + postfix] = meter.avg
+            else:
+                d[name + postfix] = meter.avg.item()
+        return d
 
     def sums(self, postfix='/sum'):
-        return {name + postfix: meter.sum for name, meter in self.meters.items()}
+        d = {}
+        for name, meter in self.meters.items():
+            if isinstance(meter.sum, (int, float, complex)):
+                d[name + postfix] = meter.sum
+            else:
+                d[name + postfix] = meter.sum.item()
+        return d
 
     def counts(self, postfix='/count'):
         return {name + postfix: meter.count for name, meter in self.meters.items()}
