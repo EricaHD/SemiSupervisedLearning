@@ -11,7 +11,7 @@ LOG = logging.getLogger('runner')
 
 def parameters():
     ngpu = torch.cuda.device_count() if torch.cuda.device_count() > 0 else 1
-    base_lr = 0.1
+    base_lr = 0.01
     base_batch_size = 4
     base_labeled_batch_size = 1
 
@@ -44,7 +44,7 @@ def parameters():
         # Optimization
         'epochs': 8,
         'lr_rampup': 0,
-        'base_lr': 0.1,
+        'base_lr': base_lr,
         'lr_rampdown_epochs': 10,
         'nesterov': True,
 
