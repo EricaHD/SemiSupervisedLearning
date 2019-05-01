@@ -10,29 +10,23 @@ LOG = logging.getLogger('runner')
 
 
 def parameters():
-    
-    ngpu = torch.cuda.device_count() if torch.cuda.device_count() > 0 else 1
-    base_lr = 0.1
-    base_batch_size = 256
-    base_labeled_batch_size = 65
-    
     defaults = {
         # Technical details
-        'workers': 3,
+        'workers': 2,
         'checkpoint_epochs': 3,
 
         # Data
-        'dataset': 'ssl',
+        'dataset': 'sslUpsample',
         'train_subdir': 'supervised/train',
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
 
         # Data sampling
-        'base_batch_size': 256,
-        'base_labeled_batch_size': 56,
+        'base_batch_size': 128,
+        'base_labeled_batch_size': 31,
 
         # Architecture
-        'arch': 'cifar_shakeshake26',
+        'arch': 'resnext152',
         'ema_decay': 0.97,
 
         # Costs
@@ -43,7 +37,7 @@ def parameters():
         'weight_decay': 2e-4,
 
         # Optimization
-        'epochs': 8,
+        'epochs': 5,
         'lr_rampup': 0,
         'base_lr': 0.1,
         'lr_rampdown_epochs': 10,
@@ -55,21 +49,18 @@ def parameters():
         'fastswa_frequencies': '3',
         
         'device':'cuda',
-        'title' : 'ssl_mt_shake_short',
-        'data_seed':10, 
-        
-        'batch_size': base_batch_size * ngpu, 
-        'labeled_batch_size': base_labeled_batch_size * ngpu, 
-        'lr': base_lr * ngpu
-        
+        'title' : 'ssl_mt_shake_short_upsample',
+        'data_seed':10
     }
     
     return defaults
 
 def run(title, base_batch_size, base_labeled_batch_size, base_lr, data_seed, **kwargs):
     LOG.info('run title: %s', title)
+    ngpu = torch.cuda.device_count() if torch.cuda.device_count() > 0 else 1
+    adapted_args = {'batch_size': base_batch_size * ngpu, 'labeled_batch_size': base_labeled_batch_size * ngpu, 'lr': base_lr * ngpu}
     context = RunContext('/scratch/ijh216/ssl/', __file__, "{}".format(data_seed))
-    main.args = parse_dict_args(**kwargs)
+    main.args = parse_dict_args(**adapted_args, **kwargs)
     main.main(context)
 
 
