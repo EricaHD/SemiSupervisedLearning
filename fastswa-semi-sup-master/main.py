@@ -26,6 +26,9 @@ import copy
 from mean_teacher import optim_weight_swa
 from torch.utils.data import ConcatDataset
 
+global device
+
+device = 'cuda'
 
 LOG = logging.getLogger('main')
 
@@ -33,26 +36,30 @@ args = None
 best_prec1 = 0
 global_step = 0
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-
 def main(context):
     global global_step
     global best_prec1
+    
 
     checkpoint_path = context.transient_dir
     training_log = context.create_train_log("training")
     validation_log = context.create_train_log("validation")
     ema_validation_log = context.create_train_log("ema_validation")
+    
+    device = args.device
 
     dataset_config = datasets.__dict__[args.dataset]()
     num_classes = dataset_config.pop('num_classes')
     if args.dataset == 'ssl':
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
+    elif args.dataset == 'sslMini':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
+    elif args.dataset == 'sslUpsample':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
     else:
         assert False, "Invalid options"
 
-    def create_model(no_grad=False, device=device):
+    def create_model(no_grad=False, device=None):
         LOG.info("=> creating model '{arch}'".format(
           arch=args.arch))
         model_factory = architectures.__dict__[args.arch]
@@ -100,7 +107,7 @@ def main(context):
         optimizer.load_state_dict(checkpoint['optimizer'])
         LOG.info("=> loaded checkpoint '{}' (epoch {})".format(args.resume, checkpoint['epoch']))
         LOG.info("Evaluating the resumed model:")
-        validate(eval_loader, model, validation_log, global_step, checkpoint['epoch'])
+        validate(eval_loader, model, validation_log, global_step, checkpoint['epoch'], device=device)
     else:
         assert args.start_epoch == 0
         save_checkpoint({
@@ -117,9 +124,9 @@ def main(context):
 
     if args.evaluate:
         LOG.info("Evaluating the primary model:")
-        validate(eval_loader, model, validation_log, global_step, args.start_epoch)
+        validate(eval_loader, model, validation_log, global_step, args.start_epoch, device=device)
         LOG.info("Evaluating the EMA model:")
-        validate(eval_loader, ema_model, ema_validation_log, global_step, args.start_epoch)
+        validate(eval_loader, ema_model, ema_validation_log, global_step, args.start_epoch, device=device)
         return
 
     for epoch in range(args.start_epoch, args.epochs + args.num_cycles*args.cycle_interval + 1):
@@ -129,7 +136,7 @@ def main(context):
             print("SWA Model Updated!")
             update_batchnorm(swa_model, train_loader, train_loader_len)
             LOG.info("Evaluating the SWA model:")
-            swa_prec1 = validate(eval_loader, swa_model, swa_validation_log, global_step, epoch)
+            swa_prec1 = validate(eval_loader, swa_model, swa_validation_log, global_step, epoch, device=device)
 
         # do the fastSWA updates
         if args.fastswa_frequencies is not None:
@@ -138,24 +145,24 @@ def main(context):
                     print("Evaluate fast-swa-{} at epoch {}".format(fastswa_freq, epoch))
                     fastswa_opt.update(model)
                     update_batchnorm(fastswa_net, train_loader, train_loader_len)
-                    validate(eval_loader, fastswa_net, fastswa_log, global_step, epoch)
+                    validate(eval_loader, fastswa_net, fastswa_log, global_step, epoch, device=device)
 
         # train for one epoch
         start_time = time.time()
         if args.pimodel == 0:
             # for the MT model, use the ema as a teacher
-            train(train_loader, train_loader_len, model, ema_model, ema_model, optimizer, epoch, training_log)
+            train(train_loader, train_loader_len, model, ema_model, ema_model, optimizer, epoch, training_log, device=device)
         elif args.pimodel > 0:
             # for the pi model, use the model itself as a teacher
-            train(train_loader, train_loader_len, model, model, ema_model, optimizer, epoch, training_log)
+            train(train_loader, train_loader_len, model, model, ema_model, optimizer, epoch, training_log, device=device)
         LOG.info("--- training epoch in %s seconds ---" % (time.time() - start_time))
 
         if args.evaluation_epochs and (epoch + 1) % args.evaluation_epochs == 0:
             start_time = time.time()
             LOG.info("Evaluating the primary model:")
-            prec1 = validate(eval_loader, model, validation_log, global_step, epoch + 1)
+            prec1 = validate(eval_loader, model, validation_log, global_step, epoch + 1, device=device)
             LOG.info("Evaluating the EMA model:")
-            ema_prec1 = validate(eval_loader, ema_model, ema_validation_log, global_step, epoch + 1)
+            ema_prec1 = validate(eval_loader, ema_model, ema_validation_log, global_step, epoch + 1, device=device)
             LOG.info("--- validation in %s seconds ---" % (time.time() - start_time))
             is_best = ema_prec1 > best_prec1
             best_prec1 = max(ema_prec1, best_prec1)
@@ -183,9 +190,9 @@ def update_batchnorm(model, train_loader, train_loader_len, verbose=False, devic
             return
         input_var = torch.autograd.Variable(input, requires_grad = False)
         if device == 'cuda':
-            target_var = torch.autograd.Variable(target.cuda(async=True), requires_grad = False)
+            target_var = torch.autograd.Variable(target.cuda(async=True), requires_grad = False).to(device)
         else:
-            target_var = torch.autograd.Variable(target, requires_grad = False)
+            target_var = torch.autograd.Variable(target, requires_grad = False).to(device)
         minibatch_size = len(target_var)
         labeled_minibatch_size = target_var.data.ne(NO_LABEL).sum()
         assert labeled_minibatch_size > 0 # remove to get rid of error in cifar100 w aug
@@ -292,9 +299,9 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
         input_var = torch.autograd.Variable(input)
         ema_input_var = torch.autograd.Variable(ema_input, requires_grad = False)
         if device == "cuda":
-            target_var = torch.autograd.Variable(target.cuda(async=True))
+            target_var = torch.autograd.Variable(target.cuda(async=True)).to(device)
         else:
-            target_var = torch.autograd.Variable(target)
+            target_var = torch.autograd.Variable(target).to(device)
 
         minibatch_size = len(target_var)
         labeled_minibatch_size = target_var.data.ne(NO_LABEL).sum()
@@ -398,9 +405,9 @@ def validate(eval_loader, model, log, global_step, epoch, device=device):
         
         input_var = torch.autograd.Variable(input, requires_grad = False)
         if device == 'cuda':
-            target_var = torch.autograd.Variable(target.cuda(async=True), requires_grad = False)
+            target_var = torch.autograd.Variable(target.cuda(async=True), requires_grad = False).to(device)
         else:
-            target_var = torch.autograd.Variable(target, requires_grad = False)
+            target_var = torch.autograd.Variable(target, requires_grad = False).to(device)
 
         minibatch_size = len(target_var)
         labeled_minibatch_size = target_var.data.ne(NO_LABEL).sum()

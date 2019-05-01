@@ -17,6 +17,9 @@ def create_parser():
                         help='dataset: ' +
                             ' | '.join(datasets.__all__) +
                             ' (default: imagenet)')
+    parser.add_argument('--device', type=str, default='cuda',
+                        help='cuda or cpu')
+    
     parser.add_argument('--train-subdir', type=str, default='train',
                         help='the subdirectory inside the data directory that contains the training data')
     parser.add_argument('--eval-subdir', type=str, default='val',
