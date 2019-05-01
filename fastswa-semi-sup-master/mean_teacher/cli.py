@@ -87,7 +87,7 @@ def create_parser():
     parser.add_argument('--cycle-rampdown-epochs', default=0, type=int, help='Half wavelength for the cosine annealing curve period')
     parser.add_argument('--constant-lr', default=0, type=int, help='Whether to use constant learning rate')
     parser.add_argument('--constant-lr-epoch', default=0, type=int, help='What epoch to calculate the constant LR at')
-    parser.add_argument('--unsup-augment', default=None, type=str, choices=['cifar100', 'gan_cifar10', 'tiny_500k', 'tiny_237k', 'tiny_all'], help='augment unsupervised set with a given dataset')
+    parser.add_argument('--unsup-augment', default=None, type=str, choices=['ssl','cifar100', 'gan_cifar10', 'tiny_500k', 'tiny_237k', 'tiny_all'], help='augment unsupervised set with a given dataset')
     parser.add_argument('--pimodel', default=0, type=int, choices=[0,1,2], help='whether to use the pi model (teacher = student) 1: no grad through teacher 2: grad through teacher')
     parser.add_argument('--fastswa-frequencies', default=None, type=str, help='Average SWA every x epochs, even when on cycles')
     parser.add_argument('--start-swa', default=150, type=int, help='where to start SWA (every swa-within-cycle epoch)')

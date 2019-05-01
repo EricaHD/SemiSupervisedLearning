@@ -60,10 +60,9 @@ def sslMini():
     channel_stats = dict(mean=[0.5011, 0.4727, 0.4229],
                           std=[0.2835, 0.2767, 0.2950]) 
     train_transformation = data.TransformTwice(transforms.Compose([
-        transforms.RandomRotation(10),
-        transforms.RandomResizedCrop(32),
+        data.RandomTranslateWithReflect(4),
+        transforms.Resize(32),
         transforms.RandomHorizontalFlip(),
-        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1),
         transforms.ToTensor(),
         transforms.Normalize(**channel_stats)
     ]))
@@ -76,7 +75,7 @@ def sslMini():
     return {
         'train_transformation': train_transformation,
         'eval_transformation': eval_transformation,
-        'datadir': '/scratch/ijh216/ssl_data_96/',
+        'datadir': '/scratch/ijh216/ssl_mini/',
         'num_classes': 1000
     }
 
