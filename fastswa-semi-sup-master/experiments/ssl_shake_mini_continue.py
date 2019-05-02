@@ -16,6 +16,7 @@ def parameters():
         'workers': 4,
         'checkpoint_epochs': 5,
         'evaluation_epochs':5,
+        'resume':'/scratch/ijh216/ssl/ssl_shake_mini/2019-05-01_19-04-25/10/transient/checkpoint.230.ckpt',
 
         # Data
         'dataset': 'sslMini',
@@ -36,6 +37,7 @@ def parameters():
 
         # Optimization
         'epochs': 100,
+        'start-epoch':231,
         'lr': 0.1,
         'lr_rampup': 0,
         'lr_rampdown_epochs': 150,
