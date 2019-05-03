@@ -22,6 +22,8 @@ def parameters():
         'train_subdir': 'supervised/train',
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
+        'augment_unlabeled_init':True,
+        'augment_unlabeled_epoch':-1,
 
         # Architecture
         'arch': 'cifar_shakeshake26',

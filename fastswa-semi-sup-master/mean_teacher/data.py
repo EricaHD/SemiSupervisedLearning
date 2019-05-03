@@ -13,8 +13,6 @@ LOG = logging.getLogger('main')
 NO_LABEL = -1
 
 
-
-
 class RandomTranslateWithReflect:
     """Translate image randomly
 

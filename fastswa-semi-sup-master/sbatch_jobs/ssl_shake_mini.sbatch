@@ -6,6 +6,6 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=64GB
 #SBATCH --time=30:00:00
-#SBATCH --output=slurm_ssl_shake_mini_sup_%j.out
+#SBATCH --output=slurm_ssl_shake_mini_%j.out
 
 python experiments/ssl_shake_mini.py

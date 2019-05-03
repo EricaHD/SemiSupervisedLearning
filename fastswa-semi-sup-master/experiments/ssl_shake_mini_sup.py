@@ -21,7 +21,8 @@ def parameters():
         'dataset': 'sslMini',
         'train_subdir': 'supervised/train',
         'eval_subdir': 'supervised/val',
-        'exclude_unlabeled':True,
+        'augment_unlabeled_init':False,
+        'augment_unlabeled_epoch':-1,
         
         # Architecture
         'arch': 'cifar_shakeshake26',

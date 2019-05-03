@@ -10,29 +10,24 @@ LOG = logging.getLogger('runner')
 
 
 def parameters():
-    ngpu = torch.cuda.device_count() if torch.cuda.device_count() > 0 else 1
-    base_lr = 0.1
-    base_batch_size = 4
-    base_labeled_batch_size = 1
-
+    
     defaults = {
         # Technical details
-        'workers': 2,
-        'checkpoint_epochs': 3,
-
+        'workers': 4,
+        'checkpoint_epochs': 5,
+        'evaluation_epochs':5,
+        
         # Data
-        'dataset': 'sslUpsample',
+        'dataset': 'sslMini',
         'train_subdir': 'supervised/train',
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
-
-        # Data sampling
-        'base_batch_size': base_batch_size,
-        'base_labeled_batch_size': base_labeled_batch_size,
+        'augment_unlabeled_init':False,
+        'augment_unlabeled_epoch':150,
 
         # Architecture
-        'arch': 'resnext152',
-        'ema_decay': 0.97,
+        'arch': 'cifar_shakeshake26',
+        'ema_decay': 0.99,
 
         # Costs
         'consistency_type': 'mse',
@@ -42,10 +37,10 @@ def parameters():
         'weight_decay': 2e-4,
 
         # Optimization
-        'epochs': 8,
+        'epochs': 200,
+        'lr': 0.1,
         'lr_rampup': 0,
-        'base_lr': 0.1,
-        'lr_rampdown_epochs': 10,
+        'lr_rampdown_epochs': 230,
         'nesterov': True,
 
         'num_cycles': 20,
@@ -54,19 +49,20 @@ def parameters():
         'fastswa_frequencies': '3',
         
         'device':'cuda',
-        'title' : 'ssl_mt_shake_short_upsample',
-        'data_seed':10,
-
-        'batch_size': base_batch_size * ngpu, 
-        'labeled_batch_size': base_labeled_batch_size * ngpu, 
-        'lr': base_lr * ngpu
+        'title' : 'ssl_shake_mini_augment',
+        'data_seed':10, 
+        
+        'batch_size': 256,
+        'labeled_batch_size': 65
+        
+        
     }
     
     return defaults
 
-def run(title, base_batch_size, base_labeled_batch_size, base_lr, data_seed, **kwargs):
+def run(title, data_seed, **kwargs):
     LOG.info('run title: %s', title)
-    context = RunContext('/scratch/jtb470/ssl/', __file__, "{}".format(data_seed))
+    context = RunContext('/scratch/ijh216/ssl/', __file__, "{}".format(data_seed))
     main.args = parse_dict_args(**kwargs)
     main.main(context)
 
