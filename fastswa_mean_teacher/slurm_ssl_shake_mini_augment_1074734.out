@@ -1,0 +1,189 @@
+Using these command line args: --workers 4 --checkpoint-epochs 5 --evaluation-epochs 5 --dataset sslMini --train-subdir supervised/train --unsup-subdir unsupervised --eval-subdir supervised/val --augment-unlabeled-init False --arch cifar_shakeshake26 --ema-decay 0.999 --consistency-type mse --consistency-rampup 150 --consistency 1000.0 --logit-distance-cost 0.01 --weight-decay 0.0002 --epochs 300 --augment-unlabeled-epoch 350 --lr 0.1 --lr-rampup 0 --lr-rampdown-epochs 400 --nesterov True --num-cycles 5 --cycle-interval 5 --start-epoch 0 --fastswa-frequencies 3 --device cuda --batch-size 256 --labeled-batch-size 65
+=> creating model 'cifar_shakeshake26'
+=> creating model 'cifar_shakeshake26'
+=> creating model 'cifar_shakeshake26'
+=> creating model 'cifar_shakeshake26'
+
+List of model parameters:
+=========================
+module.conv1.weight                            16 * 3 * 3 * 3 =         432
+module.layer1.0.conv_a1.weight                96 * 16 * 3 * 3 =      13,824
+module.layer1.0.bn_a1.weight                               96 =          96
+module.layer1.0.bn_a1.bias                                 96 =          96
+module.layer1.0.conv_a2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.0.bn_a2.weight                               96 =          96
+module.layer1.0.bn_a2.bias                                 96 =          96
+module.layer1.0.conv_b1.weight                96 * 16 * 3 * 3 =      13,824
+module.layer1.0.bn_b1.weight                               96 =          96
+module.layer1.0.bn_b1.bias                                 96 =          96
+module.layer1.0.conv_b2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.0.bn_b2.weight                               96 =          96
+module.layer1.0.bn_b2.bias                                 96 =          96
+module.layer1.0.downsample.0.weight           96 * 16 * 1 * 1 =       1,536
+module.layer1.0.downsample.1.weight                        96 =          96
+module.layer1.0.downsample.1.bias                          96 =          96
+module.layer1.1.conv_a1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.1.bn_a1.weight                               96 =          96
+module.layer1.1.bn_a1.bias                                 96 =          96
+module.layer1.1.conv_a2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.1.bn_a2.weight                               96 =          96
+module.layer1.1.bn_a2.bias                                 96 =          96
+module.layer1.1.conv_b1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.1.bn_b1.weight                               96 =          96
+module.layer1.1.bn_b1.bias                                 96 =          96
+module.layer1.1.conv_b2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.1.bn_b2.weight                               96 =          96
+module.layer1.1.bn_b2.bias                                 96 =          96
+module.layer1.2.conv_a1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.2.bn_a1.weight                               96 =          96
+module.layer1.2.bn_a1.bias                                 96 =          96
+module.layer1.2.conv_a2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.2.bn_a2.weight                               96 =          96
+module.layer1.2.bn_a2.bias                                 96 =          96
+module.layer1.2.conv_b1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.2.bn_b1.weight                               96 =          96
+module.layer1.2.bn_b1.bias                                 96 =          96
+module.layer1.2.conv_b2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.2.bn_b2.weight                               96 =          96
+module.layer1.2.bn_b2.bias                                 96 =          96
+module.layer1.3.conv_a1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.3.bn_a1.weight                               96 =          96
+module.layer1.3.bn_a1.bias                                 96 =          96
+module.layer1.3.conv_a2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.3.bn_a2.weight                               96 =          96
+module.layer1.3.bn_a2.bias                                 96 =          96
+module.layer1.3.conv_b1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.3.bn_b1.weight                               96 =          96
+module.layer1.3.bn_b1.bias                                 96 =          96
+module.layer1.3.conv_b2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.3.bn_b2.weight                               96 =          96
+module.layer1.3.bn_b2.bias                                 96 =          96
+module.layer2.0.conv_a1.weight               192 * 96 * 3 * 3 =     165,888
+module.layer2.0.bn_a1.weight                              192 =         192
+module.layer2.0.bn_a1.bias                                192 =         192
+module.layer2.0.conv_a2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.0.bn_a2.weight                              192 =         192
+module.layer2.0.bn_a2.bias                                192 =         192
+module.layer2.0.conv_b1.weight               192 * 96 * 3 * 3 =     165,888
+module.layer2.0.bn_b1.weight                              192 =         192
+module.layer2.0.bn_b1.bias                                192 =         192
+module.layer2.0.conv_b2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.0.bn_b2.weight                              192 =         192
+module.layer2.0.bn_b2.bias                                192 =         192
+module.layer2.0.downsample.conv.weight       192 * 96 * 1 * 1 =      18,432
+module.layer2.0.downsample.conv.bias                      192 =         192
+module.layer2.0.downsample.bn.weight                      192 =         192
+module.layer2.0.downsample.bn.bias                        192 =         192
+module.layer2.1.conv_a1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.1.bn_a1.weight                              192 =         192
+module.layer2.1.bn_a1.bias                                192 =         192
+module.layer2.1.conv_a2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.1.bn_a2.weight                              192 =         192
+module.layer2.1.bn_a2.bias                                192 =         192
+module.layer2.1.conv_b1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.1.bn_b1.weight                              192 =         192
+module.layer2.1.bn_b1.bias                                192 =         192
+module.layer2.1.conv_b2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.1.bn_b2.weight                              192 =         192
+module.layer2.1.bn_b2.bias                                192 =         192
+module.layer2.2.conv_a1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.2.bn_a1.weight                              192 =         192
+module.layer2.2.bn_a1.bias                                192 =         192
+module.layer2.2.conv_a2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.2.bn_a2.weight                              192 =         192
+module.layer2.2.bn_a2.bias                                192 =         192
+module.layer2.2.conv_b1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.2.bn_b1.weight                              192 =         192
+module.layer2.2.bn_b1.bias                                192 =         192
+module.layer2.2.conv_b2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.2.bn_b2.weight                              192 =         192
+module.layer2.2.bn_b2.bias                                192 =         192
+module.layer2.3.conv_a1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.3.bn_a1.weight                              192 =         192
+module.layer2.3.bn_a1.bias                                192 =         192
+module.layer2.3.conv_a2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.3.bn_a2.weight                              192 =         192
+module.layer2.3.bn_a2.bias                                192 =         192
+module.layer2.3.conv_b1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.3.bn_b1.weight                              192 =         192
+module.layer2.3.bn_b1.bias                                192 =         192
+module.layer2.3.conv_b2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.3.bn_b2.weight                              192 =         192
+module.layer2.3.bn_b2.bias                                192 =         192
+module.layer3.0.conv_a1.weight              384 * 192 * 3 * 3 =     663,552
+module.layer3.0.bn_a1.weight                              384 =         384
+module.layer3.0.bn_a1.bias                                384 =         384
+module.layer3.0.conv_a2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.0.bn_a2.weight                              384 =         384
+module.layer3.0.bn_a2.bias                                384 =         384
+module.layer3.0.conv_b1.weight              384 * 192 * 3 * 3 =     663,552
+module.layer3.0.bn_b1.weight                              384 =         384
+module.layer3.0.bn_b1.bias                                384 =         384
+module.layer3.0.conv_b2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.0.bn_b2.weight                              384 =         384
+module.layer3.0.bn_b2.bias                                384 =         384
+module.layer3.0.downsample.conv.weight      384 * 192 * 1 * 1 =      73,728
+module.layer3.0.downsample.conv.bias                      384 =         384
+module.layer3.0.downsample.bn.weight                      384 =         384
+module.layer3.0.downsample.bn.bias                        384 =         384
+module.layer3.1.conv_a1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.1.bn_a1.weight                              384 =         384
+module.layer3.1.bn_a1.bias                                384 =         384
+module.layer3.1.conv_a2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.1.bn_a2.weight                              384 =         384
+module.layer3.1.bn_a2.bias                                384 =         384
+module.layer3.1.conv_b1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.1.bn_b1.weight                              384 =         384
+module.layer3.1.bn_b1.bias                                384 =         384
+module.layer3.1.conv_b2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.1.bn_b2.weight                              384 =         384
+module.layer3.1.bn_b2.bias                                384 =         384
+module.layer3.2.conv_a1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.2.bn_a1.weight                              384 =         384
+module.layer3.2.bn_a1.bias                                384 =         384
+module.layer3.2.conv_a2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.2.bn_a2.weight                              384 =         384
+module.layer3.2.bn_a2.bias                                384 =         384
+module.layer3.2.conv_b1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.2.bn_b1.weight                              384 =         384
+module.layer3.2.bn_b1.bias                                384 =         384
+module.layer3.2.conv_b2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.2.bn_b2.weight                              384 =         384
+module.layer3.2.bn_b2.bias                                384 =         384
+module.layer3.3.conv_a1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.3.bn_a1.weight                              384 =         384
+module.layer3.3.bn_a1.bias                                384 =         384
+module.layer3.3.conv_a2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.3.bn_a2.weight                              384 =         384
+module.layer3.3.bn_a2.bias                                384 =         384
+module.layer3.3.conv_b1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.3.bn_b1.weight                              384 =         384
+module.layer3.3.bn_b1.bias                                384 =         384
+module.layer3.3.conv_b2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.3.bn_b2.weight                              384 =         384
+module.layer3.3.bn_b2.bias                                384 =         384
+module.fc1.weight                                  1000 * 384 =     384,000
+module.fc1.bias                                          1000 =       1,000
+module.fc2.weight                                  1000 * 384 =     384,000
+module.fc2.bias                                          1000 =       1,000
+===========================================================================
+all parameters                                   sum of above =  26,959,616
+
+--- checkpoint saved to /scratch/ijh216/ssl//ssl_shake_mini_augment/2019-05-06_18-04-18/10/transient/checkpoint.0.ckpt ---
+Frequent SWAs with frequencies = [3]
+/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/nn/_reduction.py:49: UserWarning: size_average and reduce args will be deprecated, please use reduction='sum' instead.
+  warnings.warn(warning.format(ret))
+Epoch: [0][0/250]	Time 8.671 (8.671)	Data 6.251 (6.251)	Class 7.0421 (7.0421)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][10/250]	Time 0.844 (2.027)	Data 0.001 (1.044)	Class 6.9814 (6.9896)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][20/250]	Time 3.486 (1.853)	Data 2.646 (0.936)	Class 6.9866 (6.9810)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][30/250]	Time 0.843 (1.725)	Data 0.001 (0.833)	Class 6.7850 (6.9511)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][40/250]	Time 3.360 (1.738)	Data 2.524 (0.858)	Class 6.9814 (6.9274)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][50/250]	Time 0.842 (1.751)	Data 0.001 (0.880)	Class 6.7458 (6.8979)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][60/250]	Time 5.251 (1.802)	Data 4.412 (0.935)	Class 6.5437 (6.8630)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][70/250]	Time 0.843 (1.765)	Data 0.001 (0.902)	Class 6.6307 (6.8372)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][80/250]	Time 4.464 (1.786)	Data 3.628 (0.926)	Class 6.5812 (6.8051)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][90/250]	Time 0.843 (1.756)	Data 0.001 (0.897)	Class 6.5883 (6.7808)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][100/250]	Time 4.700 (1.766)	Data 3.858 (0.909)	Class 6.5450 (6.7550)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][110/250]	Time 0.839 (1.752)	Data 0.001 (0.896)	Class 6.5039 (6.7317)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][120/250]	Time 5.125 (1.773)	Data 4.289 (0.919)	Class 6.4125 (6.7076)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)
+Epoch: [0][130/250]	Time 0.843 (1.765)	Data 0.001 (0.912)	Class 6.5092 (6.6845)	Cons 0.0000 (0.0000)	Prec@1 0.000 (0.000)	Prec@5 0.000 (0.000)

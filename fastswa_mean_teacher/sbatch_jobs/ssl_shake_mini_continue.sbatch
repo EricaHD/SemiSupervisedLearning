@@ -8,4 +8,4 @@
 #SBATCH --time=30:00:00
 #SBATCH --output=slurm_ssl_shake_mini_continue_%j.out
 
-python experiments/ssl_shake_mini_continue.py
+python py_jobs/ssl_shake_mini_continue.py
