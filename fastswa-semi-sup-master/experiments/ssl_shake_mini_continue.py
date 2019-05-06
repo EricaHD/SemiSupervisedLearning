@@ -18,29 +18,24 @@ def parameters():
         'evaluation_epochs':5,
         'resume':'/scratch/ijh216/ssl/ssl_shake_mini/2019-05-01_19-04-25/10/transient/checkpoint.230.ckpt',
 
-        # Data
-        'dataset': 'sslMini',
-        'train_subdir': 'supervised/train',
-        'unsup_subdir': 'unsupervised',
-        'eval_subdir': 'supervised/val',
-
         # Architecture
         'arch': 'cifar_shakeshake26',
-        'ema_decay': 0.97,
+        'ema_decay': 0.999,
 
         # Costs
         'consistency_type': 'mse',
-        'consistency_rampup': 5,
-        'consistency': 100.0,
+        'consistency_rampup': 155,
+        'consistency': 500000.0,
         'logit_distance_cost': .01,
         'weight_decay': 2e-4,
 
         # Optimization
-        'epochs': 100,
-        'start-epoch':231,
+        'epochs': 200,
+        'augment_unlabeled_epoch':150,
+        'start_epoch':145
         'lr': 0.1,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 150,
+        'lr_rampdown_epochs': 230,
         'nesterov': True,
 
         'num_cycles': 20,
@@ -49,7 +44,7 @@ def parameters():
         'fastswa_frequencies': '3',
         
         'device':'cuda',
-        'title' : 'ssl_shake_mini',
+        'title' : 'ssl_shake_mini_augment',
         'data_seed':10, 
         
         'batch_size': 256,

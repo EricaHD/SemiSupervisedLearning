@@ -5,32 +5,6 @@ from .utils import export
 import os
 
 @export
-def imagenet():
-    channel_stats = dict(mean=[0.485, 0.456, 0.406],
-                         std=[0.229, 0.224, 0.225])
-    train_transformation = data.TransformTwice(transforms.Compose([
-        transforms.RandomRotation(10),
-        transforms.RandomResizedCrop(224),
-        transforms.RandomHorizontalFlip(),
-        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1),
-        transforms.ToTensor(),
-        transforms.Normalize(**channel_stats)
-    ]))
-    eval_transformation = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        transforms.Normalize(**channel_stats)
-    ])
-
-    return {
-        'train_transformation': train_transformation,
-        'eval_transformation': eval_transformation,
-        'datadir': 'data-local/images/ilsvrc2012/',
-        'num_classes': 1000
-    }
-
-@export
 def ssl():
     channel_stats = dict(mean=[0.5011, 0.4727, 0.4229],
                           std=[0.2835, 0.2767, 0.2950]) 
@@ -38,7 +12,6 @@ def ssl():
         transforms.RandomRotation(10),
         transforms.RandomResizedCrop(32),
         transforms.RandomHorizontalFlip(),
-        transforms.ColorJitter(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1),
         transforms.ToTensor(),
         transforms.Normalize(**channel_stats)
     ]))
@@ -61,7 +34,7 @@ def sslMini():
                           std=[0.2835, 0.2767, 0.2950]) 
     train_transformation = data.TransformTwice(transforms.Compose([
         data.RandomTranslateWithReflect(4),
-        transforms.Resize(32),
+        transforms.RandomResizedCrop(32),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize(**channel_stats)

@@ -92,7 +92,7 @@ def create_parser():
     parser.add_argument('--start-swa', default=150, type=int, help='where to start SWA (every swa-within-cycle epoch)')
     parser.add_argument('--limit-unlabeled', default=None, type=int, help='Use limited number of unlabeled data for augmentation')
     
-    parser.add_argument('--augment-unlabeled-init', default=False, type=bool,
+    parser.add_argument('--augment-unlabeled-init', default=False, type=str2bool, metavar='BOOL',
                         help='augment unsupervised set with a given dataset')
     parser.add_argument('--augment-unlabeled-epoch', default=-1, type=int, metavar='N',
                         help='augment labeled with unlabeled examples from the training set')

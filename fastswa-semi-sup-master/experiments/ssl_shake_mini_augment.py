@@ -23,21 +23,21 @@ def parameters():
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
         'augment_unlabeled_init':False,
-        'augment_unlabeled_epoch':150,
 
         # Architecture
         'arch': 'cifar_shakeshake26',
-        'ema_decay': 0.99,
+        'ema_decay': 0.999,
 
         # Costs
         'consistency_type': 'mse',
         'consistency_rampup': 5,
-        'consistency': 100.0,
+        'consistency': 500000.0,
         'logit_distance_cost': .01,
         'weight_decay': 2e-4,
 
         # Optimization
         'epochs': 200,
+        'augment_unlabeled_epoch':150,
         'lr': 0.1,
         'lr_rampup': 0,
         'lr_rampdown_epochs': 230,
