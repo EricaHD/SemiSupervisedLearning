@@ -30,21 +30,21 @@ def parameters():
 
         # Costs
         'consistency_type': 'mse',
-        'consistency_rampup': 5,
-        'consistency': 500000.0,
+        'consistency_rampup': 150,
+        'consistency': 1000.0,
         'logit_distance_cost': .01,
         'weight_decay': 2e-4,
 
         # Optimization
-        'epochs': 200,
-        'augment_unlabeled_epoch':150,
+        'epochs': 300,
+        'augment_unlabeled_epoch':350,
         'lr': 0.1,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 230,
+        'lr_rampdown_epochs': 400,
         'nesterov': True,
 
-        'num_cycles': 20,
-        'cycle_interval': 30,
+        'num_cycles': 5,
+        'cycle_interval': 5,
         'start_epoch': 0,
         'fastswa_frequencies': '3',
         
@@ -54,8 +54,6 @@ def parameters():
         
         'batch_size': 256,
         'labeled_batch_size': 65
-        
-        
     }
     
     return defaults

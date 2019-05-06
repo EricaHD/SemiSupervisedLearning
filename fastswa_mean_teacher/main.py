@@ -492,7 +492,7 @@ def create_data_loaders_ssl(train_transformation, eval_transformation, datadir, 
 
         #Relabel
         for i in _dataset.classes:
-            _dataset.class_to_idx[i] = -1
+            _dataset.class_to_idx[i] = NO_LABEL
 
         #Join
         concat_dataset = torch.utils.data.ConcatDataset([dataset, _dataset])
@@ -532,7 +532,9 @@ def create_data_loaders_ssl(train_transformation, eval_transformation, datadir, 
 
 def concat_data_loaders_ssl(train_transformation, eval_transformation, datadir, args):
     
+    print("*" * 86)
     print("Augmenting Unsupervised Data")
+    print("*" * 86)
     
     traindir = os.path.join(datadir, args.train_subdir)
     unsupdir = os.path.join(datadir, args.unsup_subdir)
@@ -544,7 +546,7 @@ def concat_data_loaders_ssl(train_transformation, eval_transformation, datadir, 
     _dataset = torchvision.datasets.ImageFolder(unsupdir, train_transformation)
     #Relabel
     for i in _dataset.classes:
-        _dataset.class_to_idx[i] = -1
+        _dataset.class_to_idx[i] = NO_LABEL
 
     #Join
     concat_dataset = torch.utils.data.ConcatDataset([dataset, _dataset])
