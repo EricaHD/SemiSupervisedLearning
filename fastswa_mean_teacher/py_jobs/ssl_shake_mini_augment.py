@@ -14,7 +14,7 @@ def parameters():
     defaults = {
         # Technical details
         'workers': 4,
-        'checkpoint_epochs': 5,
+        'checkpoint_epochs': 10,
         'evaluation_epochs':5,
         
         # Data
@@ -37,7 +37,7 @@ def parameters():
 
         # Optimization
         'epochs': 300,
-        'augment_unlabeled_epoch':350,
+        'augment_unlabeled_epoch':250,
         'lr': 0.1,
         'lr_rampup': 0,
         'lr_rampdown_epochs': 400,
