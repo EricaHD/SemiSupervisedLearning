@@ -69,30 +69,7 @@ class TransformTwice:
         out2 = self.transform(inp)
         return out1, out2
 
-
-def relabel_dataset(dataset, labels):
-    unlabeled_idxs = []
-    for idx in range(len(dataset.imgs)):
-        path, _ = dataset.imgs[idx]
-        filename = os.path.basename(path)
-        if filename in labels:
-            label_idx = dataset.class_to_idx[labels[filename]]
-            dataset.imgs[idx] = path, label_idx
-            del labels[filename]
-        else:
-            dataset.imgs[idx] = path, NO_LABEL
-            unlabeled_idxs.append(idx)
-
-    if len(labels) != 0:
-        message = "List of unlabeled contains {} unknown files: {}, ..."
-        some_missing = ', '.join(list(labels.keys())[:5])
-        raise LookupError(message.format(len(labels), some_missing))
-
-    labeled_idxs = sorted(set(range(len(dataset.imgs))) - set(unlabeled_idxs))
-
-    return labeled_idxs, unlabeled_idxs
-
-
+    
 class TwoStreamBatchSampler(Sampler):
     """Iterate two sets of indices
 

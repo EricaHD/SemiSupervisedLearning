@@ -15,7 +15,7 @@ def parameters():
         # Technical details
         'workers': 4,
         'checkpoint_epochs': 10,
-        'evaluation_epochs':5,
+        'evaluation_epochs':10,
         
         # Data
         'dataset': 'sslMini',
@@ -27,6 +27,7 @@ def parameters():
         # Architecture
         'arch': 'cifar_shakeshake26',
         'ema_decay': 0.999,
+        'pimodel':2,
 
         # Costs
         'consistency_type': 'mse',
@@ -36,11 +37,11 @@ def parameters():
         'weight_decay': 2e-4,
 
         # Optimization
-        'epochs': 300,
-        'augment_unlabeled_epoch':250,
+        'epochs': 200,
+        'augment_unlabeled_epoch':150,
         'lr': 0.1,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 400,
+        'lr_rampdown_epochs': 250,
         'nesterov': True,
 
         'num_cycles': 5,
