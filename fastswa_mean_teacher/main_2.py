@@ -475,7 +475,7 @@ def create_data_loaders_ssl(train_transformation, eval_transformation, datadir, 
     #If using the unsupervised 
     if args.augment_unlabeled_init == True:
         print("Augmenting Labeled Data")
-        unsupdir = os.path.join(datadir, args.unsup.subdir)
+        unsupdir = os.path.join(datadir, args.unsup_subdir)
         _dataset = torchvision.datasets.ImageFolder(unsupdir, train_transformation)
 
         #Relabel
