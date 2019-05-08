@@ -6,6 +6,6 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=72GB
 #SBATCH --time=48:00:00
-#SBATCH --output=ssm_continue_%j.out
+#SBATCH --output=slurm_ssm_continue_%j.out
 
 python py_jobs/ssl_shake_mini_continue.py

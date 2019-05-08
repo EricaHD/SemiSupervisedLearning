@@ -9,7 +9,7 @@ def ssl():
     channel_stats = dict(mean=[0.5011, 0.4727, 0.4229],
                           std=[0.2835, 0.2767, 0.2950]) 
     train_transformation = data.TransformTwice(transforms.Compose([
-        transforms.RandomRotation(10),
+        data.RandomTranslateWithReflect(4),
         transforms.RandomResizedCrop(32),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
