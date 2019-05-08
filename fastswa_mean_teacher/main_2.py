@@ -11,7 +11,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
-from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from torch.utils.data.sampler import BatchSampler, SubsetRandomSampler
 import torchvision.datasets
@@ -33,12 +32,12 @@ device = 'cuda'
 LOG = logging.getLogger('main')
 
 args = None
-best_prec1 = 0
+best_acc1 = 0
 global_step = 0
 
 def main(context):
     global global_step
-    global best_prec1
+    global best_acc1
     
 
     checkpoint_path = context.transient_dir
@@ -99,7 +98,7 @@ def main(context):
             print("\n\n\n----------------  WARNING (start != ckpt) ----------------\n\n\n")
             print("checkpoint['epoch']=", checkpoint['epoch'])
         global_step = checkpoint['global_step']
-        best_prec1 = checkpoint['best_prec1']
+        best_acc1 = checkpoint['best_acc1']
         model.load_state_dict(checkpoint['state_dict'])
         ema_model.load_state_dict(checkpoint['ema_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer'])
@@ -114,7 +113,7 @@ def main(context):
               'arch': args.arch,
               'state_dict': model.state_dict(),
               'ema_state_dict': ema_model.state_dict(),
-              'best_prec1': 0,
+              'best_acc1': 0,
               'optimizer' : optimizer.state_dict(),
           }, False, checkpoint_path, 0)
 
@@ -134,7 +133,7 @@ def main(context):
             print("SWA Model Updated!")
             update_batchnorm(swa_model, train_loader, train_loader_len)
             LOG.info("Evaluating the SWA model:")
-            swa_prec1 = validate(eval_loader, swa_model, swa_validation_log, global_step, epoch, device=device)
+            swa_acc1 = validate(eval_loader, swa_model, swa_validation_log, global_step, epoch, device=device)
 
         # do the fastSWA updates
         if args.fastswa_frequencies is not None:
@@ -158,12 +157,12 @@ def main(context):
         if args.evaluation_epochs and (epoch + 1) % args.evaluation_epochs == 0:
             start_time = time.time()
             LOG.info("Evaluating the primary model:")
-            prec1 = validate(eval_loader, model, validation_log, global_step, epoch + 1, device=device)
+            acc1 = validate(eval_loader, model, validation_log, global_step, epoch + 1, device=device)
             LOG.info("Evaluating the EMA model:")
-            ema_prec1 = validate(eval_loader, ema_model, ema_validation_log, global_step, epoch + 1, device=device)
+            ema_acc1 = validate(eval_loader, ema_model, ema_validation_log, global_step, epoch + 1, device=device)
             LOG.info("--- validation in %s seconds ---" % (time.time() - start_time))
-            is_best = ema_prec1 > best_prec1
-            best_prec1 = max(ema_prec1, best_prec1)
+            is_best = ema_acc1 > best_acc1
+            best_acc1 = max(ema_acc1, best_acc1)
         else:
             is_best = False
             
@@ -177,7 +176,7 @@ def main(context):
                 'arch': args.arch,
                 'state_dict': model.state_dict(),
                 'ema_state_dict': ema_model.state_dict(),
-                'best_prec1': best_prec1,
+                'best_acc1': best_acc1,
                 'optimizer' : optimizer.state_dict(),
             }, is_best, checkpoint_path, epoch + 1)
 
@@ -185,19 +184,13 @@ def main(context):
 def update_batchnorm(model, train_loader, train_loader_len, verbose=False, device=device):
     if verbose: print("Updating Batchnorm")
     model.train()
-    for i, ((input, ema_input), target) in enumerate(train_loader):
+    for i, ((img, ema_img), target) in enumerate(train_loader):
         # speeding things up (100 instead of ~800 updates)
         if i > 100: 
             return
-        input_var = torch.autograd.Variable(input, requires_grad = False)
-        if device == 'cuda':
-            target_var = torch.autograd.Variable(target.cuda(async=True), requires_grad = False).to(device)
-        else:
-            target_var = torch.autograd.Variable(target, requires_grad = False).to(device)
+        img_var, ema_img_var, target = img.to(device), ema_img.to(device), target.to(device)
         minibatch_size = len(target_var)
-        labeled_minibatch_size = target_var.data.ne(NO_LABEL).sum()
-        assert labeled_minibatch_size > 0 # remove to get rid of error in cifar100 w aug
-        model_out = model(input_var)
+        model_out = model(img_var)
         
         if verbose and i % 100 == 0:
             LOG.info(
@@ -225,7 +218,7 @@ def update_ema_variables(model, ema_model, alpha, global_step):
     # Use the true average until the exponential average is more correct
     alpha = min(1 - 1 / (global_step + 1), alpha)
     for ema_param, param in zip(ema_model.parameters(), model.parameters()):
-        ema_param.data.mul_(alpha).add_(1 - alpha, param.data)
+        ema_param.mul_(alpha).add_(1 - alpha, param.detach())
 
 
 def copy_all_vars(modelin, modelout, statedict=True):
@@ -253,37 +246,32 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
 
     end = time.time()
 
-    for i, ((input, ema_input), target) in enumerate(train_loader):
+    for i, ((img, ema_img), target) in enumerate(train_loader):
         meters.update('data_time', time.time() - end)
         adjust_learning_rate(optimizer, epoch, i, train_loader_len)
         meters.update('lr', optimizer.param_groups[0]['lr'])
-
-        input_var = torch.autograd.Variable(input)
-        ema_input_var = torch.autograd.Variable(ema_input, requires_grad = False)
-        if device == "cuda":
-            target_var = torch.autograd.Variable(target.cuda(async=True)).to(device)
-        else:
-            target_var = torch.autograd.Variable(target).to(device)
+        
+        img_var, ema_img_var, target_var = img.to(device), ema_img.to(device), target.to(device)
 
         minibatch_size = len(target_var)
-        labeled_minibatch_size = target_var.data.ne(NO_LABEL).sum()
+        labeled_minibatch_size = target_var.detach().ne(NO_LABEL).sum()
         assert labeled_minibatch_size > 0 # remove to get rid of error in cifar100 w aug
         meters.update('labeled_minibatch_size', labeled_minibatch_size)
 
-        ema_model_out = ema_model(ema_input_var)
-        model_out = model(input_var)
+        ema_model_out = ema_model(ema_img_var)
+        model_out = model(img_var)
 
-        if isinstance(model_out, Variable):
-            assert args.logit_distance_cost < 0
-            logit1 = model_out
-            ema_logit = ema_model_out
-        else:
+        if isinstance(model_out, tuple):
             assert len(model_out) == 2
             assert len(ema_model_out) == 2
             logit1, logit2 = model_out
             ema_logit, _ = ema_model_out
+        else:
+            assert args.logit_distance_cost < 0
+            logit1 = model_out
+            ema_logit = ema_model_out
 
-        ema_logit = Variable(ema_logit.detach().data, requires_grad=False)
+        ema_logit = ema_logit.detach()
 
         if args.logit_distance_cost >= 0:
             class_logit, cons_logit = logit1, logit2
@@ -312,17 +300,17 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
         assert not (np.isnan(loss.item()) or loss.item() > 1e6), 'Loss explosion: {}'.format(loss.item())
         meters.update('loss', loss.item())
 
-        prec1, prec5 = accuracy(class_logit.data, target_var.data, topk=(1, 5))
-        meters.update('top1', prec1[0], labeled_minibatch_size)
-        meters.update('error1', 100. - prec1[0], labeled_minibatch_size)
-        meters.update('top5', prec5[0], labeled_minibatch_size)
-        meters.update('error5', 100. - prec5[0], labeled_minibatch_size)
+        acc1, acc5 = accuracy(class_logit, target_var, topk=(1, 5))
+        meters.update('top1', acc1.item(), labeled_minibatch_size)
+        meters.update('error1', 100. - acc1.item(), labeled_minibatch_size)
+        meters.update('top5', acc5.item(), labeled_minibatch_size)
+        meters.update('error5', 100. - acc5.item(), labeled_minibatch_size)
 
-        ema_prec1, ema_prec5 = accuracy(ema_logit.data, target_var.data, topk=(1, 5))
-        meters.update('ema_top1', ema_prec1[0], labeled_minibatch_size)
-        meters.update('ema_error1', 100. - ema_prec1[0], labeled_minibatch_size)
-        meters.update('ema_top5', ema_prec5[0], labeled_minibatch_size)
-        meters.update('ema_error5', 100. - ema_prec5[0], labeled_minibatch_size)
+        ema_acc1, ema_acc5 = accuracy(ema_logit, target_var, topk=(1, 5))
+        meters.update('ema_top1', ema_acc1.item(), labeled_minibatch_size)
+        meters.update('ema_error1', 100. - ema_acc1.item(), labeled_minibatch_size)
+        meters.update('ema_top5', ema_acc5.item(), labeled_minibatch_size)
+        meters.update('ema_error5', 100. - ema_acc5.item(), labeled_minibatch_size)
 
         # compute gradient and do SGD step
         optimizer.zero_grad()
@@ -330,7 +318,10 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
         optimizer.step()
         global_step += 1
 
-        update_ema_variables(model, actual_ema_model, args.ema_decay, global_step)
+        if args.innovate:
+            update_ema_variables(model, actual_ema_model, 1 - consistency_loss, global_step)
+        else:
+            update_ema_variables(model, actual_ema_model, args.ema_decay, global_step)
 
         # measure elapsed time
         meters.update('batch_time', time.time() - end)
@@ -345,8 +336,8 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
                 'Data {meters[data_time]:.3f}\t'
                 'Class {meters[class_loss]:.4f}\t'
                 'Cons {meters[cons_loss]:.4f}\t'
-                'Prec@1 {meters[top1]:.3f}\t'
-                'Prec@5 {meters[top5]:.3f}'.format(
+                'Acc@1 {meters[top1]:.3f}\t'
+                'Acc@5 {meters[top5]:.3f}'.format(
                     epoch, i, train_loader_len, meters=meters))
             log.record(epoch + i / train_loader_len, {
                 'step': global_step,
@@ -362,32 +353,27 @@ def validate(eval_loader, model, log, global_step, epoch, device=device):
     model.eval()
 
     end = time.time()
-    for i, (input, target) in enumerate(eval_loader):
+    for i, (img, target) in enumerate(eval_loader):
         meters.update('data_time', time.time() - end)
         
-        input_var = torch.autograd.Variable(input, requires_grad = False)
-        if device == 'cuda':
-            target_var = torch.autograd.Variable(target.cuda(async=True), requires_grad = False).to(device)
-        else:
-            target_var = torch.autograd.Variable(target, requires_grad = False).to(device)
-
+        img_var, target_var = img.to(device), target.to(device)
+        
         minibatch_size = len(target_var)
-        labeled_minibatch_size = target_var.data.ne(NO_LABEL).sum()
-        assert labeled_minibatch_size > 0
+        labeled_minibatch_size = target_var.detach().ne(NO_LABEL).sum()
         meters.update('labeled_minibatch_size', labeled_minibatch_size)
 
         # compute output
-        output1, output2 = model(input_var)
+        output1, output2 = model(img_var)
         softmax1, softmax2 = F.softmax(output1, dim=1), F.softmax(output2, dim=1)
         class_loss = class_criterion(output1, target_var) / minibatch_size
 
         # measure accuracy and record loss
-        prec1, prec5 = accuracy(output1.data, target_var.data, topk=(1, 5))
+        acc1, acc5 = accuracy(output1, target_var) / labeled_minibatch_size
         meters.update('class_loss', class_loss.item(), labeled_minibatch_size)
-        meters.update('top1', prec1[0], labeled_minibatch_size)
-        meters.update('error1', 100.0 - prec1[0], labeled_minibatch_size)
-        meters.update('top5', prec5[0], labeled_minibatch_size)
-        meters.update('error5', 100.0 - prec5[0], labeled_minibatch_size)
+        meters.update('top1', acc1.item(), labeled_minibatch_size)
+        meters.update('error1', 100.0 - acc1.item(), labeled_minibatch_size)
+        meters.update('top5', acc5.item(), labeled_minibatch_size)
+        meters.update('error5', 100.0 - acc5.item(), labeled_minibatch_size)
 
         # measure elapsed time
         meters.update('batch_time', time.time() - end)
@@ -398,11 +384,11 @@ def validate(eval_loader, model, log, global_step, epoch, device=device):
                 'Time {meters[batch_time]:.3f}\t'
                 'Data {meters[data_time]:.3f}\t'
                 'Class {meters[class_loss]:.4f}\t'
-                'Prec@1 {meters[top1]:.3f}\t'
-                'Prec@5 {meters[top5]:.3f}'.format(
+                'Acc@1 {meters[top1]:.3f}\t'
+                'Acc@5 {meters[top5]:.3f}'.format(
                     i, len(eval_loader), meters=meters))
 
-    LOG.info(' * Prec@1 {top1.avg:.3f}\tPrec@5 {top5.avg:.3f}'
+    LOG.info(' * Acc@1 {top1.avg:.3f}\Acc@5 {top5.avg:.3f}'
           .format(top1=meters['top1'], top5=meters['top5']))
     if log is not None:
         log.record(epoch, {
@@ -460,10 +446,11 @@ def get_current_consistency_weight(epoch):
     # Consistency ramp-up from https://arxiv.org/abs/1610.02242
     return args.consistency * ramps.sigmoid_rampup(epoch, args.consistency_rampup)
 
+
 def accuracy(output, target, topk=(1,)):
-    """Computes the precision@k for the specified values of k"""
+    """Computes the accuracy@k for the specified values of k"""
     maxk = max(topk)
-    labeled_minibatch_size = max(target.ne(NO_LABEL).sum(), 1e-8)
+    labeled_minibatch_size = max(target.ne(NO_LABEL).sum(), 1e-8).item()
 
     _, pred = output.topk(maxk, 1, True, True)
     pred = pred.t()
@@ -471,8 +458,8 @@ def accuracy(output, target, topk=(1,)):
 
     res = []
     for k in topk:
-        correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
-        res.append(correct_k.mul_(100.0 / labeled_minibatch_size))
+        correct_k = correct[:k].view(-1).float().sum(0, keepdim=True).item()
+        res.append(correct_k * (100.0 / labeled_minibatch_size))
     return res
 
 def create_data_loaders_ssl(train_transformation, eval_transformation, datadir, args):

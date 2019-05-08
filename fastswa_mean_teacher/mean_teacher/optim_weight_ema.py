@@ -11,10 +11,10 @@ class WeightEMA (object):
         self.alpha = alpha
 
         for p, src_p in zip(self.params, self.src_params):
-            p.data[:] = src_p.data[:]
+            p[:] = src_p[:].detach()
 
     def step(self):
         one_minus_alpha = 1.0 - self.alpha
         for p, src_p in zip(self.params, self.src_params):
-            p.data.mul_(self.alpha)
-            p.data.add_(src_p.data * one_minus_alpha)
+            p.mul_(self.alpha)
+            p.add_(src_p.detach() * one_minus_alpha)

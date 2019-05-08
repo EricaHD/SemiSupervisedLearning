@@ -96,6 +96,8 @@ def create_parser():
                         help='augment unsupervised set with a given dataset')
     parser.add_argument('--augment-unlabeled-epoch', default=-1, type=int, metavar='N',
                         help='augment labeled with unlabeled examples from the training set')
+    parser.add_argument('--innovate', default=False, type=str2bool, metavar='BOOL',
+                        help='Whether to use consistency loss as exponential moving average')
 
     
     return parser

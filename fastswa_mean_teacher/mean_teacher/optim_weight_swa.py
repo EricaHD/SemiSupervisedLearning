@@ -15,8 +15,8 @@ class WeightSWA (object):
         else:
             inv = 1./float(self.num_params)
             for swa_p, src_p in zip(self.swa_model.parameters(), student_model.parameters()):
-                swa_p.data.add_(-inv*swa_p.data)
-                swa_p.data.add_(inv*src_p.data)
+                swa_p.add_(-inv*swa_p.detach())
+                swa_p.add_(inv*src_p.detach())
     
     def reset(self):
         self.num_params = 0
