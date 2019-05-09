@@ -207,7 +207,7 @@ class Shake(Function):
         grad_inp1 = grad_inp2 = grad_training = None
         gate_size = [grad_output.size()[0], *itertools.repeat(1,
                                                               grad_output.dim() - 1)]
-        gate = grad_output.new(*gate_size).uniform_(0, 1)
+        gate = grad_output.detach().new(*gate_size).uniform_(0, 1)
         if ctx.needs_input_grad[0]:
             grad_inp1 = grad_output * gate
         if ctx.needs_input_grad[1]:
