@@ -161,8 +161,8 @@ def main(context):
             LOG.info("Evaluating the EMA model:")
             ema_acc1 = validate(eval_loader, ema_model, ema_validation_log, global_step, epoch + 1, device=device)
             LOG.info("--- validation in %s seconds ---" % (time.time() - start_time))
-            is_best = ema_acc1 > best_acc1
-            best_acc1 = max(ema_acc1, best_acc1)
+            is_best = float(ema_acc1) > best_acc1.item()
+            best_acc1 = max(float(ema_acc1), best_acc1.item())
         else:
             is_best = False
             
@@ -307,10 +307,10 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
         meters.update('error5', 100. - acc5, labeled_minibatch_size)
 
         ema_acc1, ema_acc5 = accuracy(ema_logit, target_var, topk=(1, 5))
-        meters.update('ema_top1', ema_acc1.item(), labeled_minibatch_size)
-        meters.update('ema_error1', 100. - ema_acc1.item(), labeled_minibatch_size)
-        meters.update('ema_top5', ema_acc5.item(), labeled_minibatch_size)
-        meters.update('ema_error5', 100. - ema_acc5.item(), labeled_minibatch_size)
+        meters.update('ema_top1', ema_acc1, labeled_minibatch_size)
+        meters.update('ema_error1', 100. - ema_acc1, labeled_minibatch_size)
+        meters.update('ema_top5', ema_acc5, labeled_minibatch_size)
+        meters.update('ema_error5', 100. - ema_acc5, labeled_minibatch_size)
 
         # compute gradient and do SGD step
         optimizer.zero_grad()

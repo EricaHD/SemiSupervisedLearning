@@ -14,7 +14,7 @@ def parameters():
     defaults = {
         # Technical details
         'workers': 4,
-        'checkpoint_epochs': 10,
+        'checkpoint_epochs': 1,
         'evaluation_epochs':5,
         'resume':"/scratch/ijh216/ssl/ssl_shake_mini_augment/2019-05-06_18-04-18/10/transient/checkpoint.325.ckpt" ,
         
@@ -38,12 +38,12 @@ def parameters():
         'innovate':False,
 
         # Optimization
-        'epochs': 350,
+        'epochs': 400,
         'augment_unlabeled_epoch':-1,
         'start_epoch':325,
         'lr': 0.1,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 25,
+        'lr_rampdown_epochs': 425,
         'nesterov': True,
 
         'num_cycles': 10,

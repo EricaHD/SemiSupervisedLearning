@@ -38,12 +38,12 @@ def parameters():
         'innovate':False,
 
         # Optimization
-        'epochs': 350,
+        'epochs': 400,
         'augment_unlabeled_epoch':-1,
         'start_epoch':300,
         'lr': 0.1,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 25,
+        'lr_rampdown_epochs': 425,
         'nesterov': True,
 
         'num_cycles': 10,
