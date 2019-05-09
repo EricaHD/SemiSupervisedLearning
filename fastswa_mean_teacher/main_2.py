@@ -353,40 +353,41 @@ def validate(eval_loader, model, log, global_step, epoch, device=device):
     model.eval()
 
     end = time.time()
-    for i, (img, target) in enumerate(eval_loader):
-        meters.update('data_time', time.time() - end)
-        
-        img_var, target_var = img.to(device), target.to(device)
-        
-        minibatch_size = len(target_var)
-        labeled_minibatch_size = target_var.detach().ne(NO_LABEL).sum()
-        meters.update('labeled_minibatch_size', labeled_minibatch_size)
+    with torch.no_grad():
+        for i, (img, target) in enumerate(eval_loader):
+            meters.update('data_time', time.time() - end)
 
-        # compute output
-        output1, output2 = model(img_var)
-        softmax1, softmax2 = F.softmax(output1, dim=1), F.softmax(output2, dim=1)
-        class_loss = class_criterion(output1, target_var) / minibatch_size
+            img_var, target_var = img.to(device), target.to(device)
 
-        # measure accuracy and record loss
-        acc1, acc5 = accuracy(output1, target_var, topk=(1,5))
-        meters.update('class_loss', class_loss.item(), labeled_minibatch_size)
-        meters.update('top1', acc1, labeled_minibatch_size)
-        meters.update('error1', 100.0 - acc1, labeled_minibatch_size)
-        meters.update('top5', acc5, labeled_minibatch_size)
-        meters.update('error5', 100.0 - acc5, labeled_minibatch_size)
+            minibatch_size = len(target_var)
+            labeled_minibatch_size = target_var.detach().ne(NO_LABEL).sum()
+            meters.update('labeled_minibatch_size', labeled_minibatch_size)
 
-        # measure elapsed time
-        meters.update('batch_time', time.time() - end)
-        end = time.time()
-        if i % 10 == 0:
-            LOG.info(
-                'Test: [{0}/{1}]\t'
-                'Time {meters[batch_time]:.3f}\t'
-                'Data {meters[data_time]:.3f}\t'
-                'Class {meters[class_loss]:.4f}\t'
-                'Acc@1 {meters[top1]:.3f}\t'
-                'Acc@5 {meters[top5]:.3f}'.format(
-                    i, len(eval_loader), meters=meters))
+            # compute output
+            output1, output2 = model(img_var)
+            softmax1, softmax2 = F.softmax(output1, dim=1), F.softmax(output2, dim=1)
+            class_loss = class_criterion(output1, target_var) / minibatch_size
+
+            # measure accuracy and record loss
+            acc1, acc5 = accuracy(output1, target_var, topk=(1,5))
+            meters.update('class_loss', class_loss.item(), labeled_minibatch_size)
+            meters.update('top1', acc1, labeled_minibatch_size)
+            meters.update('error1', 100.0 - acc1, labeled_minibatch_size)
+            meters.update('top5', acc5, labeled_minibatch_size)
+            meters.update('error5', 100.0 - acc5, labeled_minibatch_size)
+
+            # measure elapsed time
+            meters.update('batch_time', time.time() - end)
+            end = time.time()
+            if i % 10 == 0:
+                LOG.info(
+                    'Test: [{0}/{1}]\t'
+                    'Time {meters[batch_time]:.3f}\t'
+                    'Data {meters[data_time]:.3f}\t'
+                    'Class {meters[class_loss]:.4f}\t'
+                    'Acc@1 {meters[top1]:.3f}\t'
+                    'Acc@5 {meters[top5]:.3f}'.format(
+                        i, len(eval_loader), meters=meters))
 
     LOG.info(' * Acc@1 {top1.avg:.3f}\Acc@5 {top5.avg:.3f}'
           .format(top1=meters['top1'], top5=meters['top5']))

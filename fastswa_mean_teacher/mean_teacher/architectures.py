@@ -5,7 +5,7 @@ import itertools
 import torch
 from torch import nn
 from torch.nn import functional as F
-from torch.autograd import Function
+from torch.autograd import Variable, Function
 
 from .utils import export, parameter_count
 
@@ -38,7 +38,6 @@ class ResNet32x32(nn.Module):
     def __init__(self, block, layers, channels, groups=1, num_classes=1000, downsample='basic'):
         super().__init__()
         assert len(layers) == 3
-        
         self.downsample_mode = downsample
         self.inplanes = 16
         self.conv1 = nn.Conv2d(3, 16, kernel_size=3, stride=1,
@@ -57,10 +56,10 @@ class ResNet32x32(nn.Module):
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
-                m.weight.detach().normal_(0, math.sqrt(2. / n))
+                m.weight.data.normal_(0, math.sqrt(2. / n))
             elif isinstance(m, nn.BatchNorm2d):
-                m.weight.detach().fill_(1)
-                m.bias.detach().zero_()
+                m.weight.data.fill_(1)
+                m.bias.data.zero_()
 
     def _make_layer(self, block, planes, groups, blocks, stride=1):
         downsample = None
@@ -207,7 +206,7 @@ class Shake(Function):
         grad_inp1 = grad_inp2 = grad_training = None
         gate_size = [grad_output.size()[0], *itertools.repeat(1,
                                                               grad_output.dim() - 1)]
-        gate = grad_output.detach().new(*gate_size).uniform_(0, 1)
+        gate = Variable(grad_output.data.new(*gate_size).uniform_(0, 1))
         if ctx.needs_input_grad[0]:
             grad_inp1 = grad_output * gate
         if ctx.needs_input_grad[1]:
@@ -245,8 +244,8 @@ class GaussianNoise(nn.Module):
         self.std = std
     
     def forward(self, x):
-        zeros_ = torch.zeros(x.size()).cuda()
-        n = torch.normal(zeros_, std=self.std).cuda()
+        zeros_ = torch.zeros(x.size())
+        n = Variable(torch.normal(zeros_, std=self.std))
         return x + n
 
 from torch.nn.utils import weight_norm
