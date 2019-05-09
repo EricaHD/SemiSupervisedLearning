@@ -40,7 +40,7 @@ def parameters():
         # Optimization
         'epochs': 350,
         'augment_unlabeled_epoch':-1,
-        'start_epoch':301,
+        'start_epoch':300,
         'lr': 0.1,
         'lr_rampup': 0,
         'lr_rampdown_epochs': 25,
@@ -48,7 +48,6 @@ def parameters():
 
         'num_cycles': 10,
         'cycle_interval': 10,
-        'start_epoch': 0,
         'fastswa_frequencies': '3',
         
         'device':'cuda',

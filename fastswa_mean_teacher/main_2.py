@@ -98,7 +98,7 @@ def main(context):
             print("\n\n\n----------------  WARNING (start != ckpt) ----------------\n\n\n")
             print("checkpoint['epoch']=", checkpoint['epoch'])
         global_step = checkpoint['global_step']
-        best_acc1 = checkpoint['best_acc1']
+        best_acc1 = checkpoint['best_prec1']
         model.load_state_dict(checkpoint['state_dict'])
         ema_model.load_state_dict(checkpoint['ema_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer'])
@@ -176,7 +176,7 @@ def main(context):
                 'arch': args.arch,
                 'state_dict': model.state_dict(),
                 'ema_state_dict': ema_model.state_dict(),
-                'best_acc1': best_acc1,
+                'best_prec1': best_acc1,
                 'optimizer' : optimizer.state_dict(),
             }, is_best, checkpoint_path, epoch + 1)
 
@@ -301,10 +301,10 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
         meters.update('loss', loss.item())
 
         acc1, acc5 = accuracy(class_logit, target_var, topk=(1, 5))
-        meters.update('top1', acc1.item(), labeled_minibatch_size)
-        meters.update('error1', 100. - acc1.item(), labeled_minibatch_size)
-        meters.update('top5', acc5.item(), labeled_minibatch_size)
-        meters.update('error5', 100. - acc5.item(), labeled_minibatch_size)
+        meters.update('top1', acc1, labeled_minibatch_size)
+        meters.update('error1', 100. - acc1, labeled_minibatch_size)
+        meters.update('top5', acc5, labeled_minibatch_size)
+        meters.update('error5', 100. - acc5, labeled_minibatch_size)
 
         ema_acc1, ema_acc5 = accuracy(ema_logit, target_var, topk=(1, 5))
         meters.update('ema_top1', ema_acc1.item(), labeled_minibatch_size)
@@ -368,12 +368,12 @@ def validate(eval_loader, model, log, global_step, epoch, device=device):
         class_loss = class_criterion(output1, target_var) / minibatch_size
 
         # measure accuracy and record loss
-        acc1, acc5 = accuracy(output1, target_var) / labeled_minibatch_size
+        acc1, acc5 = accuracy(output1, target_var, topk=(1,5))
         meters.update('class_loss', class_loss.item(), labeled_minibatch_size)
-        meters.update('top1', acc1.item(), labeled_minibatch_size)
-        meters.update('error1', 100.0 - acc1.item(), labeled_minibatch_size)
-        meters.update('top5', acc5.item(), labeled_minibatch_size)
-        meters.update('error5', 100.0 - acc5.item(), labeled_minibatch_size)
+        meters.update('top1', acc1, labeled_minibatch_size)
+        meters.update('error1', 100.0 - acc1, labeled_minibatch_size)
+        meters.update('top5', acc5, labeled_minibatch_size)
+        meters.update('error5', 100.0 - acc5, labeled_minibatch_size)
 
         # measure elapsed time
         meters.update('batch_time', time.time() - end)
