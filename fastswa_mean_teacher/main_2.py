@@ -113,7 +113,7 @@ def main(context):
               'arch': args.arch,
               'state_dict': model.state_dict(),
               'ema_state_dict': ema_model.state_dict(),
-              'best_acc1': 0,
+              'best_prec1': 0,
               'optimizer' : optimizer.state_dict(),
           }, False, checkpoint_path, 0)
 
