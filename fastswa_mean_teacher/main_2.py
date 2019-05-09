@@ -53,6 +53,8 @@ def main(context):
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
     elif args.dataset == 'sslMini':
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
+    elif args.dataset == 'ssl2':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
     else:
         assert False, "Invalid options"
 
@@ -98,7 +100,7 @@ def main(context):
             print("\n\n\n----------------  WARNING (start != ckpt) ----------------\n\n\n")
             print("checkpoint['epoch']=", checkpoint['epoch'])
         global_step = checkpoint['global_step']
-        best_acc1 = checkpoint['best_prec1']
+        best_acc1 = float(checkpoint['best_prec1'])
         model.load_state_dict(checkpoint['state_dict'])
         ema_model.load_state_dict(checkpoint['ema_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer'])
@@ -161,8 +163,8 @@ def main(context):
             LOG.info("Evaluating the EMA model:")
             ema_acc1 = validate(eval_loader, ema_model, ema_validation_log, global_step, epoch + 1, device=device)
             LOG.info("--- validation in %s seconds ---" % (time.time() - start_time))
-            is_best = float(ema_acc1) > best_acc1.item()
-            best_acc1 = max(float(ema_acc1), best_acc1.item())
+            is_best = float(ema_acc1) > float(best_acc1)
+            best_acc1 = max(float(ema_acc1), float(best_acc1))
         else:
             is_best = False
             
@@ -176,7 +178,7 @@ def main(context):
                 'arch': args.arch,
                 'state_dict': model.state_dict(),
                 'ema_state_dict': ema_model.state_dict(),
-                'best_prec1': best_acc1,
+                'best_prec1': float(best_acc1),
                 'optimizer' : optimizer.state_dict(),
             }, is_best, checkpoint_path, epoch + 1)
 

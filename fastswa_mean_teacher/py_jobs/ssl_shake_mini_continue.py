@@ -15,7 +15,7 @@ def parameters():
         # Technical details
         'workers': 4,
         'checkpoint_epochs': 10,
-        'evaluation_epochs':1,
+        'evaluation_epochs':3,
         'resume':"/scratch/ijh216/ssl/ssl_shake_mini_augment/2019-05-06_18-04-18/10/transient/checkpoint.325.ckpt" ,
         
         # Data
