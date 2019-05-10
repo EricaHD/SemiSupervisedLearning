@@ -84,7 +84,7 @@ def main(context):
     if args.fastswa_frequencies is not None:
         fastswa_freqs = [int(item) for item in args.fastswa_frequencies.split('-')]
         print("Frequent SWAs with frequencies =", fastswa_freqs)
-        fastswa_nets = [create_model(no_grad=True) for _ in fastswa_freqs]
+        fastswa_nets = [create_model(no_grad=True, device=device) for _ in fastswa_freqs]
         fastswa_optims = [optim_weight_swa.WeightSWA(fastswa_net) for fastswa_net in fastswa_nets]
         fastswa_logs = [context.create_train_log("fastswa_validation_freq{}".format(freq)) for freq in fastswa_freqs]
 
@@ -137,9 +137,9 @@ def main(context):
         if ( (epoch >= args.epochs) ) and ((epoch - args.epochs) % args.cycle_interval) == 0:
             swa_model_optim.update(model)
             print("SWA Model Updated!")
-            update_batchnorm(swa_model, train_loader, train_loader_len)
+            update_batchnorm(swa_model.to(device), train_loader, train_loader_len)
             LOG.info("Evaluating the SWA model:")
-            swa_acc1 = validate(eval_loader, swa_model, swa_validation_log, global_step, epoch, device=device)
+            swa_acc1 = validate(eval_loader, swa_model.to(device), swa_validation_log, global_step, epoch, device=device)
 
         # do the fastSWA updates
         if args.fastswa_frequencies is not None:
@@ -195,7 +195,7 @@ def update_batchnorm(model, train_loader, train_loader_len, verbose=False, devic
             # speeding things up (100 instead of ~800 updates)
             if i > 100: 
                 return
-            img_var, ema_img_var, target_var = img.to(device), ema_img.to(device), target.to(device)
+            img_var, ema_img_var, target_var = img.to(device), ema_img.to(device).detach(), target.to(device)
             minibatch_size = len(target_var)
             model_out = model(img_var)
 

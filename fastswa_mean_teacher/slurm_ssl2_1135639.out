@@ -805,3 +805,40 @@ Epoch: [438][130/134]	Time 1.122 (3.057)	Data 0.000 (1.935)	Class 3.4861 (3.4457
 --- training epoch in 412.1908977031708 seconds ---
 Epoch: [439][0/134]	Time 11.956 (11.956)	Data 10.838 (10.838)	Class 3.3524 (3.3524)	Cons 0.1219 (0.1219)	Acc@1 38.086 (38.000)	Acc@5 56.055 (56.000)
 Epoch: [439][10/134]	Time 1.123 (3.335)	Data 0.000 (2.214)	Class 3.4977 (3.3931)	Cons 0.1010 (0.1055)	Acc@1 36.719 (34.000)	Acc@5 53.711 (55.000)
+Epoch: [439][20/134]	Time 7.280 (3.133)	Data 6.154 (2.011)	Class 3.6290 (3.4093)	Cons 0.1010 (0.1047)	Acc@1 31.250 (34.000)	Acc@5 53.125 (55.000)
+Epoch: [439][30/134]	Time 1.118 (2.907)	Data 0.000 (1.782)	Class 3.3148 (3.4140)	Cons 0.1040 (0.1063)	Acc@1 36.133 (34.000)	Acc@5 59.180 (55.000)
+Epoch: [439][40/134]	Time 8.083 (2.943)	Data 6.967 (1.818)	Class 3.3245 (3.4096)	Cons 0.1070 (0.1061)	Acc@1 37.305 (34.000)	Acc@5 58.008 (55.000)
+Epoch: [439][50/134]	Time 1.127 (2.817)	Data 0.000 (1.692)	Class 3.3475 (3.4008)	Cons 0.1176 (0.1058)	Acc@1 34.570 (34.000)	Acc@5 54.883 (55.000)
+Epoch: [439][60/134]	Time 8.706 (2.862)	Data 7.581 (1.739)	Class 3.4577 (3.3950)	Cons 0.0992 (0.1060)	Acc@1 32.031 (34.000)	Acc@5 54.102 (55.000)
+Epoch: [439][70/134]	Time 1.122 (2.774)	Data 0.000 (1.650)	Class 3.3037 (3.3984)	Cons 0.1049 (0.1062)	Acc@1 39.062 (34.000)	Acc@5 56.445 (55.000)
+Epoch: [439][80/134]	Time 7.179 (2.789)	Data 6.057 (1.666)	Class 3.3502 (3.4052)	Cons 0.1043 (0.1055)	Acc@1 34.766 (34.000)	Acc@5 56.836 (55.000)
+Epoch: [439][90/134]	Time 1.122 (2.755)	Data 0.000 (1.631)	Class 3.3899 (3.4116)	Cons 0.0917 (0.1051)	Acc@1 31.250 (34.000)	Acc@5 53.711 (55.000)
+Epoch: [439][100/134]	Time 7.178 (2.772)	Data 6.046 (1.649)	Class 3.5599 (3.4207)	Cons 0.1070 (0.1050)	Acc@1 29.297 (34.000)	Acc@5 53.906 (55.000)
+Epoch: [439][110/134]	Time 1.121 (2.729)	Data 0.000 (1.606)	Class 3.6743 (3.4251)	Cons 0.0869 (0.1052)	Acc@1 31.836 (33.000)	Acc@5 52.148 (55.000)
+Epoch: [439][120/134]	Time 7.938 (2.756)	Data 6.769 (1.632)	Class 3.5000 (3.4298)	Cons 0.1048 (0.1052)	Acc@1 29.102 (33.000)	Acc@5 53.906 (54.000)
+Epoch: [439][130/134]	Time 1.665 (2.723)	Data 0.547 (1.599)	Class 3.4031 (3.4315)	Cons 0.1123 (0.1052)	Acc@1 35.352 (33.000)	Acc@5 55.469 (54.000)
+--- training epoch in 366.58057951927185 seconds ---
+--- checkpoint saved to /scratch/ijh216/ssl//ssl2/2019-05-10_09-59-18/10/transient/checkpoint.440.ckpt ---
+Evaluate fast-swa-3 at epoch 440
+Updating SWA. Current num_params = 1
+Loading State Dict
+Traceback (most recent call last):
+  File "py_jobs/ssl2.py", line 75, in <module>
+    run(**parameters())
+  File "py_jobs/ssl2.py", line 71, in run
+    main.main(context)
+  File "./main_2.py", line 148, in main
+    print("Evaluate fast-swa-{} at epoch {}".format(fastswa_freq, epoch))
+  File "./main_2.py", line 198, in update_batchnorm
+    img_var, ema_img_var, target_var = img.to(device), ema_img.to(device), target.to(device)
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/nn/modules/module.py", line 489, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/nn/parallel/data_parallel.py", line 142, in forward
+    replicas = self.replicate(self.module, self.device_ids[:len(inputs)])
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/nn/parallel/data_parallel.py", line 147, in replicate
+    return replicate(module, device_ids)
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/nn/parallel/replicate.py", line 13, in replicate
+    param_copies = Broadcast.apply(devices, *params)
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/nn/parallel/_functions.py", line 14, in forward
+    raise TypeError('Broadcast function not implemented for CPU tensors')
+TypeError: Broadcast function not implemented for CPU tensors
