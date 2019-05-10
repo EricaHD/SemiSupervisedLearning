@@ -120,7 +120,7 @@ def ssl3():
         'train_transformation': train_transformation,
         'eval_transformation': eval_transformation,
         'datadir': '/scratch/ijh216/ssl3/',
-        'unsupdir':'/scratch/ehd255/ssl_data_96/',
+        'dataUdir':'/scratch/ehd255/ssl_data_96/',
         'num_classes': 1000
     }
 
