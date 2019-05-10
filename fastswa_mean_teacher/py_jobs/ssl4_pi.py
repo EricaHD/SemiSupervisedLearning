@@ -20,7 +20,7 @@ def parameters():
         'evaluation_epochs':3,
         
         # Data
-        'dataset': 'ssl3',
+        'dataset': 'ssl4',
         'train_subdir': 'supervised/train',
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',

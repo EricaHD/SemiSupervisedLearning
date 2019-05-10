@@ -21,7 +21,7 @@ def parameters():
         'resume':"/scratch/ijh216/ssl/ssl_shake_mini_augment/2019-05-06_18-04-18/10/transient/checkpoint.325.ckpt",
         
         # Data
-        'dataset': 'ssl3',
+        'dataset': 'ssl4',
         'train_subdir': 'supervised/train',
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
