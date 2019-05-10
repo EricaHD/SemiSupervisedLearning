@@ -76,6 +76,29 @@ def ssl2():
         'num_classes': 1000
     }
 
+@export
+def ssl2Sobel():
+    train_transformation = data.TransformTwice(transforms.Compose([
+        data.RandomTranslateWithReflect(4),
+        transforms.RandomResizedCrop(32),
+        transforms.RandomHorizontalFlip(),
+        transforms.ToTensor(),
+        data.SobelFilter()
+        
+    ]))
+    eval_transformation = transforms.Compose([
+        transforms.Resize(32),
+        transforms.ToTensor(),
+        data.SobelFilter()
+    ])
+
+    return {
+        'train_transformation': train_transformation,
+        'eval_transformation': eval_transformation,
+        'datadir': '/scratch/ijh216/ssl2/',
+        'num_classes': 1000
+    }
+
 
 
 

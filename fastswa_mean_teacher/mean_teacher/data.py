@@ -124,3 +124,43 @@ def grouper(iterable, n):
     args = [iter(iterable)] * n
     return zip(*args)
 
+class SobelFilter:
+    """
+    Apply the Sobel filter for color image edge detection.
+    """
+
+    def __init__(self):
+        pass
+
+    def __call__(self, image):
+
+        # image = transforms.ToTensor()(image)  # PIL -> tensor
+        # image = image.permute(1, 2, 0) # permute from 3 x 96 x 96 into 96 x 96 x 3
+        length = image.size()[1]
+
+        xfilter = torch.Tensor([[1, 0, -1], [2, 0, -2], [1, 0, -1]])
+        xfilter = xfilter.view((1,1,3,3))
+        yfilter = torch.Tensor([[1, 2, 1], [0, 0, 0], [-1, -2, -1]])
+        yfilter = yfilter.view((1,1,3,3))
+    
+        rx = F.conv2d(image[0,:,:].view((1,1,length,length)), xfilter)
+        gx = F.conv2d(image[1,:,:].view((1,1,length,length)), xfilter)
+        bx = F.conv2d(image[2,:,:].view((1,1,length,length)), xfilter)
+    
+        ry = F.conv2d(image[0,:,:].view((1,1,length,length)), yfilter)
+        gy = F.conv2d(image[1,:,:].view((1,1,length,length)), yfilter)
+        by = F.conv2d(image[2,:,:].view((1,1,length,length)), yfilter)
+    
+        Jx = torch.pow(rx, 2) + torch.pow(gx, 2) + torch.pow(bx, 2)
+        Jy = torch.pow(ry, 2) + torch.pow(gy, 2) + torch.pow(by, 2)
+        Jxy = rx * ry + gx * gy + bx * by
+        temp = torch.pow(Jx, 2) - 2 * torch.mul(Jx, Jy) + torch.pow(Jy, 2) + 4 * torch.pow(Jxy, 2)
+        D = torch.sqrt(torch.abs(temp))
+        eigenvector1 = (Jx + Jy + D) / 2
+        edge_magnitude = torch.sqrt(eigenvector1)
+        
+        edge_magnitude /= edge_magnitude.max() # needed?
+        # edge_magnitude = transforms.ToPILImage()(edge_magnitude) # tensor -> PIL
+
+        return edge_magnitude
+

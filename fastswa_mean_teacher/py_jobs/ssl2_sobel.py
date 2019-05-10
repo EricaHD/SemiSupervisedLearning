@@ -16,12 +16,11 @@ def parameters():
     defaults = {
         # Technical details
         'workers': 4,
-        'checkpoint_epochs': 5,
+        'checkpoint_epochs': 10,
         'evaluation_epochs':3,
-        'resume':"/scratch/ijh216/ssl/ssl_shake_mini_augment/2019-05-06_18-04-18/10/transient/checkpoint.325.ckpt" ,
         
         # Data
-        'dataset': 'ssl2',
+        'dataset': 'ssl2Sobel',
         'train_subdir': 'supervised/train',
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
@@ -40,12 +39,12 @@ def parameters():
         'innovate':False,
 
         # Optimization
-        'epochs': 450,
+        'epochs': 350,
         'augment_unlabeled_epoch':-1,
-        'start_epoch':325,
+        'start_epoch':0,
         'lr': 0.1 * ngpu,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 475,
+        'lr_rampdown_epochs': 375,
         'nesterov': True,
 
         'num_cycles': 10,
@@ -53,7 +52,7 @@ def parameters():
         'fastswa_frequencies': '3',
         
         'device':'cuda',
-        'title' : 'ssl2',
+        'title' : 'ssl2_sobel',
         'data_seed':10, 
         
         'batch_size': 256 * ngpu,

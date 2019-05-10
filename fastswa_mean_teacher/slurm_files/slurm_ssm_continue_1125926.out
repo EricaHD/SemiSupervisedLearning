@@ -441,3 +441,107 @@ Epoch: [329][100/268]	Time 7.249 (7.330)	Data 0.000 (0.061)	Class 6.0197 (5.9489
 Epoch: [329][110/268]	Time 7.292 (7.323)	Data 0.000 (0.056)	Class 5.8240 (5.9482)	Cons 0.0765 (0.0966)	Acc@1 10.938 (10.000)	Acc@5 17.578 (17.000)
 Epoch: [329][120/268]	Time 7.226 (7.319)	Data 0.000 (0.052)	Class 6.0245 (5.9456)	Cons 0.0892 (0.0960)	Acc@1 10.547 (10.000)	Acc@5 16.016 (17.000)
 Epoch: [329][130/268]	Time 7.332 (7.316)	Data 0.000 (0.048)	Class 6.0210 (5.9461)	Cons 0.0901 (0.0952)	Acc@1 10.156 (10.000)	Acc@5 15.234 (17.000)
+Epoch: [329][140/268]	Time 7.306 (7.313)	Data 0.000 (0.045)	Class 5.9054 (5.9469)	Cons 0.0713 (0.0949)	Acc@1 10.938 (10.000)	Acc@5 16.797 (17.000)
+Epoch: [329][150/268]	Time 7.276 (7.311)	Data 0.000 (0.042)	Class 5.9797 (5.9454)	Cons 0.0809 (0.0945)	Acc@1 7.031 (10.000)	Acc@5 16.016 (17.000)
+Epoch: [329][160/268]	Time 7.295 (7.309)	Data 0.000 (0.039)	Class 6.0887 (5.9460)	Cons 0.0823 (0.0942)	Acc@1 9.375 (10.000)	Acc@5 18.750 (17.000)
+Epoch: [329][170/268]	Time 7.234 (7.307)	Data 0.000 (0.037)	Class 6.0314 (5.9480)	Cons 0.0893 (0.0940)	Acc@1 10.547 (10.000)	Acc@5 14.844 (17.000)
+Epoch: [329][180/268]	Time 7.220 (7.304)	Data 0.000 (0.035)	Class 5.8947 (5.9485)	Cons 0.0879 (0.0934)	Acc@1 12.109 (10.000)	Acc@5 18.750 (17.000)
+Epoch: [329][190/268]	Time 7.266 (7.302)	Data 0.000 (0.034)	Class 5.8341 (5.9459)	Cons 0.0762 (0.0928)	Acc@1 11.719 (10.000)	Acc@5 17.969 (17.000)
+Epoch: [329][200/268]	Time 7.288 (7.301)	Data 0.000 (0.032)	Class 5.8969 (5.9451)	Cons 0.0934 (0.0922)	Acc@1 13.281 (10.000)	Acc@5 18.359 (17.000)
+Epoch: [329][210/268]	Time 7.239 (7.300)	Data 0.000 (0.031)	Class 5.8794 (5.9452)	Cons 0.0681 (0.0917)	Acc@1 12.109 (10.000)	Acc@5 17.969 (17.000)
+Epoch: [329][220/268]	Time 7.213 (7.298)	Data 0.000 (0.029)	Class 5.9765 (5.9459)	Cons 0.0775 (0.0913)	Acc@1 11.719 (10.000)	Acc@5 18.359 (17.000)
+Epoch: [329][230/268]	Time 7.274 (7.297)	Data 0.000 (0.028)	Class 6.0830 (5.9461)	Cons 0.0797 (0.0909)	Acc@1 9.766 (10.000)	Acc@5 17.578 (17.000)
+Epoch: [329][240/268]	Time 7.288 (7.296)	Data 0.000 (0.027)	Class 5.9209 (5.9460)	Cons 0.0747 (0.0904)	Acc@1 11.719 (10.000)	Acc@5 18.359 (17.000)
+Epoch: [329][250/268]	Time 7.310 (7.295)	Data 0.000 (0.026)	Class 5.8617 (5.9441)	Cons 0.0810 (0.0898)	Acc@1 12.109 (10.000)	Acc@5 20.703 (17.000)
+Epoch: [329][260/268]	Time 7.262 (7.295)	Data 0.000 (0.025)	Class 6.0328 (5.9450)	Cons 0.0665 (0.0893)	Acc@1 9.766 (10.000)	Acc@5 17.188 (17.000)
+--- training epoch in 1954.9565045833588 seconds ---
+Evaluating the primary model:
+Test: [0/125]	Time 9.115 (9.115)	Data 7.170 (7.170)	Class 4.0144 (4.0000)	Acc@1 31.250 (31.000)	Acc@5 48.438 (48.000)
+Test: [10/125]	Time 1.853 (2.511)	Data 0.000 (0.652)	Class 4.5882 (3.0000)	Acc@1 19.141 (26.000)	Acc@5 39.062 (48.000)
+Test: [20/125]	Time 1.827 (2.188)	Data 0.000 (0.342)	Class 4.7164 (3.0000)	Acc@1 15.625 (26.000)	Acc@5 34.766 (47.000)
+Test: [30/125]	Time 1.827 (2.074)	Data 0.000 (0.232)	Class 4.2391 (3.0000)	Acc@1 28.906 (27.000)	Acc@5 46.875 (47.000)
+Test: [40/125]	Time 1.812 (2.014)	Data 0.000 (0.175)	Class 4.8246 (3.0000)	Acc@1 19.531 (25.000)	Acc@5 37.891 (45.000)
+Test: [50/125]	Time 1.837 (1.978)	Data 0.000 (0.141)	Class 4.0173 (3.0000)	Acc@1 23.438 (25.000)	Acc@5 51.172 (44.000)
+Test: [60/125]	Time 1.824 (1.954)	Data 0.000 (0.118)	Class 4.5118 (3.0000)	Acc@1 19.531 (24.000)	Acc@5 39.453 (43.000)
+Test: [70/125]	Time 1.830 (1.937)	Data 0.000 (0.101)	Class 5.7498 (3.0000)	Acc@1 12.500 (23.000)	Acc@5 21.094 (42.000)
+Test: [80/125]	Time 1.813 (1.924)	Data 0.000 (0.089)	Class 5.8907 (4.0000)	Acc@1 16.016 (22.000)	Acc@5 26.172 (40.000)
+Test: [90/125]	Time 1.828 (1.914)	Data 0.000 (0.079)	Class 4.3804 (4.0000)	Acc@1 34.375 (22.000)	Acc@5 46.094 (40.000)
+Test: [100/125]	Time 1.835 (1.906)	Data 0.000 (0.071)	Class 5.5886 (4.0000)	Acc@1 12.891 (22.000)	Acc@5 26.562 (40.000)
+Test: [110/125]	Time 1.812 (1.898)	Data 0.000 (0.065)	Class 4.4077 (4.0000)	Acc@1 34.375 (22.000)	Acc@5 49.219 (39.000)
+Test: [120/125]	Time 1.815 (1.892)	Data 0.000 (0.060)	Class 3.6777 (4.0000)	Acc@1 42.969 (24.000)	Acc@5 57.812 (41.000)
+ * Acc@1 24.000\Acc@5 42.000
+Evaluating the EMA model:
+Test: [0/125]	Time 9.151 (9.151)	Data 7.203 (7.203)	Class 3.5012 (3.0000)	Acc@1 34.375 (34.000)	Acc@5 52.734 (52.000)
+Test: [10/125]	Time 1.842 (2.497)	Data 0.000 (0.655)	Class 4.0309 (2.0000)	Acc@1 22.266 (30.000)	Acc@5 48.047 (54.000)
+Test: [20/125]	Time 1.832 (2.179)	Data 0.000 (0.343)	Class 4.1629 (2.0000)	Acc@1 19.531 (30.000)	Acc@5 43.359 (53.000)
+Test: [30/125]	Time 1.825 (2.067)	Data 0.000 (0.233)	Class 3.8010 (2.0000)	Acc@1 30.469 (31.000)	Acc@5 49.219 (54.000)
+Test: [40/125]	Time 1.833 (2.009)	Data 0.000 (0.176)	Class 4.5134 (3.0000)	Acc@1 22.266 (29.000)	Acc@5 37.500 (51.000)
+Test: [50/125]	Time 1.856 (1.974)	Data 0.000 (0.142)	Class 3.3983 (3.0000)	Acc@1 27.344 (28.000)	Acc@5 61.328 (50.000)
+Test: [60/125]	Time 1.813 (1.949)	Data 0.000 (0.118)	Class 4.0446 (3.0000)	Acc@1 22.656 (28.000)	Acc@5 44.922 (49.000)
+Test: [70/125]	Time 1.826 (1.932)	Data 0.000 (0.102)	Class 4.7151 (3.0000)	Acc@1 15.234 (27.000)	Acc@5 35.547 (49.000)
+Test: [80/125]	Time 1.829 (1.920)	Data 0.000 (0.089)	Class 4.8562 (3.0000)	Acc@1 17.578 (27.000)	Acc@5 35.938 (47.000)
+Test: [90/125]	Time 1.826 (1.910)	Data 0.000 (0.079)	Class 3.5375 (3.0000)	Acc@1 38.281 (27.000)	Acc@5 55.078 (48.000)
+Test: [100/125]	Time 1.831 (1.902)	Data 0.000 (0.072)	Class 4.5812 (3.0000)	Acc@1 20.703 (27.000)	Acc@5 35.547 (48.000)
+Test: [110/125]	Time 1.809 (1.895)	Data 0.000 (0.065)	Class 3.2194 (3.0000)	Acc@1 36.328 (27.000)	Acc@5 63.672 (47.000)
+Test: [120/125]	Time 1.839 (1.890)	Data 0.000 (0.060)	Class 2.7519 (3.0000)	Acc@1 46.484 (29.000)	Acc@5 67.188 (49.000)
+ * Acc@1 29.000\Acc@5 50.000
+--- validation in 472.4226384162903 seconds ---
+--- checkpoint saved to /scratch/ijh216/ssl//ssl_shake_mini_continue/2019-05-09_14-15-26/10/transient/checkpoint.330.ckpt ---
+Epoch: [330][0/268]	Time 14.385 (14.385)	Data 7.012 (7.012)	Class 5.7212 (5.7212)	Cons 0.0849 (0.0849)	Acc@1 13.672 (13.000)	Acc@5 18.359 (18.000)
+Epoch: [330][10/268]	Time 7.197 (7.897)	Data 0.000 (0.641)	Class 5.9358 (5.8371)	Cons 0.0764 (0.0752)	Acc@1 10.938 (11.000)	Acc@5 14.453 (17.000)
+Epoch: [330][20/268]	Time 7.305 (7.591)	Data 0.000 (0.337)	Class 5.8849 (5.8256)	Cons 0.0740 (0.0741)	Acc@1 10.938 (11.000)	Acc@5 18.750 (18.000)
+Epoch: [330][30/268]	Time 7.224 (7.487)	Data 0.000 (0.229)	Class 5.9628 (5.8374)	Cons 0.0861 (0.0751)	Acc@1 12.109 (11.000)	Acc@5 17.188 (17.000)
+Epoch: [330][40/268]	Time 7.254 (7.433)	Data 0.000 (0.173)	Class 5.9160 (5.8410)	Cons 0.0655 (0.0743)	Acc@1 10.547 (11.000)	Acc@5 16.406 (17.000)
+Epoch: [330][50/268]	Time 7.289 (7.404)	Data 0.000 (0.140)	Class 5.8884 (5.8438)	Cons 0.0593 (0.0741)	Acc@1 9.375 (11.000)	Acc@5 18.359 (17.000)
+Epoch: [330][60/268]	Time 7.305 (7.383)	Data 0.000 (0.118)	Class 5.9472 (5.8510)	Cons 0.0759 (0.0736)	Acc@1 10.156 (10.000)	Acc@5 18.359 (17.000)
+Epoch: [330][70/268]	Time 7.237 (7.366)	Data 0.000 (0.101)	Class 5.6046 (5.8482)	Cons 0.0622 (0.0730)	Acc@1 13.281 (10.000)	Acc@5 20.703 (17.000)
+Epoch: [330][80/268]	Time 7.279 (7.355)	Data 0.000 (0.089)	Class 5.9556 (5.8544)	Cons 0.0652 (0.0729)	Acc@1 12.500 (10.000)	Acc@5 18.750 (17.000)
+Epoch: [330][90/268]	Time 7.295 (7.347)	Data 0.000 (0.079)	Class 5.7938 (5.8561)	Cons 0.0642 (0.0724)	Acc@1 11.328 (10.000)	Acc@5 18.750 (17.000)
+Epoch: [330][100/268]	Time 7.296 (7.341)	Data 0.000 (0.072)	Class 5.6900 (5.8498)	Cons 0.0733 (0.0723)	Acc@1 13.672 (11.000)	Acc@5 18.750 (17.000)
+Epoch: [330][110/268]	Time 7.244 (7.338)	Data 0.000 (0.066)	Class 5.9716 (5.8483)	Cons 0.0625 (0.0722)	Acc@1 9.375 (11.000)	Acc@5 15.234 (17.000)
+Epoch: [330][120/268]	Time 7.277 (7.333)	Data 0.000 (0.060)	Class 5.9301 (5.8486)	Cons 0.0662 (0.0720)	Acc@1 12.500 (11.000)	Acc@5 16.797 (17.000)
+Epoch: [330][130/268]	Time 7.244 (7.328)	Data 0.000 (0.056)	Class 5.8777 (5.8522)	Cons 0.0771 (0.0716)	Acc@1 10.938 (11.000)	Acc@5 15.234 (17.000)
+Epoch: [330][140/268]	Time 7.230 (7.323)	Data 0.000 (0.052)	Class 5.8108 (5.8543)	Cons 0.0640 (0.0712)	Acc@1 11.328 (11.000)	Acc@5 20.312 (17.000)
+Epoch: [330][150/268]	Time 7.290 (7.319)	Data 0.000 (0.049)	Class 5.9171 (5.8557)	Cons 0.0597 (0.0706)	Acc@1 9.375 (10.000)	Acc@5 17.969 (17.000)
+Epoch: [330][160/268]	Time 7.318 (7.317)	Data 0.000 (0.046)	Class 5.8567 (5.8541)	Cons 0.0690 (0.0702)	Acc@1 9.766 (10.000)	Acc@5 19.531 (17.000)
+Epoch: [330][170/268]	Time 7.225 (7.314)	Data 0.000 (0.043)	Class 5.9062 (5.8546)	Cons 0.0731 (0.0700)	Acc@1 11.719 (10.000)	Acc@5 16.406 (17.000)
+Epoch: [330][180/268]	Time 7.280 (7.312)	Data 0.000 (0.041)	Class 5.9790 (5.8554)	Cons 0.0645 (0.0696)	Acc@1 8.594 (10.000)	Acc@5 15.625 (17.000)
+Epoch: [330][190/268]	Time 7.307 (7.311)	Data 0.000 (0.039)	Class 5.7520 (5.8560)	Cons 0.0607 (0.0692)	Acc@1 11.719 (10.000)	Acc@5 18.750 (17.000)
+Epoch: [330][200/268]	Time 7.256 (7.309)	Data 0.000 (0.037)	Class 5.9920 (5.8569)	Cons 0.0627 (0.0689)	Acc@1 8.594 (10.000)	Acc@5 16.016 (17.000)
+Epoch: [330][210/268]	Time 7.321 (7.308)	Data 0.000 (0.036)	Class 5.8971 (5.8594)	Cons 0.0558 (0.0684)	Acc@1 11.328 (10.000)	Acc@5 16.406 (17.000)
+Epoch: [330][220/268]	Time 7.265 (7.306)	Data 0.000 (0.034)	Class 5.9132 (5.8602)	Cons 0.0643 (0.0679)	Acc@1 8.594 (10.000)	Acc@5 17.188 (17.000)
+Epoch: [330][230/268]	Time 7.338 (7.305)	Data 0.000 (0.033)	Class 5.8507 (5.8614)	Cons 0.0497 (0.0674)	Acc@1 12.500 (10.000)	Acc@5 17.188 (17.000)
+Epoch: [330][240/268]	Time 7.337 (7.304)	Data 0.000 (0.031)	Class 5.9049 (5.8626)	Cons 0.0542 (0.0670)	Acc@1 10.547 (10.000)	Acc@5 18.359 (17.000)
+Epoch: [330][250/268]	Time 7.240 (7.303)	Data 0.000 (0.030)	Class 5.8309 (5.8627)	Cons 0.0564 (0.0666)	Acc@1 9.766 (10.000)	Acc@5 20.312 (17.000)
+Traceback (most recent call last):
+  File "py_jobs/ssl_shake_mini_continue.py", line 73, in <module>
+    run(**parameters())
+  File "py_jobs/ssl_shake_mini_continue.py", line 69, in run
+    main.main(context)
+  File "./main_2.py", line 151, in main
+    if args.pimodel == 0:
+  File "./main_2.py", line 249, in train
+    end = time.time()
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 637, in __next__
+    return self._process_next_batch(batch)
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 658, in _process_next_batch
+    raise batch.exc_type(batch.exc_msg)
+OSError: Traceback (most recent call last):
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 138, in _worker_loop
+    samples = collate_fn([dataset[i] for i in batch_indices])
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/utils/data/dataloader.py", line 138, in <listcomp>
+    samples = collate_fn([dataset[i] for i in batch_indices])
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/utils/data/dataset.py", line 81, in __getitem__
+    return self.datasets[dataset_idx][sample_idx]
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torchvision/datasets/folder.py", line 132, in __getitem__
+    sample = self.loader(path)
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torchvision/datasets/folder.py", line 178, in default_loader
+    return pil_loader(path)
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torchvision/datasets/folder.py", line 160, in pil_loader
+    img = Image.open(f)
+  File "/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/PIL/Image.py", line 2705, in open
+    % (filename if filename else fp))
+OSError: cannot identify image file <_io.BufferedReader name='/scratch/ijh216/ssl_mini/supervised/train/n02485536/n02485536_4796.JPEG'>
+
+slurmstepd: error: The SLURM utilizes Linux cgroups for resource containment. For reference please read the explanation in the bug report: https://bugs.schedmd.com/show_bug.cgi?id=3214#c4
+slurmstepd: error: The SLURM utilizes Linux cgroups for resource containment. For reference please read the explanation in the bug report: https://bugs.schedmd.com/show_bug.cgi?id=3214#c4
