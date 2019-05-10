@@ -1,0 +1,570 @@
+Using these command line args: --workers 4 --checkpoint-epochs 5 --evaluation-epochs 3 --resume /scratch/ijh216/ssl/ssl2/2019-05-09_17-19-21/10/transient/checkpoint.415.ckpt --dataset ssl2 --train-subdir supervised/train --unsup-subdir unsupervised --eval-subdir supervised/val --augment-unlabeled-init True --arch cifar_shakeshake26 --ema-decay 0.999 --consistency-type mse --consistency-rampup 150 --consistency 1000.0 --logit-distance-cost 0.01 --weight-decay 0.0002 --innovate False --epochs 450 --augment-unlabeled-epoch -1 --start-epoch 415 --lr 0.2 --lr-rampup 0 --lr-rampdown-epochs 475 --nesterov True --num-cycles 10 --cycle-interval 10 --fastswa-frequencies 3 --device cuda --batch-size 512 --labeled-batch-size 130
+=> creating model 'cifar_shakeshake26'
+=> creating model 'cifar_shakeshake26'
+=> creating model 'cifar_shakeshake26'
+=> creating model 'cifar_shakeshake26'
+
+List of model parameters:
+=========================
+module.conv1.weight                            16 * 3 * 3 * 3 =         432
+module.layer1.0.conv_a1.weight                96 * 16 * 3 * 3 =      13,824
+module.layer1.0.bn_a1.weight                               96 =          96
+module.layer1.0.bn_a1.bias                                 96 =          96
+module.layer1.0.conv_a2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.0.bn_a2.weight                               96 =          96
+module.layer1.0.bn_a2.bias                                 96 =          96
+module.layer1.0.conv_b1.weight                96 * 16 * 3 * 3 =      13,824
+module.layer1.0.bn_b1.weight                               96 =          96
+module.layer1.0.bn_b1.bias                                 96 =          96
+module.layer1.0.conv_b2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.0.bn_b2.weight                               96 =          96
+module.layer1.0.bn_b2.bias                                 96 =          96
+module.layer1.0.downsample.0.weight           96 * 16 * 1 * 1 =       1,536
+module.layer1.0.downsample.1.weight                        96 =          96
+module.layer1.0.downsample.1.bias                          96 =          96
+module.layer1.1.conv_a1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.1.bn_a1.weight                               96 =          96
+module.layer1.1.bn_a1.bias                                 96 =          96
+module.layer1.1.conv_a2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.1.bn_a2.weight                               96 =          96
+module.layer1.1.bn_a2.bias                                 96 =          96
+module.layer1.1.conv_b1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.1.bn_b1.weight                               96 =          96
+module.layer1.1.bn_b1.bias                                 96 =          96
+module.layer1.1.conv_b2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.1.bn_b2.weight                               96 =          96
+module.layer1.1.bn_b2.bias                                 96 =          96
+module.layer1.2.conv_a1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.2.bn_a1.weight                               96 =          96
+module.layer1.2.bn_a1.bias                                 96 =          96
+module.layer1.2.conv_a2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.2.bn_a2.weight                               96 =          96
+module.layer1.2.bn_a2.bias                                 96 =          96
+module.layer1.2.conv_b1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.2.bn_b1.weight                               96 =          96
+module.layer1.2.bn_b1.bias                                 96 =          96
+module.layer1.2.conv_b2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.2.bn_b2.weight                               96 =          96
+module.layer1.2.bn_b2.bias                                 96 =          96
+module.layer1.3.conv_a1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.3.bn_a1.weight                               96 =          96
+module.layer1.3.bn_a1.bias                                 96 =          96
+module.layer1.3.conv_a2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.3.bn_a2.weight                               96 =          96
+module.layer1.3.bn_a2.bias                                 96 =          96
+module.layer1.3.conv_b1.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.3.bn_b1.weight                               96 =          96
+module.layer1.3.bn_b1.bias                                 96 =          96
+module.layer1.3.conv_b2.weight                96 * 96 * 3 * 3 =      82,944
+module.layer1.3.bn_b2.weight                               96 =          96
+module.layer1.3.bn_b2.bias                                 96 =          96
+module.layer2.0.conv_a1.weight               192 * 96 * 3 * 3 =     165,888
+module.layer2.0.bn_a1.weight                              192 =         192
+module.layer2.0.bn_a1.bias                                192 =         192
+module.layer2.0.conv_a2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.0.bn_a2.weight                              192 =         192
+module.layer2.0.bn_a2.bias                                192 =         192
+module.layer2.0.conv_b1.weight               192 * 96 * 3 * 3 =     165,888
+module.layer2.0.bn_b1.weight                              192 =         192
+module.layer2.0.bn_b1.bias                                192 =         192
+module.layer2.0.conv_b2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.0.bn_b2.weight                              192 =         192
+module.layer2.0.bn_b2.bias                                192 =         192
+module.layer2.0.downsample.conv.weight       192 * 96 * 1 * 1 =      18,432
+module.layer2.0.downsample.conv.bias                      192 =         192
+module.layer2.0.downsample.bn.weight                      192 =         192
+module.layer2.0.downsample.bn.bias                        192 =         192
+module.layer2.1.conv_a1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.1.bn_a1.weight                              192 =         192
+module.layer2.1.bn_a1.bias                                192 =         192
+module.layer2.1.conv_a2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.1.bn_a2.weight                              192 =         192
+module.layer2.1.bn_a2.bias                                192 =         192
+module.layer2.1.conv_b1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.1.bn_b1.weight                              192 =         192
+module.layer2.1.bn_b1.bias                                192 =         192
+module.layer2.1.conv_b2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.1.bn_b2.weight                              192 =         192
+module.layer2.1.bn_b2.bias                                192 =         192
+module.layer2.2.conv_a1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.2.bn_a1.weight                              192 =         192
+module.layer2.2.bn_a1.bias                                192 =         192
+module.layer2.2.conv_a2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.2.bn_a2.weight                              192 =         192
+module.layer2.2.bn_a2.bias                                192 =         192
+module.layer2.2.conv_b1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.2.bn_b1.weight                              192 =         192
+module.layer2.2.bn_b1.bias                                192 =         192
+module.layer2.2.conv_b2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.2.bn_b2.weight                              192 =         192
+module.layer2.2.bn_b2.bias                                192 =         192
+module.layer2.3.conv_a1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.3.bn_a1.weight                              192 =         192
+module.layer2.3.bn_a1.bias                                192 =         192
+module.layer2.3.conv_a2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.3.bn_a2.weight                              192 =         192
+module.layer2.3.bn_a2.bias                                192 =         192
+module.layer2.3.conv_b1.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.3.bn_b1.weight                              192 =         192
+module.layer2.3.bn_b1.bias                                192 =         192
+module.layer2.3.conv_b2.weight              192 * 192 * 3 * 3 =     331,776
+module.layer2.3.bn_b2.weight                              192 =         192
+module.layer2.3.bn_b2.bias                                192 =         192
+module.layer3.0.conv_a1.weight              384 * 192 * 3 * 3 =     663,552
+module.layer3.0.bn_a1.weight                              384 =         384
+module.layer3.0.bn_a1.bias                                384 =         384
+module.layer3.0.conv_a2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.0.bn_a2.weight                              384 =         384
+module.layer3.0.bn_a2.bias                                384 =         384
+module.layer3.0.conv_b1.weight              384 * 192 * 3 * 3 =     663,552
+module.layer3.0.bn_b1.weight                              384 =         384
+module.layer3.0.bn_b1.bias                                384 =         384
+module.layer3.0.conv_b2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.0.bn_b2.weight                              384 =         384
+module.layer3.0.bn_b2.bias                                384 =         384
+module.layer3.0.downsample.conv.weight      384 * 192 * 1 * 1 =      73,728
+module.layer3.0.downsample.conv.bias                      384 =         384
+module.layer3.0.downsample.bn.weight                      384 =         384
+module.layer3.0.downsample.bn.bias                        384 =         384
+module.layer3.1.conv_a1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.1.bn_a1.weight                              384 =         384
+module.layer3.1.bn_a1.bias                                384 =         384
+module.layer3.1.conv_a2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.1.bn_a2.weight                              384 =         384
+module.layer3.1.bn_a2.bias                                384 =         384
+module.layer3.1.conv_b1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.1.bn_b1.weight                              384 =         384
+module.layer3.1.bn_b1.bias                                384 =         384
+module.layer3.1.conv_b2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.1.bn_b2.weight                              384 =         384
+module.layer3.1.bn_b2.bias                                384 =         384
+module.layer3.2.conv_a1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.2.bn_a1.weight                              384 =         384
+module.layer3.2.bn_a1.bias                                384 =         384
+module.layer3.2.conv_a2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.2.bn_a2.weight                              384 =         384
+module.layer3.2.bn_a2.bias                                384 =         384
+module.layer3.2.conv_b1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.2.bn_b1.weight                              384 =         384
+module.layer3.2.bn_b1.bias                                384 =         384
+module.layer3.2.conv_b2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.2.bn_b2.weight                              384 =         384
+module.layer3.2.bn_b2.bias                                384 =         384
+module.layer3.3.conv_a1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.3.bn_a1.weight                              384 =         384
+module.layer3.3.bn_a1.bias                                384 =         384
+module.layer3.3.conv_a2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.3.bn_a2.weight                              384 =         384
+module.layer3.3.bn_a2.bias                                384 =         384
+module.layer3.3.conv_b1.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.3.bn_b1.weight                              384 =         384
+module.layer3.3.bn_b1.bias                                384 =         384
+module.layer3.3.conv_b2.weight              384 * 384 * 3 * 3 =   1,327,104
+module.layer3.3.bn_b2.weight                              384 =         384
+module.layer3.3.bn_b2.bias                                384 =         384
+module.fc1.weight                                  1000 * 384 =     384,000
+module.fc1.bias                                          1000 =       1,000
+module.fc2.weight                                  1000 * 384 =     384,000
+module.fc2.bias                                          1000 =       1,000
+===========================================================================
+all parameters                                   sum of above =  26,959,616
+
+=> loading checkpoint '/scratch/ijh216/ssl/ssl2/2019-05-09_17-19-21/10/transient/checkpoint.415.ckpt'
+=> loaded checkpoint '/scratch/ijh216/ssl/ssl2/2019-05-09_17-19-21/10/transient/checkpoint.415.ckpt' (epoch 415)
+Evaluating the resumed model:
+Augmenting Labeled Data
+[128000, 179200]
+Frequent SWAs with frequencies = [3]
+Test: [0/125]	Time 18.865 (18.865)	Data 13.801 (13.801)	Class 4.1270 (4.0000)	Acc@1 28.906 (28.000)	Acc@5 43.359 (43.000)
+Test: [10/125]	Time 0.237 (2.505)	Data 0.000 (1.829)	Class 4.4481 (3.0000)	Acc@1 15.430 (26.000)	Acc@5 33.789 (46.000)
+Test: [20/125]	Time 0.237 (1.971)	Data 0.000 (1.504)	Class 4.5766 (3.0000)	Acc@1 17.383 (26.000)	Acc@5 34.766 (45.000)
+Test: [30/125]	Time 0.236 (1.742)	Data 0.000 (1.349)	Class 4.1686 (3.0000)	Acc@1 24.805 (27.000)	Acc@5 42.188 (45.000)
+Test: [40/125]	Time 9.275 (1.845)	Data 9.020 (1.490)	Class 4.5236 (3.0000)	Acc@1 20.508 (25.000)	Acc@5 36.914 (44.000)
+Test: [50/125]	Time 0.263 (1.733)	Data 0.004 (1.399)	Class 3.9917 (3.0000)	Acc@1 20.508 (24.000)	Acc@5 43.750 (43.000)
+Test: [60/125]	Time 0.236 (1.649)	Data 0.000 (1.331)	Class 4.4400 (3.0000)	Acc@1 16.406 (24.000)	Acc@5 37.305 (42.000)
+Test: [70/125]	Time 0.232 (1.578)	Data 0.000 (1.271)	Class 4.4756 (3.0000)	Acc@1 19.141 (24.000)	Acc@5 38.477 (42.000)
+Test: [80/125]	Time 8.093 (1.646)	Data 7.856 (1.347)	Class 4.7068 (3.0000)	Acc@1 22.461 (24.000)	Acc@5 37.891 (42.000)
+Test: [90/125]	Time 1.228 (1.627)	Data 0.988 (1.335)	Class 3.4492 (3.0000)	Acc@1 37.891 (25.000)	Acc@5 57.031 (44.000)
+Test: [100/125]	Time 0.236 (1.586)	Data 0.000 (1.299)	Class 4.2819 (3.0000)	Acc@1 21.484 (26.000)	Acc@5 41.406 (44.000)
+Test: [110/125]	Time 0.239 (1.559)	Data 0.000 (1.276)	Class 3.0020 (3.0000)	Acc@1 43.945 (26.000)	Acc@5 65.234 (45.000)
+Test: [120/125]	Time 7.602 (1.596)	Data 7.366 (1.317)	Class 2.6384 (3.0000)	Acc@1 50.977 (28.000)	Acc@5 67.969 (47.000)
+ * Acc@1 29.000\Acc@5 47.000
+/home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/nn/_reduction.py:49: UserWarning: size_average and reduce args will be deprecated, please use reduction='sum' instead.
+  warnings.warn(warning.format(ret))
+Epoch: [415][0/134]	Time 13.404 (13.404)	Data 12.188 (12.188)	Class 3.8045 (3.8045)	Cons 0.0714 (0.0714)	Acc@1 28.516 (28.000)	Acc@5 49.414 (49.000)
+Epoch: [415][10/134]	Time 1.118 (3.811)	Data 0.000 (2.680)	Class 3.6668 (3.7555)	Cons 0.0739 (0.0759)	Acc@1 30.469 (27.000)	Acc@5 50.977 (49.000)
+Epoch: [415][20/134]	Time 9.459 (3.621)	Data 8.333 (2.495)	Class 3.7679 (3.7591)	Cons 0.0871 (0.0763)	Acc@1 25.781 (27.000)	Acc@5 46.289 (49.000)
+Epoch: [415][30/134]	Time 1.115 (3.323)	Data 0.000 (2.199)	Class 3.9152 (3.7738)	Cons 0.0661 (0.0769)	Acc@1 26.758 (27.000)	Acc@5 45.117 (48.000)
+Epoch: [415][40/134]	Time 8.122 (3.291)	Data 7.008 (2.168)	Class 3.8724 (3.7780)	Cons 0.0714 (0.0767)	Acc@1 25.000 (27.000)	Acc@5 46.484 (48.000)
+Epoch: [415][50/134]	Time 1.123 (3.168)	Data 0.000 (2.046)	Class 3.7526 (3.7830)	Cons 0.0744 (0.0771)	Acc@1 29.688 (27.000)	Acc@5 48.438 (48.000)
+Epoch: [415][60/134]	Time 8.859 (3.229)	Data 7.741 (2.106)	Class 3.8324 (3.7903)	Cons 0.0680 (0.0768)	Acc@1 27.539 (27.000)	Acc@5 47.070 (48.000)
+Epoch: [415][70/134]	Time 1.124 (3.189)	Data 0.000 (2.066)	Class 4.0192 (3.7977)	Cons 0.0793 (0.0771)	Acc@1 22.461 (27.000)	Acc@5 43.164 (48.000)
+Epoch: [415][80/134]	Time 9.114 (3.230)	Data 7.995 (2.107)	Class 3.9365 (3.8041)	Cons 0.0763 (0.0771)	Acc@1 24.219 (27.000)	Acc@5 44.336 (48.000)
+Epoch: [415][90/134]	Time 1.125 (3.194)	Data 0.000 (2.072)	Class 3.7977 (3.8105)	Cons 0.0831 (0.0770)	Acc@1 25.781 (27.000)	Acc@5 48.633 (47.000)
+Epoch: [415][100/134]	Time 9.727 (3.239)	Data 8.594 (2.117)	Class 3.8966 (3.8129)	Cons 0.0757 (0.0769)	Acc@1 26.758 (26.000)	Acc@5 47.852 (47.000)
+Epoch: [415][110/134]	Time 1.131 (3.195)	Data 0.000 (2.073)	Class 4.0535 (3.8195)	Cons 0.0711 (0.0770)	Acc@1 21.484 (26.000)	Acc@5 41.406 (47.000)
+Epoch: [415][120/134]	Time 8.622 (3.229)	Data 7.505 (2.107)	Class 3.8653 (3.8230)	Cons 0.0929 (0.0768)	Acc@1 26.172 (26.000)	Acc@5 47.852 (47.000)
+Epoch: [415][130/134]	Time 1.125 (3.195)	Data 0.000 (2.073)	Class 3.8657 (3.8264)	Cons 0.0789 (0.0769)	Acc@1 25.391 (26.000)	Acc@5 47.461 (47.000)
+--- training epoch in 429.89911222457886 seconds ---
+Epoch: [416][0/134]	Time 11.901 (11.901)	Data 10.779 (10.779)	Class 3.6569 (3.6569)	Cons 0.0826 (0.0826)	Acc@1 28.711 (28.000)	Acc@5 52.148 (52.000)
+Epoch: [416][10/134]	Time 1.117 (3.272)	Data 0.000 (2.151)	Class 3.6738 (3.7549)	Cons 0.0708 (0.0777)	Acc@1 29.883 (27.000)	Acc@5 52.148 (49.000)
+Epoch: [416][20/134]	Time 6.303 (3.219)	Data 5.171 (2.098)	Class 3.7894 (3.7553)	Cons 0.0766 (0.0779)	Acc@1 27.539 (28.000)	Acc@5 46.094 (49.000)
+Epoch: [416][30/134]	Time 1.123 (3.045)	Data 0.000 (1.923)	Class 3.6880 (3.7665)	Cons 0.0739 (0.0764)	Acc@1 29.492 (27.000)	Acc@5 51.953 (48.000)
+Epoch: [416][40/134]	Time 4.314 (3.009)	Data 3.177 (1.887)	Class 3.7309 (3.7691)	Cons 0.0733 (0.0767)	Acc@1 28.711 (27.000)	Acc@5 49.023 (48.000)
+Epoch: [416][50/134]	Time 1.119 (2.996)	Data 0.000 (1.874)	Class 3.8240 (3.7765)	Cons 0.0813 (0.0766)	Acc@1 29.688 (27.000)	Acc@5 48.828 (48.000)
+Epoch: [416][60/134]	Time 3.138 (2.926)	Data 2.015 (1.805)	Class 3.8045 (3.7897)	Cons 0.0719 (0.0767)	Acc@1 26.367 (27.000)	Acc@5 50.391 (48.000)
+Epoch: [416][70/134]	Time 1.123 (2.895)	Data 0.000 (1.774)	Class 3.6469 (3.7948)	Cons 0.0812 (0.0770)	Acc@1 25.781 (27.000)	Acc@5 50.977 (48.000)
+Epoch: [416][80/134]	Time 4.093 (2.879)	Data 2.972 (1.757)	Class 3.8895 (3.8007)	Cons 0.0795 (0.0768)	Acc@1 27.539 (27.000)	Acc@5 47.656 (48.000)
+Epoch: [416][90/134]	Time 1.123 (2.862)	Data 0.000 (1.741)	Class 3.8126 (3.8059)	Cons 0.0802 (0.0767)	Acc@1 26.172 (26.000)	Acc@5 47.070 (48.000)
+Epoch: [416][100/134]	Time 6.157 (2.870)	Data 5.019 (1.748)	Class 3.8851 (3.8117)	Cons 0.0873 (0.0769)	Acc@1 26.367 (26.000)	Acc@5 45.117 (47.000)
+Epoch: [416][110/134]	Time 1.129 (2.841)	Data 0.000 (1.719)	Class 3.8853 (3.8153)	Cons 0.0800 (0.0771)	Acc@1 26.367 (26.000)	Acc@5 49.219 (47.000)
+Epoch: [416][120/134]	Time 6.336 (2.845)	Data 5.218 (1.723)	Class 3.9172 (3.8218)	Cons 0.0744 (0.0771)	Acc@1 26.367 (26.000)	Acc@5 48.828 (47.000)
+Epoch: [416][130/134]	Time 1.124 (2.818)	Data 0.000 (1.696)	Class 3.8046 (3.8261)	Cons 0.0812 (0.0771)	Acc@1 31.055 (26.000)	Acc@5 49.805 (47.000)
+--- training epoch in 380.1455571651459 seconds ---
+Evaluating the primary model:
+Test: [0/125]	Time 14.370 (14.370)	Data 14.134 (14.134)	Class 4.0214 (4.0000)	Acc@1 29.688 (29.000)	Acc@5 45.703 (45.000)
+Test: [10/125]	Time 0.243 (2.396)	Data 0.001 (2.157)	Class 4.4075 (3.0000)	Acc@1 15.625 (27.000)	Acc@5 34.180 (47.000)
+Test: [20/125]	Time 0.234 (1.846)	Data 0.000 (1.609)	Class 4.7738 (3.0000)	Acc@1 14.844 (26.000)	Acc@5 32.227 (45.000)
+Test: [30/125]	Time 0.237 (1.668)	Data 0.000 (1.430)	Class 4.1596 (3.0000)	Acc@1 24.609 (26.000)	Acc@5 42.773 (45.000)
+Test: [40/125]	Time 9.163 (1.823)	Data 8.926 (1.585)	Class 4.5910 (3.0000)	Acc@1 19.922 (25.000)	Acc@5 35.938 (43.000)
+Test: [50/125]	Time 0.250 (1.736)	Data 0.000 (1.497)	Class 4.0550 (3.0000)	Acc@1 20.703 (24.000)	Acc@5 43.750 (42.000)
+Test: [60/125]	Time 0.236 (1.661)	Data 0.000 (1.423)	Class 4.3938 (3.0000)	Acc@1 17.383 (23.000)	Acc@5 36.523 (42.000)
+Test: [70/125]	Time 0.235 (1.592)	Data 0.000 (1.354)	Class 4.4139 (3.0000)	Acc@1 19.531 (24.000)	Acc@5 38.281 (42.000)
+Test: [80/125]	Time 8.295 (1.641)	Data 8.051 (1.402)	Class 4.7407 (3.0000)	Acc@1 20.898 (24.000)	Acc@5 37.500 (42.000)
+Test: [90/125]	Time 0.237 (1.626)	Data 0.000 (1.387)	Class 3.5260 (3.0000)	Acc@1 36.914 (25.000)	Acc@5 54.297 (43.000)
+Test: [100/125]	Time 0.237 (1.590)	Data 0.000 (1.351)	Class 4.1891 (3.0000)	Acc@1 21.680 (26.000)	Acc@5 42.383 (44.000)
+Test: [110/125]	Time 0.236 (1.552)	Data 0.000 (1.314)	Class 2.9440 (3.0000)	Acc@1 45.312 (26.000)	Acc@5 65.039 (44.000)
+Test: [120/125]	Time 7.587 (1.587)	Data 7.337 (1.348)	Class 2.5915 (3.0000)	Acc@1 51.172 (28.000)	Acc@5 68.359 (46.000)
+ * Acc@1 28.000\Acc@5 47.000
+Evaluating the EMA model:
+Test: [0/125]	Time 10.173 (10.173)	Data 9.936 (9.936)	Class 4.0470 (4.0000)	Acc@1 30.078 (30.000)	Acc@5 44.336 (44.000)
+Test: [10/125]	Time 0.241 (2.024)	Data 0.000 (1.786)	Class 4.3868 (3.0000)	Acc@1 15.234 (27.000)	Acc@5 35.352 (47.000)
+Test: [20/125]	Time 0.237 (1.572)	Data 0.000 (1.333)	Class 4.5560 (3.0000)	Acc@1 16.992 (27.000)	Acc@5 35.352 (46.000)
+Test: [30/125]	Time 0.235 (1.399)	Data 0.000 (1.160)	Class 4.1416 (3.0000)	Acc@1 25.586 (27.000)	Acc@5 41.211 (46.000)
+Test: [40/125]	Time 7.981 (1.500)	Data 7.740 (1.262)	Class 4.4926 (3.0000)	Acc@1 21.484 (26.000)	Acc@5 37.109 (44.000)
+Test: [50/125]	Time 0.238 (1.447)	Data 0.000 (1.208)	Class 3.9729 (3.0000)	Acc@1 21.680 (25.000)	Acc@5 45.898 (43.000)
+Test: [60/125]	Time 0.237 (1.388)	Data 0.000 (1.149)	Class 4.3749 (3.0000)	Acc@1 18.164 (24.000)	Acc@5 37.109 (42.000)
+Test: [70/125]	Time 0.238 (1.366)	Data 0.000 (1.127)	Class 4.4535 (3.0000)	Acc@1 19.922 (25.000)	Acc@5 38.867 (43.000)
+Test: [80/125]	Time 8.853 (1.438)	Data 8.605 (1.199)	Class 4.6983 (3.0000)	Acc@1 22.266 (25.000)	Acc@5 38.086 (43.000)
+Test: [90/125]	Time 0.243 (1.409)	Data 0.000 (1.170)	Class 3.4124 (3.0000)	Acc@1 37.695 (26.000)	Acc@5 57.422 (44.000)
+Test: [100/125]	Time 0.237 (1.392)	Data 0.000 (1.152)	Class 4.2473 (3.0000)	Acc@1 21.680 (26.000)	Acc@5 41.406 (45.000)
+Test: [110/125]	Time 0.237 (1.366)	Data 0.000 (1.126)	Class 2.9558 (3.0000)	Acc@1 45.312 (27.000)	Acc@5 65.039 (45.000)
+Test: [120/125]	Time 9.990 (1.428)	Data 9.753 (1.188)	Class 2.5493 (3.0000)	Acc@1 51.953 (29.000)	Acc@5 69.531 (47.000)
+ * Acc@1 29.000\Acc@5 48.000
+--- validation in 371.59717750549316 seconds ---
+Epoch: [417][0/134]	Time 13.249 (13.249)	Data 12.104 (12.104)	Class 3.8385 (3.8385)	Cons 0.0778 (0.0778)	Acc@1 25.195 (25.000)	Acc@5 45.508 (45.000)
+Epoch: [417][10/134]	Time 1.119 (3.929)	Data 0.000 (2.808)	Class 3.6658 (3.7783)	Cons 0.0862 (0.0789)	Acc@1 29.492 (26.000)	Acc@5 51.367 (48.000)
+Epoch: [417][20/134]	Time 9.231 (3.778)	Data 8.113 (2.656)	Class 3.8030 (3.7583)	Cons 0.0782 (0.0800)	Acc@1 29.492 (27.000)	Acc@5 48.633 (48.000)
+Epoch: [417][30/134]	Time 1.118 (3.457)	Data 0.000 (2.335)	Class 3.5827 (3.7557)	Cons 0.0834 (0.0787)	Acc@1 29.297 (27.000)	Acc@5 51.953 (48.000)
+Epoch: [417][40/134]	Time 10.841 (3.549)	Data 9.706 (2.428)	Class 3.7793 (3.7555)	Cons 0.0759 (0.0786)	Acc@1 28.320 (27.000)	Acc@5 50.586 (48.000)
+Epoch: [417][50/134]	Time 1.121 (3.424)	Data 0.000 (2.303)	Class 3.6832 (3.7611)	Cons 0.0814 (0.0790)	Acc@1 28.320 (27.000)	Acc@5 51.172 (48.000)
+Epoch: [417][60/134]	Time 11.568 (3.496)	Data 10.447 (2.374)	Class 3.7706 (3.7684)	Cons 0.0741 (0.0795)	Acc@1 28.516 (27.000)	Acc@5 50.586 (48.000)
+Epoch: [417][70/134]	Time 1.124 (3.390)	Data 0.000 (2.268)	Class 3.8372 (3.7790)	Cons 0.0883 (0.0796)	Acc@1 27.734 (27.000)	Acc@5 49.219 (48.000)
+Epoch: [417][80/134]	Time 8.922 (3.403)	Data 7.802 (2.282)	Class 3.8590 (3.7854)	Cons 0.0641 (0.0793)	Acc@1 27.734 (27.000)	Acc@5 45.508 (48.000)
+Epoch: [417][90/134]	Time 1.118 (3.359)	Data 0.000 (2.238)	Class 3.7783 (3.7897)	Cons 0.0837 (0.0796)	Acc@1 29.297 (27.000)	Acc@5 47.852 (48.000)
+Epoch: [417][100/134]	Time 10.535 (3.430)	Data 9.398 (2.308)	Class 3.7514 (3.7900)	Cons 0.0807 (0.0796)	Acc@1 26.953 (27.000)	Acc@5 50.586 (48.000)
+Epoch: [417][110/134]	Time 1.121 (3.403)	Data 0.000 (2.282)	Class 3.8595 (3.7982)	Cons 0.0742 (0.0794)	Acc@1 28.516 (27.000)	Acc@5 46.094 (48.000)
+Epoch: [417][120/134]	Time 9.346 (3.437)	Data 8.219 (2.316)	Class 3.6944 (3.7978)	Cons 0.0891 (0.0795)	Acc@1 29.297 (27.000)	Acc@5 52.148 (48.000)
+Epoch: [417][130/134]	Time 1.121 (3.397)	Data 0.000 (2.275)	Class 3.9597 (3.8009)	Cons 0.0756 (0.0794)	Acc@1 25.586 (27.000)	Acc@5 42.578 (47.000)
+--- training epoch in 459.0386905670166 seconds ---
+Epoch: [418][0/134]	Time 13.817 (13.817)	Data 12.693 (12.693)	Class 3.8282 (3.8282)	Cons 0.0817 (0.0817)	Acc@1 28.711 (28.000)	Acc@5 50.781 (50.000)
+Epoch: [418][10/134]	Time 1.123 (3.634)	Data 0.000 (2.509)	Class 3.8258 (3.7362)	Cons 0.0783 (0.0810)	Acc@1 28.125 (28.000)	Acc@5 48.047 (50.000)
+Epoch: [418][20/134]	Time 7.847 (3.527)	Data 6.717 (2.403)	Class 3.9126 (3.7345)	Cons 0.0707 (0.0799)	Acc@1 27.734 (28.000)	Acc@5 49.023 (49.000)
+Epoch: [418][30/134]	Time 1.121 (3.192)	Data 0.000 (2.069)	Class 3.6622 (3.7355)	Cons 0.0722 (0.0792)	Acc@1 29.297 (28.000)	Acc@5 49.219 (49.000)
+Epoch: [418][40/134]	Time 8.047 (3.202)	Data 6.931 (2.078)	Class 3.6311 (3.7391)	Cons 0.0805 (0.0794)	Acc@1 33.789 (28.000)	Acc@5 50.781 (49.000)
+Epoch: [418][50/134]	Time 1.516 (3.061)	Data 0.395 (1.938)	Class 3.8897 (3.7537)	Cons 0.0867 (0.0800)	Acc@1 25.977 (28.000)	Acc@5 45.703 (49.000)
+Epoch: [418][60/134]	Time 8.470 (3.171)	Data 7.348 (2.049)	Class 3.7773 (3.7604)	Cons 0.0717 (0.0793)	Acc@1 27.539 (28.000)	Acc@5 50.000 (48.000)
+Epoch: [418][70/134]	Time 1.121 (3.128)	Data 0.000 (2.005)	Class 3.8627 (3.7629)	Cons 0.0694 (0.0790)	Acc@1 24.414 (27.000)	Acc@5 48.633 (48.000)
+Epoch: [418][80/134]	Time 6.771 (3.146)	Data 5.632 (2.024)	Class 3.8059 (3.7722)	Cons 0.0745 (0.0792)	Acc@1 25.000 (27.000)	Acc@5 47.852 (48.000)
+Epoch: [418][90/134]	Time 1.131 (3.092)	Data 0.000 (1.969)	Class 4.0144 (3.7763)	Cons 0.0794 (0.0793)	Acc@1 21.875 (27.000)	Acc@5 44.141 (48.000)
+Epoch: [418][100/134]	Time 12.550 (3.137)	Data 11.429 (2.015)	Class 3.7570 (3.7780)	Cons 0.0743 (0.0794)	Acc@1 27.539 (27.000)	Acc@5 49.219 (48.000)
+Epoch: [418][110/134]	Time 1.130 (3.095)	Data 0.000 (1.972)	Class 3.7355 (3.7820)	Cons 0.0721 (0.0795)	Acc@1 30.664 (27.000)	Acc@5 49.609 (48.000)
+Epoch: [418][120/134]	Time 8.188 (3.099)	Data 7.070 (1.976)	Class 3.8990 (3.7870)	Cons 0.0704 (0.0794)	Acc@1 26.758 (27.000)	Acc@5 46.289 (48.000)
+Epoch: [418][130/134]	Time 1.123 (3.050)	Data 0.000 (1.927)	Class 3.8532 (3.7934)	Cons 0.0737 (0.0794)	Acc@1 25.781 (27.000)	Acc@5 47.266 (48.000)
+--- training epoch in 410.00787806510925 seconds ---
+Epoch: [419][0/134]	Time 14.062 (14.062)	Data 12.938 (12.938)	Class 3.7323 (3.7323)	Cons 0.0815 (0.0815)	Acc@1 27.539 (27.000)	Acc@5 51.562 (51.000)
+Epoch: [419][10/134]	Time 1.119 (3.412)	Data 0.000 (2.290)	Class 3.6798 (3.7330)	Cons 0.0791 (0.0767)	Acc@1 30.859 (28.000)	Acc@5 50.977 (50.000)
+Epoch: [419][20/134]	Time 7.938 (3.252)	Data 6.813 (2.126)	Class 3.6967 (3.7294)	Cons 0.0751 (0.0779)	Acc@1 30.078 (28.000)	Acc@5 51.758 (49.000)
+Epoch: [419][30/134]	Time 1.119 (3.007)	Data 0.000 (1.882)	Class 3.8120 (3.7307)	Cons 0.0811 (0.0788)	Acc@1 25.586 (28.000)	Acc@5 48.828 (49.000)
+Epoch: [419][40/134]	Time 9.347 (3.118)	Data 8.211 (1.993)	Class 3.6469 (3.7217)	Cons 0.0814 (0.0792)	Acc@1 28.320 (28.000)	Acc@5 51.758 (49.000)
+Epoch: [419][50/134]	Time 1.124 (3.047)	Data 0.000 (1.923)	Class 3.8244 (3.7376)	Cons 0.0720 (0.0793)	Acc@1 25.391 (27.000)	Acc@5 49.414 (49.000)
+Epoch: [419][60/134]	Time 9.919 (3.094)	Data 8.778 (1.970)	Class 3.7419 (3.7442)	Cons 0.0805 (0.0797)	Acc@1 28.125 (27.000)	Acc@5 50.391 (49.000)
+Epoch: [419][70/134]	Time 1.123 (2.996)	Data 0.000 (1.872)	Class 3.6857 (3.7439)	Cons 0.0768 (0.0797)	Acc@1 32.031 (27.000)	Acc@5 50.977 (49.000)
+Epoch: [419][80/134]	Time 7.286 (3.004)	Data 6.159 (1.879)	Class 3.8961 (3.7509)	Cons 0.0800 (0.0799)	Acc@1 26.172 (27.000)	Acc@5 47.266 (49.000)
+Epoch: [419][90/134]	Time 1.120 (2.952)	Data 0.000 (1.827)	Class 3.7072 (3.7598)	Cons 0.0902 (0.0801)	Acc@1 29.102 (27.000)	Acc@5 49.805 (49.000)
+Epoch: [419][100/134]	Time 9.540 (3.013)	Data 8.421 (1.889)	Class 3.8055 (3.7655)	Cons 0.0776 (0.0804)	Acc@1 28.125 (27.000)	Acc@5 47.266 (48.000)
+Epoch: [419][110/134]	Time 1.142 (3.016)	Data 0.000 (1.892)	Class 3.7324 (3.7684)	Cons 0.0843 (0.0803)	Acc@1 29.883 (27.000)	Acc@5 50.195 (48.000)
+Epoch: [419][120/134]	Time 6.572 (3.063)	Data 5.433 (1.939)	Class 3.7494 (3.7735)	Cons 0.0807 (0.0804)	Acc@1 29.688 (27.000)	Acc@5 49.414 (48.000)
+Epoch: [419][130/134]	Time 1.123 (3.044)	Data 0.000 (1.920)	Class 3.7732 (3.7759)	Cons 0.0799 (0.0806)	Acc@1 26.367 (27.000)	Acc@5 48.828 (48.000)
+--- training epoch in 409.1122479438782 seconds ---
+Evaluating the primary model:
+Test: [0/125]	Time 14.866 (14.866)	Data 14.604 (14.604)	Class 4.1565 (4.0000)	Acc@1 28.906 (28.000)	Acc@5 43.750 (43.000)
+Test: [10/125]	Time 0.836 (2.855)	Data 0.601 (2.615)	Class 4.3584 (3.0000)	Acc@1 17.383 (27.000)	Acc@5 36.133 (47.000)
+Test: [20/125]	Time 0.236 (2.226)	Data 0.000 (1.988)	Class 4.6265 (3.0000)	Acc@1 17.578 (26.000)	Acc@5 33.984 (45.000)
+Test: [30/125]	Time 0.234 (2.076)	Data 0.000 (1.837)	Class 4.1378 (3.0000)	Acc@1 25.195 (27.000)	Acc@5 41.406 (46.000)
+Test: [40/125]	Time 13.434 (2.237)	Data 13.183 (1.999)	Class 4.5428 (3.0000)	Acc@1 21.289 (25.000)	Acc@5 36.328 (44.000)
+Test: [50/125]	Time 0.237 (2.066)	Data 0.000 (1.826)	Class 3.9535 (3.0000)	Acc@1 20.703 (24.000)	Acc@5 44.922 (43.000)
+Test: [60/125]	Time 0.239 (1.952)	Data 0.000 (1.712)	Class 4.2917 (3.0000)	Acc@1 19.336 (24.000)	Acc@5 38.867 (42.000)
+Test: [70/125]	Time 0.262 (1.886)	Data 0.000 (1.645)	Class 4.4069 (3.0000)	Acc@1 20.312 (24.000)	Acc@5 38.086 (43.000)
+Test: [80/125]	Time 11.843 (1.968)	Data 11.605 (1.727)	Class 4.7796 (3.0000)	Acc@1 20.312 (24.000)	Acc@5 36.133 (43.000)
+Test: [90/125]	Time 0.237 (1.903)	Data 0.000 (1.662)	Class 3.3769 (3.0000)	Acc@1 38.672 (25.000)	Acc@5 57.422 (44.000)
+Test: [100/125]	Time 0.865 (1.848)	Data 0.630 (1.607)	Class 4.2266 (3.0000)	Acc@1 21.289 (26.000)	Acc@5 41.406 (44.000)
+Test: [110/125]	Time 0.245 (1.822)	Data 0.000 (1.582)	Class 2.9921 (3.0000)	Acc@1 44.141 (26.000)	Acc@5 64.062 (45.000)
+Test: [120/125]	Time 11.512 (1.873)	Data 11.275 (1.633)	Class 2.6721 (3.0000)	Acc@1 48.047 (28.000)	Acc@5 66.406 (47.000)
+ * Acc@1 29.000\Acc@5 47.000
+Evaluating the EMA model:
+Test: [0/125]	Time 13.995 (13.995)	Data 13.735 (13.735)	Class 4.0515 (4.0000)	Acc@1 29.102 (29.000)	Acc@5 43.945 (43.000)
+Test: [10/125]	Time 0.234 (2.580)	Data 0.000 (2.340)	Class 4.3825 (3.0000)	Acc@1 16.016 (27.000)	Acc@5 34.766 (47.000)
+Test: [20/125]	Time 0.249 (1.979)	Data 0.000 (1.740)	Class 4.6059 (3.0000)	Acc@1 16.797 (26.000)	Acc@5 34.570 (46.000)
+Test: [30/125]	Time 0.251 (1.733)	Data 0.000 (1.494)	Class 4.1493 (3.0000)	Acc@1 25.391 (27.000)	Acc@5 41.406 (46.000)
+Test: [40/125]	Time 9.461 (1.803)	Data 9.209 (1.563)	Class 4.5084 (3.0000)	Acc@1 21.289 (25.000)	Acc@5 36.914 (44.000)
+Test: [50/125]	Time 0.246 (1.683)	Data 0.000 (1.444)	Class 3.9635 (3.0000)	Acc@1 21.094 (24.000)	Acc@5 44.922 (43.000)
+Test: [60/125]	Time 0.236 (1.665)	Data 0.000 (1.425)	Class 4.3721 (3.0000)	Acc@1 17.969 (24.000)	Acc@5 36.523 (42.000)
+Test: [70/125]	Time 0.237 (1.645)	Data 0.000 (1.405)	Class 4.4253 (3.0000)	Acc@1 19.922 (24.000)	Acc@5 39.648 (43.000)
+Test: [80/125]	Time 7.443 (1.681)	Data 7.203 (1.441)	Class 4.7105 (3.0000)	Acc@1 21.875 (25.000)	Acc@5 38.281 (43.000)
+Test: [90/125]	Time 0.237 (1.653)	Data 0.000 (1.413)	Class 3.4157 (3.0000)	Acc@1 36.914 (26.000)	Acc@5 57.227 (44.000)
+Test: [100/125]	Time 0.237 (1.652)	Data 0.001 (1.412)	Class 4.2207 (3.0000)	Acc@1 21.484 (26.000)	Acc@5 41.992 (45.000)
+Test: [110/125]	Time 0.237 (1.621)	Data 0.000 (1.380)	Class 2.9218 (3.0000)	Acc@1 45.508 (27.000)	Acc@5 65.625 (45.000)
+Test: [120/125]	Time 7.220 (1.657)	Data 6.983 (1.417)	Class 2.5432 (3.0000)	Acc@1 52.930 (29.000)	Acc@5 68.945 (47.000)
+ * Acc@1 29.000\Acc@5 48.000
+--- validation in 432.5976393222809 seconds ---
+--- checkpoint saved to /scratch/ijh216/ssl//ssl2/2019-05-10_09-59-18/10/transient/checkpoint.420.ckpt ---
+Epoch: [420][0/134]	Time 14.739 (14.739)	Data 13.600 (13.600)	Class 3.4977 (3.4977)	Cons 0.0980 (0.0980)	Acc@1 33.789 (33.000)	Acc@5 53.320 (53.000)
+Epoch: [420][10/134]	Time 1.125 (4.315)	Data 0.000 (3.192)	Class 3.7219 (3.6855)	Cons 0.0786 (0.0823)	Acc@1 26.953 (29.000)	Acc@5 49.414 (50.000)
+Epoch: [420][20/134]	Time 12.088 (4.390)	Data 10.975 (3.266)	Class 3.8311 (3.6949)	Cons 0.0752 (0.0834)	Acc@1 27.344 (28.000)	Acc@5 46.289 (50.000)
+Epoch: [420][30/134]	Time 1.124 (4.034)	Data 0.000 (2.910)	Class 3.6968 (3.6895)	Cons 0.0765 (0.0825)	Acc@1 30.273 (28.000)	Acc@5 50.586 (50.000)
+Epoch: [420][40/134]	Time 9.840 (4.053)	Data 8.723 (2.929)	Class 3.7474 (3.6974)	Cons 0.0853 (0.0820)	Acc@1 28.125 (28.000)	Acc@5 49.609 (50.000)
+Epoch: [420][50/134]	Time 1.122 (3.889)	Data 0.000 (2.765)	Class 3.7722 (3.7060)	Cons 0.0849 (0.0814)	Acc@1 28.711 (28.000)	Acc@5 48.242 (50.000)
+Epoch: [420][60/134]	Time 9.385 (3.909)	Data 8.246 (2.786)	Class 3.7105 (3.7136)	Cons 0.0854 (0.0815)	Acc@1 29.102 (28.000)	Acc@5 51.953 (49.000)
+Epoch: [420][70/134]	Time 1.124 (3.829)	Data 0.000 (2.706)	Class 3.7112 (3.7183)	Cons 0.0836 (0.0812)	Acc@1 30.469 (28.000)	Acc@5 49.414 (49.000)
+Epoch: [420][80/134]	Time 11.653 (3.920)	Data 10.526 (2.796)	Class 3.8213 (3.7213)	Cons 0.0825 (0.0812)	Acc@1 26.953 (28.000)	Acc@5 47.656 (49.000)
+Epoch: [420][90/134]	Time 1.126 (3.870)	Data 0.000 (2.747)	Class 4.0096 (3.7249)	Cons 0.0734 (0.0811)	Acc@1 24.219 (28.000)	Acc@5 44.922 (49.000)
+Epoch: [420][100/134]	Time 12.986 (3.920)	Data 11.854 (2.797)	Class 3.8231 (3.7322)	Cons 0.0859 (0.0811)	Acc@1 28.516 (28.000)	Acc@5 49.219 (49.000)
+Epoch: [420][110/134]	Time 1.126 (3.833)	Data 0.000 (2.710)	Class 3.6490 (3.7349)	Cons 0.0862 (0.0811)	Acc@1 31.641 (28.000)	Acc@5 51.953 (49.000)
+Epoch: [420][120/134]	Time 11.732 (3.887)	Data 10.602 (2.764)	Class 3.9143 (3.7359)	Cons 0.0806 (0.0811)	Acc@1 27.930 (28.000)	Acc@5 46.484 (49.000)
+Epoch: [420][130/134]	Time 1.125 (3.827)	Data 0.000 (2.704)	Class 3.9498 (3.7424)	Cons 0.0789 (0.0811)	Acc@1 27.539 (28.000)	Acc@5 44.727 (49.000)
+--- training epoch in 514.3869304656982 seconds ---
+Epoch: [421][0/134]	Time 15.166 (15.166)	Data 14.036 (14.036)	Class 3.7510 (3.7510)	Cons 0.0857 (0.0857)	Acc@1 29.883 (29.000)	Acc@5 49.023 (49.000)
+Epoch: [421][10/134]	Time 1.123 (3.937)	Data 0.000 (2.814)	Class 3.7522 (3.6712)	Cons 0.0825 (0.0826)	Acc@1 27.930 (29.000)	Acc@5 50.391 (50.000)
+Epoch: [421][20/134]	Time 7.792 (3.599)	Data 6.673 (2.476)	Class 3.6280 (3.6663)	Cons 0.0828 (0.0828)	Acc@1 29.102 (29.000)	Acc@5 49.219 (50.000)
+Epoch: [421][30/134]	Time 1.124 (3.282)	Data 0.000 (2.159)	Class 3.7331 (3.6719)	Cons 0.1005 (0.0831)	Acc@1 30.469 (29.000)	Acc@5 51.367 (50.000)
+Epoch: [421][40/134]	Time 8.642 (3.384)	Data 7.527 (2.261)	Class 3.6260 (3.6800)	Cons 0.0862 (0.0825)	Acc@1 30.859 (29.000)	Acc@5 52.344 (50.000)
+Epoch: [421][50/134]	Time 1.129 (3.261)	Data 0.000 (2.138)	Class 3.7349 (3.6865)	Cons 0.0839 (0.0825)	Acc@1 30.664 (29.000)	Acc@5 51.758 (50.000)
+Epoch: [421][60/134]	Time 7.535 (3.286)	Data 6.400 (2.163)	Class 3.9223 (3.6949)	Cons 0.0802 (0.0826)	Acc@1 25.977 (29.000)	Acc@5 45.508 (49.000)
+Epoch: [421][70/134]	Time 1.123 (3.160)	Data 0.000 (2.036)	Class 3.7965 (3.7023)	Cons 0.0792 (0.0824)	Acc@1 26.562 (28.000)	Acc@5 50.000 (49.000)
+Epoch: [421][80/134]	Time 9.374 (3.179)	Data 8.240 (2.056)	Class 3.8612 (3.7095)	Cons 0.0788 (0.0819)	Acc@1 28.320 (28.000)	Acc@5 46.680 (49.000)
+Epoch: [421][90/134]	Time 1.123 (3.115)	Data 0.000 (1.992)	Class 3.7434 (3.7162)	Cons 0.0836 (0.0822)	Acc@1 28.906 (28.000)	Acc@5 48.438 (49.000)
+Epoch: [421][100/134]	Time 7.367 (3.115)	Data 6.241 (1.992)	Class 3.8126 (3.7193)	Cons 0.0790 (0.0823)	Acc@1 26.562 (28.000)	Acc@5 48.633 (49.000)
+Epoch: [421][110/134]	Time 1.130 (3.086)	Data 0.000 (1.963)	Class 3.6959 (3.7215)	Cons 0.0865 (0.0821)	Acc@1 29.688 (28.000)	Acc@5 50.586 (49.000)
+Epoch: [421][120/134]	Time 7.358 (3.102)	Data 6.239 (1.979)	Class 3.7133 (3.7217)	Cons 0.0829 (0.0822)	Acc@1 30.078 (28.000)	Acc@5 51.953 (49.000)
+Epoch: [421][130/134]	Time 1.120 (3.048)	Data 0.000 (1.925)	Class 3.7658 (3.7257)	Cons 0.0774 (0.0820)	Acc@1 27.930 (28.000)	Acc@5 48.828 (49.000)
+--- training epoch in 409.47867608070374 seconds ---
+Epoch: [422][0/134]	Time 13.450 (13.450)	Data 12.331 (12.331)	Class 3.6380 (3.6380)	Cons 0.0844 (0.0844)	Acc@1 28.516 (28.000)	Acc@5 49.609 (49.000)
+Epoch: [422][10/134]	Time 1.120 (3.493)	Data 0.000 (2.369)	Class 3.6508 (3.6415)	Cons 0.0868 (0.0837)	Acc@1 26.758 (28.000)	Acc@5 50.586 (50.000)
+Epoch: [422][20/134]	Time 8.668 (3.384)	Data 7.536 (2.261)	Class 3.6968 (3.6376)	Cons 0.0817 (0.0848)	Acc@1 30.664 (29.000)	Acc@5 49.609 (51.000)
+Epoch: [422][30/134]	Time 1.121 (3.189)	Data 0.000 (2.065)	Class 3.6675 (3.6404)	Cons 0.0766 (0.0843)	Acc@1 31.641 (29.000)	Acc@5 51.367 (51.000)
+Epoch: [422][40/134]	Time 6.674 (3.142)	Data 5.540 (2.019)	Class 3.7065 (3.6478)	Cons 0.0805 (0.0837)	Acc@1 25.391 (29.000)	Acc@5 50.391 (51.000)
+Epoch: [422][50/134]	Time 1.119 (3.053)	Data 0.000 (1.931)	Class 3.7442 (3.6534)	Cons 0.0820 (0.0834)	Acc@1 28.906 (29.000)	Acc@5 47.656 (50.000)
+Epoch: [422][60/134]	Time 3.991 (3.022)	Data 2.873 (1.900)	Class 3.6001 (3.6598)	Cons 0.0817 (0.0833)	Acc@1 30.469 (29.000)	Acc@5 51.562 (50.000)
+Epoch: [422][70/134]	Time 1.119 (3.000)	Data 0.000 (1.878)	Class 3.7549 (3.6671)	Cons 0.0823 (0.0835)	Acc@1 28.711 (29.000)	Acc@5 49.219 (50.000)
+Epoch: [422][80/134]	Time 2.685 (2.940)	Data 1.569 (1.818)	Class 3.8346 (3.6800)	Cons 0.0842 (0.0838)	Acc@1 29.102 (28.000)	Acc@5 49.609 (50.000)
+Epoch: [422][90/134]	Time 1.118 (2.956)	Data 0.000 (1.834)	Class 3.8450 (3.6888)	Cons 0.0820 (0.0834)	Acc@1 27.148 (28.000)	Acc@5 47.852 (50.000)
+Epoch: [422][100/134]	Time 4.002 (2.952)	Data 2.865 (1.829)	Class 3.7367 (3.6895)	Cons 0.0860 (0.0836)	Acc@1 28.906 (28.000)	Acc@5 51.562 (50.000)
+Epoch: [422][110/134]	Time 1.123 (2.949)	Data 0.000 (1.826)	Class 3.8114 (3.6904)	Cons 0.0802 (0.0837)	Acc@1 29.297 (28.000)	Acc@5 48.828 (50.000)
+Epoch: [422][120/134]	Time 2.897 (2.923)	Data 1.777 (1.801)	Class 3.7447 (3.6942)	Cons 0.0889 (0.0837)	Acc@1 28.906 (28.000)	Acc@5 48.438 (50.000)
+Epoch: [422][130/134]	Time 1.118 (2.946)	Data 0.000 (1.824)	Class 3.8254 (3.7034)	Cons 0.0824 (0.0838)	Acc@1 27.344 (28.000)	Acc@5 48.828 (50.000)
+--- training epoch in 397.39571809768677 seconds ---
+Evaluating the primary model:
+Test: [0/125]	Time 13.695 (13.695)	Data 13.434 (13.434)	Class 4.0929 (4.0000)	Acc@1 29.297 (29.000)	Acc@5 45.508 (45.000)
+Test: [10/125]	Time 0.246 (2.370)	Data 0.000 (2.130)	Class 4.4269 (3.0000)	Acc@1 15.625 (27.000)	Acc@5 35.156 (47.000)
+Test: [20/125]	Time 0.236 (1.857)	Data 0.000 (1.617)	Class 4.6259 (3.0000)	Acc@1 17.383 (26.000)	Acc@5 35.742 (46.000)
+Test: [30/125]	Time 0.240 (1.707)	Data 0.000 (1.467)	Class 4.2818 (3.0000)	Acc@1 24.023 (27.000)	Acc@5 39.844 (46.000)
+Test: [40/125]	Time 11.806 (1.920)	Data 11.568 (1.681)	Class 4.6096 (3.0000)	Acc@1 19.727 (25.000)	Acc@5 35.742 (44.000)
+Test: [50/125]	Time 0.236 (1.795)	Data 0.000 (1.556)	Class 4.0004 (3.0000)	Acc@1 22.852 (24.000)	Acc@5 44.531 (42.000)
+Test: [60/125]	Time 0.235 (1.707)	Data 0.000 (1.468)	Class 4.3590 (3.0000)	Acc@1 18.164 (24.000)	Acc@5 37.109 (42.000)
+Test: [70/125]	Time 0.238 (1.683)	Data 0.000 (1.444)	Class 4.4580 (3.0000)	Acc@1 19.922 (24.000)	Acc@5 37.109 (42.000)
+Test: [80/125]	Time 10.257 (1.757)	Data 10.003 (1.518)	Class 4.7246 (3.0000)	Acc@1 19.727 (24.000)	Acc@5 36.719 (42.000)
+Test: [90/125]	Time 0.238 (1.716)	Data 0.000 (1.476)	Class 3.3283 (3.0000)	Acc@1 40.039 (25.000)	Acc@5 57.422 (43.000)
+Test: [100/125]	Time 0.235 (1.670)	Data 0.000 (1.430)	Class 4.2801 (3.0000)	Acc@1 19.922 (26.000)	Acc@5 39.844 (44.000)
+Test: [110/125]	Time 0.236 (1.641)	Data 0.000 (1.401)	Class 2.9982 (3.0000)	Acc@1 44.727 (26.000)	Acc@5 63.477 (44.000)
+Test: [120/125]	Time 11.133 (1.710)	Data 10.896 (1.470)	Class 2.5285 (3.0000)	Acc@1 50.977 (28.000)	Acc@5 70.117 (47.000)
+ * Acc@1 28.000\Acc@5 47.000
+Evaluating the EMA model:
+Test: [0/125]	Time 13.574 (13.574)	Data 13.330 (13.330)	Class 4.0189 (4.0000)	Acc@1 30.469 (30.000)	Acc@5 44.727 (44.000)
+Test: [10/125]	Time 0.237 (2.306)	Data 0.000 (2.064)	Class 4.3579 (3.0000)	Acc@1 16.211 (27.000)	Acc@5 36.133 (47.000)
+Test: [20/125]	Time 0.234 (1.824)	Data 0.000 (1.582)	Class 4.5732 (3.0000)	Acc@1 17.188 (27.000)	Acc@5 35.547 (46.000)
+Test: [30/125]	Time 0.237 (1.643)	Data 0.000 (1.402)	Class 4.1507 (3.0000)	Acc@1 25.000 (27.000)	Acc@5 41.211 (46.000)
+Test: [40/125]	Time 10.419 (1.757)	Data 10.172 (1.517)	Class 4.4812 (3.0000)	Acc@1 21.484 (26.000)	Acc@5 38.086 (44.000)
+Test: [50/125]	Time 0.236 (1.690)	Data 0.000 (1.450)	Class 3.9265 (3.0000)	Acc@1 21.484 (25.000)	Acc@5 47.070 (43.000)
+Test: [60/125]	Time 0.236 (1.600)	Data 0.000 (1.359)	Class 4.3483 (3.0000)	Acc@1 18.359 (24.000)	Acc@5 36.914 (43.000)
+Test: [70/125]	Time 0.237 (1.549)	Data 0.000 (1.309)	Class 4.4143 (3.0000)	Acc@1 19.531 (25.000)	Acc@5 37.695 (43.000)
+Test: [80/125]	Time 7.591 (1.621)	Data 7.354 (1.381)	Class 4.6953 (3.0000)	Acc@1 21.875 (25.000)	Acc@5 36.719 (43.000)
+Test: [90/125]	Time 1.435 (1.606)	Data 1.192 (1.366)	Class 3.3693 (3.0000)	Acc@1 37.109 (26.000)	Acc@5 58.203 (44.000)
+Test: [100/125]	Time 0.238 (1.574)	Data 0.000 (1.334)	Class 4.2696 (3.0000)	Acc@1 20.898 (26.000)	Acc@5 41.016 (45.000)
+Test: [110/125]	Time 0.236 (1.535)	Data 0.000 (1.295)	Class 2.9295 (3.0000)	Acc@1 44.922 (27.000)	Acc@5 65.430 (45.000)
+Test: [120/125]	Time 4.355 (1.532)	Data 4.118 (1.292)	Class 2.5354 (3.0000)	Acc@1 51.562 (29.000)	Acc@5 69.922 (47.000)
+ * Acc@1 29.000\Acc@5 48.000
+--- validation in 398.0823655128479 seconds ---
+Epoch: [423][0/134]	Time 12.806 (12.806)	Data 11.685 (11.685)	Class 3.6093 (3.6093)	Cons 0.0854 (0.0854)	Acc@1 31.055 (31.000)	Acc@5 52.539 (52.000)
+Epoch: [423][10/134]	Time 1.118 (3.438)	Data 0.000 (2.315)	Class 3.6030 (3.6529)	Cons 0.0807 (0.0839)	Acc@1 31.250 (29.000)	Acc@5 53.906 (50.000)
+Epoch: [423][20/134]	Time 8.091 (3.438)	Data 6.953 (2.316)	Class 3.4990 (3.6674)	Cons 0.0811 (0.0848)	Acc@1 32.422 (29.000)	Acc@5 52.539 (50.000)
+Epoch: [423][30/134]	Time 1.121 (3.197)	Data 0.000 (2.076)	Class 3.8337 (3.6674)	Cons 0.0812 (0.0848)	Acc@1 28.516 (29.000)	Acc@5 47.461 (50.000)
+Epoch: [423][40/134]	Time 8.162 (3.264)	Data 7.042 (2.143)	Class 3.5927 (3.6812)	Cons 0.0880 (0.0849)	Acc@1 29.688 (29.000)	Acc@5 52.930 (50.000)
+Epoch: [423][50/134]	Time 1.122 (3.147)	Data 0.000 (2.026)	Class 3.7820 (3.6778)	Cons 0.0785 (0.0853)	Acc@1 25.195 (29.000)	Acc@5 46.289 (50.000)
+Epoch: [423][60/134]	Time 9.161 (3.196)	Data 8.044 (2.075)	Class 3.6214 (3.6808)	Cons 0.0823 (0.0854)	Acc@1 30.859 (29.000)	Acc@5 53.125 (50.000)
+Epoch: [423][70/134]	Time 1.124 (3.167)	Data 0.000 (2.045)	Class 3.7613 (3.6879)	Cons 0.0847 (0.0854)	Acc@1 28.516 (29.000)	Acc@5 48.633 (50.000)
+Epoch: [423][80/134]	Time 5.773 (3.175)	Data 4.658 (2.054)	Class 3.7514 (3.6891)	Cons 0.0837 (0.0855)	Acc@1 27.734 (29.000)	Acc@5 48.438 (50.000)
+Epoch: [423][90/134]	Time 1.120 (3.170)	Data 0.000 (2.048)	Class 3.6580 (3.6881)	Cons 0.0824 (0.0858)	Acc@1 29.492 (29.000)	Acc@5 50.195 (50.000)
+Epoch: [423][100/134]	Time 4.435 (3.143)	Data 3.295 (2.022)	Class 3.5397 (3.6850)	Cons 0.0800 (0.0859)	Acc@1 32.031 (29.000)	Acc@5 54.883 (50.000)
+Epoch: [423][110/134]	Time 1.123 (3.137)	Data 0.000 (2.016)	Class 3.8280 (3.6912)	Cons 0.0789 (0.0858)	Acc@1 28.125 (29.000)	Acc@5 48.047 (50.000)
+Epoch: [423][120/134]	Time 5.129 (3.138)	Data 4.012 (2.017)	Class 3.9655 (3.6968)	Cons 0.0742 (0.0856)	Acc@1 26.367 (28.000)	Acc@5 45.703 (49.000)
+Epoch: [423][130/134]	Time 1.120 (3.126)	Data 0.000 (2.004)	Class 3.7102 (3.7010)	Cons 0.0907 (0.0857)	Acc@1 27.344 (28.000)	Acc@5 51.172 (49.000)
+--- training epoch in 422.5120167732239 seconds ---
+Epoch: [424][0/134]	Time 12.102 (12.102)	Data 10.986 (10.986)	Class 3.7354 (3.7354)	Cons 0.0816 (0.0816)	Acc@1 26.953 (26.000)	Acc@5 49.023 (49.000)
+Epoch: [424][10/134]	Time 1.123 (3.257)	Data 0.000 (2.135)	Class 3.7315 (3.6191)	Cons 0.0783 (0.0826)	Acc@1 29.297 (29.000)	Acc@5 50.586 (50.000)
+Epoch: [424][20/134]	Time 7.017 (3.099)	Data 5.897 (1.976)	Class 3.5365 (3.6192)	Cons 0.0939 (0.0837)	Acc@1 33.008 (29.000)	Acc@5 53.125 (51.000)
+Epoch: [424][30/134]	Time 1.122 (2.862)	Data 0.000 (1.739)	Class 3.4375 (3.6088)	Cons 0.0933 (0.0850)	Acc@1 34.766 (30.000)	Acc@5 55.078 (51.000)
+Epoch: [424][40/134]	Time 7.033 (2.843)	Data 5.915 (1.721)	Class 3.6525 (3.6236)	Cons 0.0893 (0.0846)	Acc@1 29.883 (29.000)	Acc@5 52.539 (51.000)
+Epoch: [424][50/134]	Time 1.125 (2.808)	Data 0.000 (1.685)	Class 3.6293 (3.6373)	Cons 0.1028 (0.0856)	Acc@1 29.492 (29.000)	Acc@5 52.344 (51.000)
+Epoch: [424][60/134]	Time 7.644 (2.883)	Data 6.524 (1.761)	Class 3.7146 (3.6430)	Cons 0.0801 (0.0855)	Acc@1 29.688 (29.000)	Acc@5 50.195 (51.000)
+Epoch: [424][70/134]	Time 1.120 (2.861)	Data 0.000 (1.739)	Class 3.6104 (3.6405)	Cons 0.0882 (0.0862)	Acc@1 29.102 (29.000)	Acc@5 53.711 (51.000)
+Epoch: [424][80/134]	Time 8.105 (2.893)	Data 6.961 (1.771)	Class 3.6894 (3.6415)	Cons 0.0821 (0.0861)	Acc@1 28.125 (29.000)	Acc@5 50.586 (51.000)
+Epoch: [424][90/134]	Time 1.116 (2.855)	Data 0.000 (1.733)	Class 3.7436 (3.6496)	Cons 0.0955 (0.0862)	Acc@1 30.469 (29.000)	Acc@5 51.562 (51.000)
+Epoch: [424][100/134]	Time 8.277 (2.868)	Data 7.159 (1.746)	Class 3.7496 (3.6577)	Cons 0.0848 (0.0862)	Acc@1 30.859 (29.000)	Acc@5 48.828 (50.000)
+Epoch: [424][110/134]	Time 1.123 (2.831)	Data 0.000 (1.709)	Class 3.7499 (3.6551)	Cons 0.0836 (0.0864)	Acc@1 26.758 (29.000)	Acc@5 49.414 (50.000)
+Epoch: [424][120/134]	Time 9.212 (2.898)	Data 8.094 (1.776)	Class 3.6556 (3.6546)	Cons 0.0870 (0.0866)	Acc@1 29.102 (29.000)	Acc@5 51.562 (50.000)
+Epoch: [424][130/134]	Time 1.118 (2.865)	Data 0.000 (1.743)	Class 3.8094 (3.6611)	Cons 0.0840 (0.0866)	Acc@1 25.000 (29.000)	Acc@5 50.586 (50.000)
+--- training epoch in 385.429518699646 seconds ---
+--- checkpoint saved to /scratch/ijh216/ssl//ssl2/2019-05-10_09-59-18/10/transient/checkpoint.425.ckpt ---
+Epoch: [425][0/134]	Time 11.953 (11.953)	Data 10.837 (10.837)	Class 3.7311 (3.7311)	Cons 0.0894 (0.0894)	Acc@1 27.734 (27.000)	Acc@5 50.000 (50.000)
+Epoch: [425][10/134]	Time 1.118 (3.260)	Data 0.000 (2.139)	Class 3.4549 (3.5673)	Cons 0.0955 (0.0889)	Acc@1 34.570 (30.000)	Acc@5 56.641 (52.000)
+Epoch: [425][20/134]	Time 7.217 (3.174)	Data 6.102 (2.054)	Class 3.7898 (3.5899)	Cons 0.0820 (0.0891)	Acc@1 26.953 (30.000)	Acc@5 47.852 (51.000)
+Epoch: [425][30/134]	Time 1.134 (2.974)	Data 0.000 (1.853)	Class 3.7106 (3.6111)	Cons 0.0828 (0.0882)	Acc@1 27.930 (30.000)	Acc@5 50.781 (51.000)
+Epoch: [425][40/134]	Time 8.389 (3.047)	Data 7.248 (1.925)	Class 3.7286 (3.6237)	Cons 0.0888 (0.0881)	Acc@1 29.297 (29.000)	Acc@5 47.656 (51.000)
+Epoch: [425][50/134]	Time 1.124 (2.931)	Data 0.000 (1.809)	Class 3.8273 (3.6318)	Cons 0.0764 (0.0876)	Acc@1 27.148 (29.000)	Acc@5 46.875 (51.000)
+Epoch: [425][60/134]	Time 7.656 (2.968)	Data 6.536 (1.846)	Class 3.5354 (3.6376)	Cons 0.0882 (0.0873)	Acc@1 30.273 (29.000)	Acc@5 51.953 (51.000)
+Epoch: [425][70/134]	Time 1.120 (2.902)	Data 0.000 (1.780)	Class 3.6402 (3.6356)	Cons 0.0875 (0.0874)	Acc@1 27.930 (29.000)	Acc@5 54.492 (51.000)
+Epoch: [425][80/134]	Time 9.167 (2.975)	Data 8.053 (1.852)	Class 3.7550 (3.6453)	Cons 0.1007 (0.0877)	Acc@1 27.344 (29.000)	Acc@5 49.219 (51.000)
+Epoch: [425][90/134]	Time 1.121 (2.968)	Data 0.000 (1.846)	Class 3.6991 (3.6512)	Cons 0.0789 (0.0875)	Acc@1 28.711 (29.000)	Acc@5 50.195 (50.000)
+Epoch: [425][100/134]	Time 7.526 (2.997)	Data 6.408 (1.875)	Class 3.6247 (3.6533)	Cons 0.0936 (0.0876)	Acc@1 32.031 (29.000)	Acc@5 50.391 (50.000)
+Epoch: [425][110/134]	Time 1.119 (2.972)	Data 0.001 (1.850)	Class 3.6232 (3.6491)	Cons 0.0923 (0.0877)	Acc@1 30.078 (29.000)	Acc@5 53.711 (50.000)
+Epoch: [425][120/134]	Time 9.450 (3.008)	Data 8.323 (1.886)	Class 3.8078 (3.6530)	Cons 0.0960 (0.0879)	Acc@1 28.320 (29.000)	Acc@5 49.805 (50.000)
+Epoch: [425][130/134]	Time 1.126 (2.964)	Data 0.000 (1.842)	Class 3.6184 (3.6534)	Cons 0.0801 (0.0880)	Acc@1 31.445 (29.000)	Acc@5 53.125 (50.000)
+--- training epoch in 401.05114579200745 seconds ---
+Evaluating the primary model:
+Test: [0/125]	Time 14.780 (14.780)	Data 14.515 (14.515)	Class 4.1406 (4.0000)	Acc@1 29.688 (29.000)	Acc@5 45.312 (45.000)
+Test: [10/125]	Time 0.237 (2.663)	Data 0.000 (2.421)	Class 4.4084 (3.0000)	Acc@1 16.992 (26.000)	Acc@5 36.133 (47.000)
+Test: [20/125]	Time 0.239 (2.039)	Data 0.000 (1.797)	Class 4.6395 (3.0000)	Acc@1 17.773 (26.000)	Acc@5 33.398 (45.000)
+Test: [30/125]	Time 0.235 (1.796)	Data 0.001 (1.556)	Class 4.2810 (3.0000)	Acc@1 22.656 (26.000)	Acc@5 39.062 (45.000)
+Test: [40/125]	Time 8.971 (1.886)	Data 8.727 (1.645)	Class 4.5324 (3.0000)	Acc@1 20.312 (25.000)	Acc@5 37.695 (44.000)
+Test: [50/125]	Time 0.236 (1.828)	Data 0.000 (1.588)	Class 3.9485 (3.0000)	Acc@1 23.242 (24.000)	Acc@5 45.898 (43.000)
+Test: [60/125]	Time 0.240 (1.744)	Data 0.001 (1.504)	Class 4.3992 (3.0000)	Acc@1 18.164 (24.000)	Acc@5 36.133 (42.000)
+Test: [70/125]	Time 0.239 (1.682)	Data 0.000 (1.442)	Class 4.3775 (3.0000)	Acc@1 21.094 (24.000)	Acc@5 39.453 (42.000)
+Test: [80/125]	Time 9.802 (1.750)	Data 9.567 (1.511)	Class 4.5652 (3.0000)	Acc@1 22.461 (24.000)	Acc@5 37.695 (43.000)
+Test: [90/125]	Time 0.244 (1.728)	Data 0.000 (1.488)	Class 3.3180 (3.0000)	Acc@1 38.086 (25.000)	Acc@5 58.008 (44.000)
+Test: [100/125]	Time 0.236 (1.686)	Data 0.000 (1.446)	Class 4.2019 (3.0000)	Acc@1 21.680 (26.000)	Acc@5 41.406 (45.000)
+Test: [110/125]	Time 0.245 (1.647)	Data 0.000 (1.407)	Class 2.9289 (3.0000)	Acc@1 45.312 (26.000)	Acc@5 65.039 (45.000)
+Test: [120/125]	Time 7.650 (1.675)	Data 7.398 (1.436)	Class 2.6027 (3.0000)	Acc@1 49.609 (28.000)	Acc@5 68.555 (47.000)
+ * Acc@1 29.000\Acc@5 47.000
+Evaluating the EMA model:
+Test: [0/125]	Time 11.754 (11.754)	Data 11.514 (11.514)	Class 4.0281 (4.0000)	Acc@1 30.664 (30.000)	Acc@5 45.312 (45.000)
+Test: [10/125]	Time 0.239 (2.110)	Data 0.000 (1.870)	Class 4.3515 (3.0000)	Acc@1 16.797 (27.000)	Acc@5 36.133 (47.000)
+Test: [20/125]	Time 0.238 (1.662)	Data 0.000 (1.424)	Class 4.5651 (3.0000)	Acc@1 17.578 (27.000)	Acc@5 34.961 (46.000)
+Test: [30/125]	Time 0.235 (1.508)	Data 0.000 (1.265)	Class 4.1622 (3.0000)	Acc@1 25.781 (27.000)	Acc@5 41.602 (46.000)
+Test: [40/125]	Time 6.485 (1.554)	Data 6.247 (1.312)	Class 4.5054 (3.0000)	Acc@1 20.898 (26.000)	Acc@5 37.305 (44.000)
+Test: [50/125]	Time 0.237 (1.491)	Data 0.000 (1.250)	Class 3.9098 (3.0000)	Acc@1 22.266 (25.000)	Acc@5 46.484 (43.000)
+Test: [60/125]	Time 0.239 (1.406)	Data 0.001 (1.165)	Class 4.3620 (3.0000)	Acc@1 18.555 (24.000)	Acc@5 38.086 (43.000)
+Test: [70/125]	Time 0.235 (1.350)	Data 0.000 (1.109)	Class 4.3853 (3.0000)	Acc@1 21.094 (25.000)	Acc@5 38.867 (43.000)
+Test: [80/125]	Time 7.520 (1.422)	Data 7.277 (1.181)	Class 4.6362 (3.0000)	Acc@1 21.484 (25.000)	Acc@5 37.305 (43.000)
+Test: [90/125]	Time 0.242 (1.384)	Data 0.000 (1.143)	Class 3.3266 (3.0000)	Acc@1 38.672 (26.000)	Acc@5 58.203 (44.000)
+Test: [100/125]	Time 0.259 (1.357)	Data 0.000 (1.116)	Class 4.2293 (3.0000)	Acc@1 21.680 (26.000)	Acc@5 41.406 (45.000)
+Test: [110/125]	Time 0.234 (1.336)	Data 0.000 (1.095)	Class 2.9072 (3.0000)	Acc@1 45.703 (27.000)	Acc@5 65.625 (45.000)
+Test: [120/125]	Time 5.909 (1.370)	Data 5.675 (1.130)	Class 2.5196 (3.0000)	Acc@1 51.953 (29.000)	Acc@5 69.922 (47.000)
+ * Acc@1 29.000\Acc@5 48.000
+--- validation in 374.9902012348175 seconds ---
+Epoch: [426][0/134]	Time 12.153 (12.153)	Data 11.014 (11.014)	Class 3.5741 (3.5741)	Cons 0.0879 (0.0879)	Acc@1 33.984 (33.000)	Acc@5 52.344 (52.000)
+Epoch: [426][10/134]	Time 1.117 (3.493)	Data 0.000 (2.371)	Class 3.6795 (3.5872)	Cons 0.0928 (0.0894)	Acc@1 27.930 (30.000)	Acc@5 48.242 (51.000)
+Epoch: [426][20/134]	Time 7.897 (3.303)	Data 6.760 (2.179)	Class 3.6682 (3.6017)	Cons 0.0901 (0.0892)	Acc@1 29.688 (30.000)	Acc@5 50.977 (51.000)
+Epoch: [426][30/134]	Time 1.119 (3.176)	Data 0.000 (2.053)	Class 3.6543 (3.6191)	Cons 0.0901 (0.0889)	Acc@1 33.008 (30.000)	Acc@5 51.367 (51.000)
+Epoch: [426][40/134]	Time 7.737 (3.170)	Data 6.622 (2.046)	Class 3.6227 (3.6224)	Cons 0.0854 (0.0894)	Acc@1 31.055 (30.000)	Acc@5 53.125 (51.000)
+Epoch: [426][50/134]	Time 1.121 (3.038)	Data 0.000 (1.915)	Class 3.8092 (3.6295)	Cons 0.0861 (0.0898)	Acc@1 26.367 (30.000)	Acc@5 49.414 (51.000)
+Epoch: [426][60/134]	Time 7.191 (3.074)	Data 6.069 (1.951)	Class 3.6400 (3.6289)	Cons 0.0793 (0.0892)	Acc@1 31.055 (30.000)	Acc@5 54.102 (51.000)
+Epoch: [426][70/134]	Time 1.417 (3.006)	Data 0.298 (1.883)	Class 3.5712 (3.6324)	Cons 0.0931 (0.0890)	Acc@1 30.859 (30.000)	Acc@5 52.930 (51.000)
+Epoch: [426][80/134]	Time 7.457 (3.028)	Data 6.317 (1.905)	Class 3.5562 (3.6308)	Cons 0.1001 (0.0894)	Acc@1 31.055 (30.000)	Acc@5 53.906 (51.000)
+Epoch: [426][90/134]	Time 1.168 (2.991)	Data 0.051 (1.867)	Class 3.7252 (3.6292)	Cons 0.0864 (0.0892)	Acc@1 31.055 (30.000)	Acc@5 51.367 (51.000)
+Epoch: [426][100/134]	Time 8.794 (3.014)	Data 7.657 (1.891)	Class 3.6453 (3.6322)	Cons 0.0922 (0.0893)	Acc@1 30.469 (30.000)	Acc@5 54.102 (51.000)
+Epoch: [426][110/134]	Time 1.120 (2.963)	Data 0.000 (1.840)	Class 3.7944 (3.6325)	Cons 0.0955 (0.0894)	Acc@1 25.781 (30.000)	Acc@5 47.852 (51.000)
+Epoch: [426][120/134]	Time 8.148 (2.985)	Data 7.030 (1.862)	Class 3.7452 (3.6362)	Cons 0.0808 (0.0893)	Acc@1 29.688 (30.000)	Acc@5 50.977 (51.000)
+Epoch: [426][130/134]	Time 1.123 (2.972)	Data 0.000 (1.849)	Class 3.8217 (3.6451)	Cons 0.1016 (0.0895)	Acc@1 25.977 (29.000)	Acc@5 48.047 (50.000)
+--- training epoch in 399.63725781440735 seconds ---
+Epoch: [427][0/134]	Time 12.792 (12.792)	Data 11.671 (11.671)	Class 3.4902 (3.4902)	Cons 0.0974 (0.0974)	Acc@1 32.812 (32.000)	Acc@5 53.516 (53.000)
+Epoch: [427][10/134]	Time 1.122 (3.257)	Data 0.000 (2.133)	Class 3.5876 (3.5556)	Cons 0.0933 (0.0915)	Acc@1 32.422 (31.000)	Acc@5 53.320 (52.000)
+Epoch: [427][20/134]	Time 6.438 (3.071)	Data 5.315 (1.947)	Class 3.7204 (3.5546)	Cons 0.0935 (0.0906)	Acc@1 29.883 (31.000)	Acc@5 50.391 (53.000)
+Epoch: [427][30/134]	Time 1.121 (2.823)	Data 0.000 (1.699)	Class 3.5631 (3.5509)	Cons 0.0849 (0.0906)	Acc@1 29.688 (31.000)	Acc@5 52.734 (52.000)
+Epoch: [427][40/134]	Time 7.400 (2.842)	Data 6.280 (1.719)	Class 3.5405 (3.5660)	Cons 0.0871 (0.0906)	Acc@1 32.031 (31.000)	Acc@5 51.172 (52.000)
+Epoch: [427][50/134]	Time 1.120 (2.765)	Data 0.000 (1.641)	Class 3.5515 (3.5773)	Cons 0.0987 (0.0905)	Acc@1 29.688 (31.000)	Acc@5 52.539 (52.000)
+Epoch: [427][60/134]	Time 7.150 (2.795)	Data 6.019 (1.671)	Class 3.4177 (3.5810)	Cons 0.0973 (0.0909)	Acc@1 34.180 (31.000)	Acc@5 58.594 (52.000)
+Epoch: [427][70/134]	Time 1.118 (2.720)	Data 0.000 (1.596)	Class 3.6809 (3.5889)	Cons 0.0866 (0.0904)	Acc@1 30.469 (31.000)	Acc@5 50.781 (52.000)
+Epoch: [427][80/134]	Time 7.282 (2.751)	Data 6.163 (1.627)	Class 3.7062 (3.5966)	Cons 0.0908 (0.0901)	Acc@1 32.812 (30.000)	Acc@5 50.977 (52.000)
+Epoch: [427][90/134]	Time 1.127 (2.717)	Data 0.000 (1.593)	Class 3.5966 (3.6010)	Cons 0.0871 (0.0901)	Acc@1 32.031 (30.000)	Acc@5 50.977 (51.000)
+Epoch: [427][100/134]	Time 6.824 (2.742)	Data 5.688 (1.619)	Class 3.7074 (3.6084)	Cons 0.0880 (0.0900)	Acc@1 29.688 (30.000)	Acc@5 50.781 (51.000)
+Epoch: [427][110/134]	Time 1.127 (2.712)	Data 0.000 (1.588)	Class 3.6774 (3.6094)	Cons 0.0836 (0.0898)	Acc@1 31.055 (30.000)	Acc@5 50.391 (51.000)
+Epoch: [427][120/134]	Time 6.398 (2.729)	Data 5.266 (1.605)	Class 3.6361 (3.6088)	Cons 0.0843 (0.0897)	Acc@1 32.227 (30.000)	Acc@5 50.977 (51.000)
+Epoch: [427][130/134]	Time 1.121 (2.688)	Data 0.000 (1.565)	Class 3.6527 (3.6108)	Cons 0.0890 (0.0897)	Acc@1 28.516 (30.000)	Acc@5 52.148 (51.000)
+--- training epoch in 361.1623623371124 seconds ---
+Epoch: [428][0/134]	Time 11.953 (11.953)	Data 10.810 (10.810)	Class 3.5472 (3.5472)	Cons 0.0903 (0.0903)	Acc@1 33.789 (33.000)	Acc@5 52.344 (52.000)
+Epoch: [428][10/134]	Time 1.120 (3.064)	Data 0.000 (1.940)	Class 3.5708 (3.5342)	Cons 0.1015 (0.0925)	Acc@1 31.641 (31.000)	Acc@5 53.906 (52.000)
+Epoch: [428][20/134]	Time 7.735 (3.087)	Data 6.598 (1.963)	Class 3.3623 (3.5367)	Cons 0.0808 (0.0909)	Acc@1 36.328 (31.000)	Acc@5 59.375 (53.000)
+Epoch: [428][30/134]	Time 1.125 (2.819)	Data 0.000 (1.696)	Class 3.5432 (3.5250)	Cons 0.0935 (0.0910)	Acc@1 32.031 (32.000)	Acc@5 52.734 (53.000)
+Epoch: [428][40/134]	Time 7.515 (2.873)	Data 6.378 (1.751)	Class 3.5961 (3.5432)	Cons 0.0765 (0.0907)	Acc@1 30.469 (31.000)	Acc@5 52.539 (52.000)
+Epoch: [428][50/134]	Time 1.121 (2.813)	Data 0.001 (1.691)	Class 3.4705 (3.5433)	Cons 0.0956 (0.0917)	Acc@1 33.594 (31.000)	Acc@5 55.859 (53.000)
+Epoch: [428][60/134]	Time 7.207 (2.867)	Data 6.091 (1.745)	Class 3.5114 (3.5509)	Cons 0.0999 (0.0919)	Acc@1 33.008 (31.000)	Acc@5 55.078 (52.000)
+Epoch: [428][70/134]	Time 1.119 (2.822)	Data 0.000 (1.699)	Class 3.6655 (3.5570)	Cons 0.0901 (0.0916)	Acc@1 32.422 (31.000)	Acc@5 51.758 (52.000)
+Epoch: [428][80/134]	Time 7.401 (2.834)	Data 6.267 (1.712)	Class 3.6399 (3.5683)	Cons 0.0880 (0.0911)	Acc@1 29.688 (31.000)	Acc@5 49.219 (52.000)
+Epoch: [428][90/134]	Time 1.127 (2.788)	Data 0.000 (1.666)	Class 3.5904 (3.5713)	Cons 0.0935 (0.0912)	Acc@1 29.688 (31.000)	Acc@5 54.102 (52.000)
+Epoch: [428][100/134]	Time 8.923 (2.817)	Data 7.789 (1.694)	Class 3.6866 (3.5801)	Cons 0.0855 (0.0912)	Acc@1 31.250 (31.000)	Acc@5 49.609 (52.000)
+Epoch: [428][110/134]	Time 1.436 (2.779)	Data 0.323 (1.657)	Class 3.7562 (3.5843)	Cons 0.0850 (0.0911)	Acc@1 29.688 (31.000)	Acc@5 50.000 (52.000)
+Epoch: [428][120/134]	Time 8.806 (2.820)	Data 7.690 (1.698)	Class 3.7557 (3.5910)	Cons 0.0970 (0.0911)	Acc@1 29.297 (31.000)	Acc@5 46.875 (52.000)
+Epoch: [428][130/134]	Time 1.124 (2.803)	Data 0.000 (1.681)	Class 3.5977 (3.5930)	Cons 0.0974 (0.0912)	Acc@1 28.516 (30.000)	Acc@5 51.953 (52.000)
+--- training epoch in 377.65207028388977 seconds ---
+Evaluating the primary model:
+Test: [0/125]	Time 12.231 (12.231)	Data 11.980 (11.980)	Class 4.1064 (4.0000)	Acc@1 28.125 (28.000)	Acc@5 44.922 (44.000)
+Test: [10/125]	Time 0.236 (2.291)	Data 0.000 (2.047)	Class 4.4919 (3.0000)	Acc@1 16.406 (26.000)	Acc@5 33.398 (46.000)
+Test: [20/125]	Time 0.235 (1.817)	Data 0.000 (1.576)	Class 4.7420 (3.0000)	Acc@1 15.039 (26.000)	Acc@5 33.594 (45.000)
+Test: [30/125]	Time 0.234 (1.628)	Data 0.000 (1.388)	Class 4.1854 (3.0000)	Acc@1 25.781 (26.000)	Acc@5 42.773 (45.000)
+Test: [40/125]	Time 9.861 (1.783)	Data 9.613 (1.543)	Class 4.5668 (3.0000)	Acc@1 20.898 (25.000)	Acc@5 36.719 (44.000)
+Test: [50/125]	Time 0.239 (1.717)	Data 0.000 (1.477)	Class 3.9249 (3.0000)	Acc@1 22.461 (24.000)	Acc@5 46.875 (43.000)
+Test: [60/125]	Time 0.241 (1.657)	Data 0.001 (1.417)	Class 4.3338 (3.0000)	Acc@1 18.164 (24.000)	Acc@5 36.328 (42.000)
+Test: [70/125]	Time 0.237 (1.607)	Data 0.000 (1.367)	Class 4.3827 (3.0000)	Acc@1 19.727 (24.000)	Acc@5 37.695 (43.000)
+Test: [80/125]	Time 9.925 (1.677)	Data 9.689 (1.437)	Class 4.5706 (3.0000)	Acc@1 22.461 (25.000)	Acc@5 37.695 (43.000)
+Test: [90/125]	Time 0.235 (1.641)	Data 0.000 (1.401)	Class 3.3391 (3.0000)	Acc@1 37.305 (25.000)	Acc@5 56.445 (44.000)
+Test: [100/125]	Time 0.287 (1.603)	Data 0.000 (1.362)	Class 4.1263 (3.0000)	Acc@1 22.070 (26.000)	Acc@5 42.578 (45.000)
+Test: [110/125]	Time 0.236 (1.575)	Data 0.000 (1.334)	Class 2.8711 (3.0000)	Acc@1 46.875 (26.000)	Acc@5 65.625 (45.000)
+Test: [120/125]	Time 7.864 (1.614)	Data 7.609 (1.374)	Class 2.4986 (3.0000)	Acc@1 51.758 (28.000)	Acc@5 68.555 (47.000)
+ * Acc@1 29.000\Acc@5 48.000
+Evaluating the EMA model:
+Test: [0/125]	Time 13.718 (13.718)	Data 13.459 (13.459)	Class 4.0454 (4.0000)	Acc@1 29.883 (29.000)	Acc@5 45.703 (45.000)
+Test: [10/125]	Time 0.236 (2.251)	Data 0.001 (2.006)	Class 4.3634 (3.0000)	Acc@1 16.602 (27.000)	Acc@5 34.961 (47.000)
+Test: [20/125]	Time 0.237 (1.745)	Data 0.000 (1.504)	Class 4.5991 (3.0000)	Acc@1 17.383 (27.000)	Acc@5 34.180 (46.000)
+Test: [30/125]	Time 0.236 (1.576)	Data 0.000 (1.334)	Class 4.1753 (3.0000)	Acc@1 25.391 (27.000)	Acc@5 42.188 (46.000)
+Test: [40/125]	Time 7.544 (1.638)	Data 7.292 (1.397)	Class 4.4789 (3.0000)	Acc@1 22.070 (26.000)	Acc@5 38.281 (44.000)
+Test: [50/125]	Time 0.235 (1.536)	Data 0.000 (1.295)	Class 3.9055 (3.0000)	Acc@1 21.875 (25.000)	Acc@5 46.875 (43.000)
+Test: [60/125]	Time 0.236 (1.465)	Data 0.000 (1.225)	Class 4.3428 (3.0000)	Acc@1 19.141 (24.000)	Acc@5 37.891 (43.000)
+Test: [70/125]	Time 0.236 (1.426)	Data 0.000 (1.185)	Class 4.3678 (3.0000)	Acc@1 19.922 (25.000)	Acc@5 39.062 (43.000)
+Test: [80/125]	Time 9.417 (1.494)	Data 9.158 (1.254)	Class 4.5851 (3.0000)	Acc@1 22.852 (25.000)	Acc@5 39.648 (43.000)
+Test: [90/125]	Time 0.239 (1.468)	Data 0.000 (1.227)	Class 3.3090 (3.0000)	Acc@1 38.086 (26.000)	Acc@5 58.398 (44.000)
+Test: [100/125]	Time 0.246 (1.433)	Data 0.000 (1.192)	Class 4.1776 (3.0000)	Acc@1 21.875 (27.000)	Acc@5 42.188 (45.000)
+Test: [110/125]	Time 0.233 (1.406)	Data 0.000 (1.166)	Class 2.8485 (3.0000)	Acc@1 47.070 (27.000)	Acc@5 65.820 (45.000)
+Test: [120/125]	Time 8.182 (1.440)	Data 7.947 (1.200)	Class 2.4939 (3.0000)	Acc@1 52.734 (29.000)	Acc@5 69.922 (48.000)
+ * Acc@1 30.000\Acc@5 48.000
+--- validation in 373.66151094436646 seconds ---
+Epoch: [429][0/134]	Time 17.572 (17.572)	Data 16.434 (16.434)	Class 3.5536 (3.5536)	Cons 0.0934 (0.0934)	Acc@1 31.055 (31.000)	Acc@5 55.664 (55.000)
+Epoch: [429][10/134]	Time 1.122 (4.252)	Data 0.000 (3.128)	Class 3.6143 (3.5900)	Cons 0.1020 (0.0937)	Acc@1 31.055 (30.000)	Acc@5 54.883 (52.000)
+Epoch: [429][20/134]	Time 7.839 (3.935)	Data 6.698 (2.808)	Class 3.6002 (3.5610)	Cons 0.0798 (0.0920)	Acc@1 32.031 (31.000)	Acc@5 52.344 (52.000)
+Epoch: [429][30/134]	Time 1.122 (3.583)	Data 0.000 (2.458)	Class 3.6043 (3.5679)	Cons 0.0952 (0.0910)	Acc@1 32.422 (31.000)	Acc@5 54.102 (52.000)
+Epoch: [429][40/134]	Time 4.945 (3.476)	Data 3.832 (2.352)	Class 3.5959 (3.5638)	Cons 0.0932 (0.0916)	Acc@1 33.008 (31.000)	Acc@5 51.367 (52.000)
+Epoch: [429][50/134]	Time 1.126 (3.366)	Data 0.000 (2.242)	Class 3.5271 (3.5631)	Cons 0.0902 (0.0924)	Acc@1 31.250 (31.000)	Acc@5 51.562 (52.000)
+Epoch: [429][60/134]	Time 5.804 (3.300)	Data 4.680 (2.177)	Class 3.5389 (3.5731)	Cons 0.0927 (0.0923)	Acc@1 32.227 (31.000)	Acc@5 52.344 (52.000)
+Epoch: [429][70/134]	Time 1.119 (3.221)	Data 0.000 (2.097)	Class 3.4722 (3.5761)	Cons 0.0927 (0.0928)	Acc@1 34.570 (31.000)	Acc@5 55.078 (52.000)
+Epoch: [429][80/134]	Time 4.770 (3.185)	Data 3.654 (2.062)	Class 3.7577 (3.5763)	Cons 0.0851 (0.0928)	Acc@1 28.320 (31.000)	Acc@5 48.828 (52.000)
+Epoch: [429][90/134]	Time 1.120 (3.180)	Data 0.000 (2.057)	Class 3.4889 (3.5771)	Cons 0.0923 (0.0925)	Acc@1 31.641 (31.000)	Acc@5 53.516 (52.000)

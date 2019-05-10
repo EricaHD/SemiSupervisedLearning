@@ -18,7 +18,7 @@ def parameters():
         'workers': 4,
         'checkpoint_epochs': 5,
         'evaluation_epochs':3,
-        'resume':"/scratch/ijh216/ssl/ssl_shake_mini_augment/2019-05-06_18-04-18/10/transient/checkpoint.325.ckpt" ,
+        'resume':"/scratch/ijh216/ssl/ssl2/2019-05-09_17-19-21/10/transient/checkpoint.415.ckpt" ,
         
         # Data
         'dataset': 'ssl2',
@@ -42,7 +42,7 @@ def parameters():
         # Optimization
         'epochs': 450,
         'augment_unlabeled_epoch':-1,
-        'start_epoch':325,
+        'start_epoch':415,
         'lr': 0.1 * ngpu,
         'lr_rampup': 0,
         'lr_rampdown_epochs': 475,

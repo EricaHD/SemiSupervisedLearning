@@ -57,6 +57,8 @@ def main(context):
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
     elif args.dataset == 'ssl2Sobel':
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
+    elif args.dataset == 'ssl3':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
     else:
         assert False, "Invalid options"
 
@@ -188,18 +190,19 @@ def main(context):
 def update_batchnorm(model, train_loader, train_loader_len, verbose=False, device=device):
     if verbose: print("Updating Batchnorm")
     model.train()
-    for i, ((img, ema_img), target) in enumerate(train_loader):
-        # speeding things up (100 instead of ~800 updates)
-        if i > 100: 
-            return
-        img_var, ema_img_var, target = img.to(device), ema_img.to(device), target.to(device)
-        minibatch_size = len(target_var)
-        model_out = model(img_var)
-        
-        if verbose and i % 100 == 0:
-            LOG.info(
-                'Updating BN. i = {}'.format(i)
-                )
+    with torch.no_grad():
+        for i, ((img, ema_img), target) in enumerate(train_loader):
+            # speeding things up (100 instead of ~800 updates)
+            if i > 100: 
+                return
+            img_var, ema_img_var, target_var = img.to(device), ema_img.to(device), target.to(device)
+            minibatch_size = len(target_var)
+            model_out = model(img_var)
+
+            if verbose and i % 100 == 0:
+                LOG.info(
+                    'Updating BN. i = {}'.format(i)
+                    )
 
 def parse_dict_args(**kwargs):
     global args
@@ -255,7 +258,7 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
         adjust_learning_rate(optimizer, epoch, i, train_loader_len)
         meters.update('lr', optimizer.param_groups[0]['lr'])
         
-        img_var, ema_img_var, target_var = img.to(device), ema_img.to(device), target.to(device)
+        img_var, ema_img_var, target_var = img.to(device), ema_img.to(device).detach(), target.to(device)
 
         minibatch_size = len(target_var)
         labeled_minibatch_size = target_var.detach().ne(NO_LABEL).sum()
@@ -515,7 +518,7 @@ def create_data_loaders_ssl(train_transformation, eval_transformation, datadir, 
     #Eval loader
     eval_loader = torch.utils.data.DataLoader(torchvision.datasets.ImageFolder(evaldir, eval_transformation),
                                               batch_size=args.batch_size,
-                                              shuffle=False,
+                                              shuffle=True,
                                               num_workers=2 * args.workers,  # Needs images twice as fast
                                               pin_memory=True,
                                               drop_last=False)

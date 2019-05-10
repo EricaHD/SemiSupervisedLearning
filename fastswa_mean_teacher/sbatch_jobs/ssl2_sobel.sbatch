@@ -8,4 +8,4 @@
 #SBATCH --time=48:00:00
 #SBATCH --output=slurm_ssl2_sobel_%j.out
 
-python py_jobs/ssl2Sobel.py
+python py_jobs/ssl2_sobel.py
