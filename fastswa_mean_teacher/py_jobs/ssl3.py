@@ -26,6 +26,7 @@ def parameters():
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
         'augment_unlabeled_init':True,
+        'augment_unlabeled_epoch':-1,
 
         # Architecture
         'arch': 'cifar_shakeshake26',
@@ -40,12 +41,11 @@ def parameters():
         'innovate':False,
 
         # Optimization
-        'epochs': 450,
-        'augment_unlabeled_epoch':-1,
-        'start_epoch':415,
+        'epochs': 425,
+        'start_epoch':325,
         'lr': 0.1 * ngpu,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 475,
+        'lr_rampdown_epochs': 450,
         'nesterov': True,
 
         'num_cycles': 10,
