@@ -59,6 +59,8 @@ def main(context):
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
     elif args.dataset == 'ssl3':
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl3(**dataset_config, args=args)
+    elif args.dataset == 'ssl4':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_ssl3(**dataset_config, args=args)
     else:
         assert False, "Invalid options"
 
