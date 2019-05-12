@@ -16,13 +16,12 @@ def parameters():
     defaults = {
         # Technical details
         'workers': 4,
-        'checkpoint_epochs': 1,
-        'evaluation_epochs':100,
-        'resume':"/scratch/ijh216/ssl/ssl_shake_mini_augment/2019-05-06_18-04-18/10/transient/checkpoint.325.ckpt",
+        'checkpoint_epochs': 25,
+        'evaluation_epochs':5,
         
         # Data
-        'dataset': 'ssl4',
-        'train_subdir': 'supervised/train',
+        'dataset': 'sslK',
+        'train_subdir': 'train_2',
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
         'augment_unlabeled_init':True,
@@ -41,11 +40,11 @@ def parameters():
         'innovate':False,
 
         # Optimization
-        'epochs': 325,
-        'start_epoch':325,
+        'epochs': 50,
+        'start_epoch':0,
         'lr': 0.1 * ngpu,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 330,
+        'lr_rampdown_epochs': 75,
         'nesterov': True,
 
         'num_cycles': 3,
@@ -53,7 +52,7 @@ def parameters():
         'fastswa_frequencies': '3',
         
         'device':'cuda',
-        'title' : 'ssl4',
+        'title' : 'sslK_2',
         'data_seed':10, 
         
         'batch_size': 384 * ngpu,

@@ -61,6 +61,8 @@ def main(context):
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl3(**dataset_config, args=args)
     elif args.dataset == 'ssl4':
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl3(**dataset_config, args=args)
+    elif args.dataset == 'sslK':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_sslK(**dataset_config, args=args)
     else:
         assert False, "Invalid options"
 
@@ -572,6 +574,61 @@ def create_data_loaders_ssl3(train_transformation, eval_transformation, datadir,
     #Readin data
     traindir = os.path.join(datadir, args.train_subdir)
     evaldir = os.path.join(datadir, args.eval_subdir)
+    
+    #Training data
+    dataset = torchvision.datasets.ImageFolder(traindir, train_transformation)
+    labeled_idxs, unlabeled_idxs = list(range(len(dataset))), []
+
+    #If using the unsupervised 
+    if args.augment_unlabeled_init == True:
+        print("Augmenting Labeled Data")
+        unsupdir = os.path.join(dataUdir, args.unsup_subdir)
+        _dataset = torchvision.datasets.ImageFolder(unsupdir, train_transformation)
+
+        #Relabel
+        for i in _dataset.classes:
+            _dataset.class_to_idx[i] = NO_LABEL
+
+        #Join
+        concat_dataset = torch.utils.data.ConcatDataset([dataset, _dataset])
+        #Unsup indices
+        unlabeled_idxs = list(range(len(dataset), len(dataset) + len(_dataset)))
+        
+        print(concat_dataset.cumulative_sizes)
+        dataset = concat_dataset
+        
+    #If excluding unsupervised
+    if args.augment_unlabeled_init == False:
+        sampler = SubsetRandomSampler(labeled_idxs)
+        batch_sampler = BatchSampler(sampler, args.batch_size, drop_last=True)
+    #Otherwise
+    elif args.augment_unlabeled_init == True:
+        batch_sampler = data.TwoStreamBatchSampler(unlabeled_idxs, labeled_idxs, args.batch_size, args.labeled_batch_size)
+    else:
+        assert False, "labeled batch size {}".format(args.labeled_batch_size)
+        
+    #Train loader
+    train_loader = torch.utils.data.DataLoader(dataset,
+                                               batch_sampler=batch_sampler,
+                                               num_workers=args.workers,
+                                               pin_memory=True)
+    train_loader_len = len(train_loader)
+    
+    #Eval loader
+    eval_loader = torch.utils.data.DataLoader(torchvision.datasets.ImageFolder(evaldir, eval_transformation),
+                                              batch_size=args.batch_size,
+                                              shuffle=True,
+                                              num_workers=2 * args.workers,  # Needs images twice as fast
+                                              pin_memory=True,
+                                              drop_last=False)
+    
+    return train_loader, eval_loader, train_loader_len
+
+def create_data_loaders_sslK(train_transformation, eval_transformation, traindir, evaldir, dataUdir, args):
+    
+    #Readin data
+    traindir = os.path.join(traindir, args.train_subdir)
+    evaldir = os.path.join(evaldir, args.eval_subdir)
     
     #Training data
     dataset = torchvision.datasets.ImageFolder(traindir, train_transformation)
