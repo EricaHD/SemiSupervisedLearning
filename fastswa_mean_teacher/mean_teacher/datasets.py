@@ -75,7 +75,7 @@ def sslK():
         'eval_transformation': eval_transformation,
         'traindir': '/scratch/ijh216/sslK',
         'evaldir': '/scratch/ehd255/ssl_data_96',
-        'dataUdir':'/scratch/ijh216/ssl4/',
+        'dataUdir':'/scratch/ijh216/sslK',
         'num_classes': 1000
     }
 

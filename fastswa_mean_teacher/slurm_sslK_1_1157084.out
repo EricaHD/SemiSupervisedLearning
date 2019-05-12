@@ -1,4 +1,4 @@
-Using these command line args: --workers 4 --checkpoint-epochs 25 --evaluation-epochs 5 --dataset sslK --train-subdir train_2 --unsup-subdir unsupervised --eval-subdir supervised/val --augment-unlabeled-init True --augment-unlabeled-epoch -1 --arch cifar_shakeshake26 --ema-decay 0.999 --consistency-type mse --consistency-rampup 150 --consistency 1000.0 --logit-distance-cost 0.01 --weight-decay 0.0002 --innovate False --epochs 50 --start-epoch 0 --lr 0.1 --lr-rampup 0 --lr-rampdown-epochs 75 --nesterov True --num-cycles 3 --cycle-interval 3 --fastswa-frequencies 3 --device cuda --batch-size 384 --labeled-batch-size 153
+Using these command line args: --workers 4 --checkpoint-epochs 25 --evaluation-epochs 5 --dataset sslK --train-subdir train_1 --unsup-subdir unsup --eval-subdir supervised/val --augment-unlabeled-init True --augment-unlabeled-epoch -1 --arch cifar_shakeshake26 --ema-decay 0.999 --consistency-type mse --consistency-rampup 150 --consistency 1000.0 --logit-distance-cost 0.01 --weight-decay 0.0002 --innovate False --epochs 50 --start-epoch 0 --lr 0.1 --lr-rampup 0 --lr-rampdown-epochs 75 --nesterov True --num-cycles 3 --cycle-interval 3 --fastswa-frequencies 3 --device cuda --batch-size 384 --labeled-batch-size 153
 => creating model 'cifar_shakeshake26'
 => creating model 'cifar_shakeshake26'
 => creating model 'cifar_shakeshake26'
@@ -169,39 +169,12 @@ module.fc2.bias                                          1000 =       1,000
 ===========================================================================
 all parameters                                   sum of above =  26,959,616
 
---- checkpoint saved to /scratch/ijh216/ssl//sslK_2/2019-05-12_14-29-19/10/transient/checkpoint.0.ckpt ---
+--- checkpoint saved to /scratch/ijh216/ssl//sslK_1/2019-05-12_15-12-14/10/transient/checkpoint.0.ckpt ---
 Augmenting Labeled Data
-[2000, 130000]
+[1000, 26600]
 Frequent SWAs with frequencies = [3]
 /home/ijh216/pytorch/py3.6.3/lib/python3.6/site-packages/torch/nn/_reduction.py:49: UserWarning: size_average and reduce args will be deprecated, please use reduction='sum' instead.
   warnings.warn(warning.format(ret))
-Epoch: [0][0/554]	Time 22.054 (22.054)	Data 11.882 (11.882)	Class 6.9785 (6.9785)	Cons 0.0000 (0.0000)	Acc@1 0.000 (0.000)	Acc@5 0.000 (0.000)
-Epoch: [0][10/554]	Time 3.944 (5.576)	Data 0.000 (1.092)	Class 6.9924 (7.0000)	Cons 0.0000 (0.0000)	Acc@1 0.000 (0.000)	Acc@5 0.000 (0.000)
-Epoch: [0][20/554]	Time 3.964 (4.804)	Data 0.000 (0.573)	Class 6.9636 (6.9926)	Cons 0.0000 (0.0000)	Acc@1 0.000 (0.000)	Acc@5 0.260 (0.000)
-Epoch: [0][30/554]	Time 3.979 (4.536)	Data 0.000 (0.389)	Class 6.9264 (6.9858)	Cons 0.0000 (0.0000)	Acc@1 0.260 (0.000)	Acc@5 0.781 (0.000)
-Epoch: [0][40/554]	Time 3.994 (4.402)	Data 0.000 (0.294)	Class 6.8681 (6.9799)	Cons 0.0000 (0.0000)	Acc@1 0.260 (0.000)	Acc@5 1.562 (0.000)
-Epoch: [0][50/554]	Time 3.970 (4.322)	Data 0.000 (0.237)	Class 6.9422 (6.9692)	Cons 0.0000 (0.0000)	Acc@1 0.000 (0.000)	Acc@5 1.562 (0.000)
-Epoch: [0][60/554]	Time 3.974 (4.265)	Data 0.000 (0.198)	Class 6.8442 (6.9545)	Cons 0.0000 (0.0000)	Acc@1 0.000 (0.000)	Acc@5 1.823 (0.000)
-Epoch: [0][70/554]	Time 3.972 (4.223)	Data 0.001 (0.171)	Class 6.9091 (6.9350)	Cons 0.0000 (0.0000)	Acc@1 0.260 (0.000)	Acc@5 0.521 (0.000)
-Epoch: [0][80/554]	Time 3.958 (4.191)	Data 0.000 (0.150)	Class 6.7991 (6.9180)	Cons 0.0000 (0.0000)	Acc@1 0.521 (0.000)	Acc@5 1.823 (0.000)
-Epoch: [0][90/554]	Time 3.946 (4.166)	Data 0.000 (0.134)	Class 6.8048 (6.8983)	Cons 0.0000 (0.0000)	Acc@1 0.781 (0.000)	Acc@5 1.302 (0.000)
-Epoch: [0][100/554]	Time 3.969 (4.146)	Data 0.000 (0.121)	Class 6.6729 (6.8767)	Cons 0.0000 (0.0000)	Acc@1 0.781 (0.000)	Acc@5 1.562 (1.000)
-Epoch: [0][110/554]	Time 3.970 (4.130)	Data 0.000 (0.110)	Class 6.6111 (6.8556)	Cons 0.0000 (0.0000)	Acc@1 0.781 (0.000)	Acc@5 2.865 (1.000)
-Epoch: [0][120/554]	Time 3.967 (4.116)	Data 0.000 (0.101)	Class 6.4981 (6.8332)	Cons 0.0000 (0.0000)	Acc@1 1.823 (0.000)	Acc@5 3.646 (1.000)
-Epoch: [0][130/554]	Time 3.964 (4.105)	Data 0.000 (0.094)	Class 6.5791 (6.8135)	Cons 0.0000 (0.0000)	Acc@1 1.302 (0.000)	Acc@5 3.646 (1.000)
-Epoch: [0][140/554]	Time 3.969 (4.095)	Data 0.000 (0.087)	Class 6.6358 (6.7918)	Cons 0.0000 (0.0000)	Acc@1 1.042 (0.000)	Acc@5 2.865 (1.000)
-Epoch: [0][150/554]	Time 3.969 (4.086)	Data 0.000 (0.081)	Class 6.4933 (6.7724)	Cons 0.0000 (0.0000)	Acc@1 1.042 (0.000)	Acc@5 3.385 (1.000)
-Epoch: [0][160/554]	Time 3.963 (4.079)	Data 0.000 (0.076)	Class 6.4490 (6.7523)	Cons 0.0000 (0.0000)	Acc@1 2.865 (0.000)	Acc@5 8.594 (1.000)
-Epoch: [0][170/554]	Time 3.968 (4.072)	Data 0.000 (0.072)	Class 6.3644 (6.7345)	Cons 0.0000 (0.0000)	Acc@1 3.125 (0.000)	Acc@5 7.292 (2.000)
-Epoch: [0][180/554]	Time 3.958 (4.066)	Data 0.000 (0.068)	Class 6.4932 (6.7170)	Cons 0.0000 (0.0000)	Acc@1 2.083 (0.000)	Acc@5 5.208 (2.000)
-Epoch: [0][190/554]	Time 3.965 (4.061)	Data 0.000 (0.065)	Class 6.3609 (6.6994)	Cons 0.0000 (0.0000)	Acc@1 1.042 (0.000)	Acc@5 7.552 (2.000)
-Epoch: [0][200/554]	Time 3.961 (4.056)	Data 0.000 (0.062)	Class 6.3014 (6.6819)	Cons 0.0000 (0.0000)	Acc@1 2.604 (0.000)	Acc@5 6.771 (2.000)
-Epoch: [0][210/554]	Time 3.968 (4.052)	Data 0.000 (0.059)	Class 6.3865 (6.6661)	Cons 0.0000 (0.0000)	Acc@1 4.167 (0.000)	Acc@5 8.854 (2.000)
-Epoch: [0][220/554]	Time 3.971 (4.048)	Data 0.000 (0.056)	Class 6.3790 (6.6514)	Cons 0.0000 (0.0000)	Acc@1 2.344 (0.000)	Acc@5 8.333 (3.000)
-Epoch: [0][230/554]	Time 3.961 (4.044)	Data 0.000 (0.054)	Class 6.3735 (6.6368)	Cons 0.0000 (0.0000)	Acc@1 2.344 (0.000)	Acc@5 7.031 (3.000)
-Epoch: [0][240/554]	Time 3.968 (4.041)	Data 0.001 (0.052)	Class 6.2785 (6.6219)	Cons 0.0000 (0.0000)	Acc@1 3.906 (0.000)	Acc@5 10.156 (3.000)
-Epoch: [0][250/554]	Time 3.961 (4.038)	Data 0.000 (0.050)	Class 6.1668 (6.6073)	Cons 0.0000 (0.0000)	Acc@1 6.250 (0.000)	Acc@5 13.281 (3.000)
-Epoch: [0][260/554]	Time 3.966 (4.035)	Data 0.000 (0.048)	Class 6.3145 (6.5939)	Cons 0.0000 (0.0000)	Acc@1 3.385 (1.000)	Acc@5 9.115 (3.000)
-Epoch: [0][270/554]	Time 3.963 (4.033)	Data 0.000 (0.046)	Class 6.2426 (6.5790)	Cons 0.0000 (0.0000)	Acc@1 2.344 (1.000)	Acc@5 9.896 (4.000)
-Epoch: [0][280/554]	Time 3.963 (4.030)	Data 0.000 (0.045)	Class 6.2272 (6.5657)	Cons 0.0000 (0.0000)	Acc@1 3.906 (1.000)	Acc@5 13.281 (4.000)
-Epoch: [0][290/554]	Time 3.968 (4.028)	Data 0.000 (0.043)	Class 6.1104 (6.5526)	Cons 0.0000 (0.0000)	Acc@1 4.167 (1.000)	Acc@5 14.063 (4.000)
+Epoch: [0][0/110]	Time 12.630 (12.630)	Data 9.343 (9.343)	Class 7.0287 (7.0287)	Cons 0.0000 (0.0000)	Acc@1 0.260 (0.000)	Acc@5 0.521 (0.000)
+Epoch: [0][10/110]	Time 1.270 (3.006)	Data 0.000 (1.552)	Class 6.9608 (6.9882)	Cons 0.0000 (0.0000)	Acc@1 0.260 (0.000)	Acc@5 0.521 (0.000)
+Epoch: [0][20/110]	Time 6.463 (2.857)	Data 5.198 (1.492)	Class 6.9040 (6.9663)	Cons 0.0000 (0.0000)	Acc@1 0.000 (0.000)	Acc@5 1.302 (0.000)
