@@ -2,7 +2,7 @@ import sys
 import logging
 import torch
 sys.path.append('.')
-import main
+import main_2 as main
 from mean_teacher.cli import parse_dict_args
 from mean_teacher.run_context import RunContext
 
@@ -14,11 +14,12 @@ def parameters():
     defaults = {
         # Technical details
         'workers': 4,
-        'checkpoint_epochs': 10,
-        'evaluation_epochs':10,
+        'checkpoint_epochs': 2,
+        'evaluation_epochs':2,
+        'resume':"/scratch/ijh216/ssl/ssl_shake_mini_augment/2019-05-06_18-04-18/10/transient/checkpoint.325.ckpt",
         
         # Data
-        'dataset': 'sslMini',
+        'dataset': 'ssl3',
         'train_subdir': 'supervised/train',
         'unsup_subdir': 'unsupervised',
         'eval_subdir': 'supervised/val',
@@ -37,16 +38,16 @@ def parameters():
         'weight_decay': 2e-4,
 
         # Optimization
-        'epochs': 200,
-        'augment_unlabeled_epoch':150,
+        'epochs': 500,
+        'augment_unlabeled_epoch':350,
         'lr': 0.1,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 250,
+        'lr_rampdown_epochs': 550,
         'nesterov': True,
 
         'num_cycles': 5,
         'cycle_interval': 5,
-        'start_epoch': 0,
+        'start_epoch': 325,
         'fastswa_frequencies': '3',
         
         'device':'cuda',

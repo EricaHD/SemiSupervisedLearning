@@ -38,10 +38,10 @@ def parameters():
         'innovate':True,
 
         # Optimization
-        'epochs': 250,
+        'epochs': 450,
         'lr': 0.1,
         'lr_rampup': 0,
-        'lr_rampdown_epochs': 300,
+        'lr_rampdown_epochs': 475,
         'nesterov': True,
 
         'num_cycles': 10,
