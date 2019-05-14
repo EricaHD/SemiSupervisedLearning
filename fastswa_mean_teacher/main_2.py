@@ -57,8 +57,12 @@ def main(context):
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
     elif args.dataset == 'ssl2Sobel':
         train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
-    elif args.dataset == 'ssl_50':
-        train_loader, eval_loader, train_loader_len = create_data_loaders_ssl(**dataset_config, args=args)
+    elif args.dataset == 'ssl3':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_ssl3(**dataset_config, args=args)
+    elif args.dataset == 'ssl4':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_ssl3(**dataset_config, args=args)
+    elif args.dataset == 'sslK':
+        train_loader, eval_loader, train_loader_len = create_data_loaders_sslK(**dataset_config, args=args)
     else:
         assert False, "Invalid options"
 
@@ -84,7 +88,7 @@ def main(context):
     if args.fastswa_frequencies is not None:
         fastswa_freqs = [int(item) for item in args.fastswa_frequencies.split('-')]
         print("Frequent SWAs with frequencies =", fastswa_freqs)
-        fastswa_nets = [create_model(no_grad=True) for _ in fastswa_freqs]
+        fastswa_nets = [create_model(no_grad=True, device=device) for _ in fastswa_freqs]
         fastswa_optims = [optim_weight_swa.WeightSWA(fastswa_net) for fastswa_net in fastswa_nets]
         fastswa_logs = [context.create_train_log("fastswa_validation_freq{}".format(freq)) for freq in fastswa_freqs]
 
@@ -137,9 +141,9 @@ def main(context):
         if ( (epoch >= args.epochs) ) and ((epoch - args.epochs) % args.cycle_interval) == 0:
             swa_model_optim.update(model)
             print("SWA Model Updated!")
-            update_batchnorm(swa_model, train_loader, train_loader_len)
+            update_batchnorm(swa_model.to(device), train_loader, train_loader_len)
             LOG.info("Evaluating the SWA model:")
-            swa_acc1 = validate(eval_loader, swa_model, swa_validation_log, global_step, epoch, device=device)
+            swa_acc1 = validate(eval_loader, swa_model.to(device), swa_validation_log, global_step, epoch, device=device)
 
         # do the fastSWA updates
         if args.fastswa_frequencies is not None:
@@ -190,18 +194,19 @@ def main(context):
 def update_batchnorm(model, train_loader, train_loader_len, verbose=False, device=device):
     if verbose: print("Updating Batchnorm")
     model.train()
-    for i, ((img, ema_img), target) in enumerate(train_loader):
-        # speeding things up (100 instead of ~800 updates)
-        if i > 100: 
-            return
-        img_var, ema_img_var, target = img.to(device), ema_img.to(device), target.to(device)
-        minibatch_size = len(target_var)
-        model_out = model(img_var)
-        
-        if verbose and i % 100 == 0:
-            LOG.info(
-                'Updating BN. i = {}'.format(i)
-                )
+    with torch.no_grad():
+        for i, ((img, ema_img), target) in enumerate(train_loader):
+            # speeding things up (100 instead of ~800 updates)
+            if i > 100: 
+                return
+            img_var, ema_img_var, target_var = img.to(device), ema_img.to(device).detach(), target.to(device)
+            minibatch_size = len(target_var)
+            model_out = model(img_var)
+
+            if verbose and i % 100 == 0:
+                LOG.info(
+                    'Updating BN. i = {}'.format(i)
+                    )
 
 def parse_dict_args(**kwargs):
     global args
@@ -257,7 +262,7 @@ def train(train_loader, train_loader_len, model, ema_model, actual_ema_model, op
         adjust_learning_rate(optimizer, epoch, i, train_loader_len)
         meters.update('lr', optimizer.param_groups[0]['lr'])
         
-        img_var, ema_img_var, target_var = img.to(device), ema_img.to(device), target.to(device)
+        img_var, ema_img_var, target_var = img.to(device), ema_img.to(device).detach(), target.to(device)
 
         minibatch_size = len(target_var)
         labeled_minibatch_size = target_var.detach().ne(NO_LABEL).sum()
@@ -517,7 +522,7 @@ def create_data_loaders_ssl(train_transformation, eval_transformation, datadir, 
     #Eval loader
     eval_loader = torch.utils.data.DataLoader(torchvision.datasets.ImageFolder(evaldir, eval_transformation),
                                               batch_size=args.batch_size,
-                                              shuffle=False,
+                                              shuffle=True,
                                               num_workers=2 * args.workers,  # Needs images twice as fast
                                               pin_memory=True,
                                               drop_last=False)
@@ -562,6 +567,117 @@ def concat_data_loaders_ssl(train_transformation, eval_transformation, datadir, 
     train_loader_len = len(train_loader)
     print("Training Data Used {}".format(train_loader_len))
     return train_loader, train_loader_len
+
+
+def create_data_loaders_ssl3(train_transformation, eval_transformation, datadir, dataUdir, args):
+    
+    #Readin data
+    traindir = os.path.join(datadir, args.train_subdir)
+    evaldir = os.path.join(datadir, args.eval_subdir)
+    
+    #Training data
+    dataset = torchvision.datasets.ImageFolder(traindir, train_transformation)
+    labeled_idxs, unlabeled_idxs = list(range(len(dataset))), []
+
+    #If using the unsupervised 
+    if args.augment_unlabeled_init == True:
+        print("Augmenting Labeled Data")
+        unsupdir = os.path.join(dataUdir, args.unsup_subdir)
+        _dataset = torchvision.datasets.ImageFolder(unsupdir, train_transformation)
+
+        #Relabel
+        for i in _dataset.classes:
+            _dataset.class_to_idx[i] = NO_LABEL
+
+        #Join
+        concat_dataset = torch.utils.data.ConcatDataset([dataset, _dataset])
+        #Unsup indices
+        unlabeled_idxs = list(range(len(dataset), len(dataset) + len(_dataset)))
+        
+        print(concat_dataset.cumulative_sizes)
+        dataset = concat_dataset
+        
+    #If excluding unsupervised
+    if args.augment_unlabeled_init == False:
+        sampler = SubsetRandomSampler(labeled_idxs)
+        batch_sampler = BatchSampler(sampler, args.batch_size, drop_last=True)
+    #Otherwise
+    elif args.augment_unlabeled_init == True:
+        batch_sampler = data.TwoStreamBatchSampler(unlabeled_idxs, labeled_idxs, args.batch_size, args.labeled_batch_size)
+    else:
+        assert False, "labeled batch size {}".format(args.labeled_batch_size)
+        
+    #Train loader
+    train_loader = torch.utils.data.DataLoader(dataset,
+                                               batch_sampler=batch_sampler,
+                                               num_workers=args.workers,
+                                               pin_memory=True)
+    train_loader_len = len(train_loader)
+    
+    #Eval loader
+    eval_loader = torch.utils.data.DataLoader(torchvision.datasets.ImageFolder(evaldir, eval_transformation),
+                                              batch_size=args.batch_size,
+                                              shuffle=True,
+                                              num_workers=2 * args.workers,  # Needs images twice as fast
+                                              pin_memory=True,
+                                              drop_last=False)
+    
+    return train_loader, eval_loader, train_loader_len
+
+def create_data_loaders_sslK(train_transformation, eval_transformation, traindir, evaldir, dataUdir, args):
+    
+    #Readin data
+    traindir = os.path.join(traindir, args.train_subdir)
+    evaldir = os.path.join(evaldir, args.eval_subdir)
+    
+    #Training data
+    dataset = torchvision.datasets.ImageFolder(traindir, train_transformation)
+    labeled_idxs, unlabeled_idxs = list(range(len(dataset))), []
+
+    #If using the unsupervised 
+    if args.augment_unlabeled_init == True:
+        print("Augmenting Labeled Data")
+        unsupdir = os.path.join(dataUdir, args.unsup_subdir)
+        _dataset = torchvision.datasets.ImageFolder(unsupdir, train_transformation)
+
+        #Relabel
+        for i in _dataset.classes:
+            _dataset.class_to_idx[i] = NO_LABEL
+
+        #Join
+        concat_dataset = torch.utils.data.ConcatDataset([dataset, _dataset])
+        #Unsup indices
+        unlabeled_idxs = list(range(len(dataset), len(dataset) + len(_dataset)))
+        
+        print(concat_dataset.cumulative_sizes)
+        dataset = concat_dataset
+        
+    #If excluding unsupervised
+    if args.augment_unlabeled_init == False:
+        sampler = SubsetRandomSampler(labeled_idxs)
+        batch_sampler = BatchSampler(sampler, args.batch_size, drop_last=True)
+    #Otherwise
+    elif args.augment_unlabeled_init == True:
+        batch_sampler = data.TwoStreamBatchSampler(unlabeled_idxs, labeled_idxs, args.batch_size, args.labeled_batch_size)
+    else:
+        assert False, "labeled batch size {}".format(args.labeled_batch_size)
+        
+    #Train loader
+    train_loader = torch.utils.data.DataLoader(dataset,
+                                               batch_sampler=batch_sampler,
+                                               num_workers=args.workers,
+                                               pin_memory=True)
+    train_loader_len = len(train_loader)
+    
+    #Eval loader
+    eval_loader = torch.utils.data.DataLoader(torchvision.datasets.ImageFolder(evaldir, eval_transformation),
+                                              batch_size=args.batch_size,
+                                              shuffle=True,
+                                              num_workers=2 * args.workers,  # Needs images twice as fast
+                                              pin_memory=True,
+                                              drop_last=False)
+    
+    return train_loader, eval_loader, train_loader_len
 
 
 if __name__ == '__main__':

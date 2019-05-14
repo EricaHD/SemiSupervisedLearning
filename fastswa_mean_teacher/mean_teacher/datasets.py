@@ -29,7 +29,7 @@ def ssl():
     }
 
 @export
-def sslMini():
+def ssl4():
     channel_stats = dict(mean=[0.5011, 0.4727, 0.4229],
                           std=[0.2835, 0.2767, 0.2950]) 
     train_transformation = data.TransformTwice(transforms.Compose([
@@ -48,12 +48,13 @@ def sslMini():
     return {
         'train_transformation': train_transformation,
         'eval_transformation': eval_transformation,
-        'datadir': '/scratch/ijh216/ssl_mini/',
+        'datadir': '/scratch/ehd255/ssl_data_96',
+        'dataUdir':'/scratch/ijh216/ssl4/',
         'num_classes': 1000
     }
 
 @export
-def ssl2():
+def sslK():
     channel_stats = dict(mean=[0.5011, 0.4727, 0.4229],
                           std=[0.2835, 0.2767, 0.2950]) 
     train_transformation = data.TransformTwice(transforms.Compose([
@@ -72,57 +73,9 @@ def ssl2():
     return {
         'train_transformation': train_transformation,
         'eval_transformation': eval_transformation,
-        'datadir': '/scratch/ijh216/ssl2/',
+        'traindir': '/scratch/ijh216/sslK',
+        'evaldir': '/scratch/ehd255/ssl_data_96',
+        'dataUdir':'/scratch/ijh216/sslK',
         'num_classes': 1000
     }
-
-@export
-def ssl2Sobel():
-    train_transformation = data.TransformTwice(transforms.Compose([
-        data.RandomTranslateWithReflect(4),
-        transforms.RandomResizedCrop(32),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        data.SobelFilter()
-        
-    ]))
-    eval_transformation = transforms.Compose([
-        transforms.Resize(32),
-        transforms.ToTensor(),
-        data.SobelFilter()
-    ])
-
-    return {
-        'train_transformation': train_transformation,
-        'eval_transformation': eval_transformation,
-        'datadir': '/scratch/ijh216/ssl2/',
-        'num_classes': 1000
-    }
-
-
-@export
-def ssl_50():
-    channel_stats = dict(mean=[0.5011, 0.4727, 0.4229],
-                          std=[0.2835, 0.2767, 0.2950]) 
-    train_transformation = data.TransformTwice(transforms.Compose([
-        data.RandomTranslateWithReflect(4),
-        transforms.RandomResizedCrop(32),
-        transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize(**channel_stats)
-    ]))
-    eval_transformation = transforms.Compose([
-        transforms.Resize(32),
-        transforms.ToTensor(),
-        transforms.Normalize(**channel_stats)
-    ])
-
-    return {
-        'train_transformation': train_transformation,
-        'eval_transformation': eval_transformation,
-        'datadir': '/scratch/jtb470/ssl_50/',
-        'dataUdir':'/scratch/ehd255/ssl_data_96/',
-        'num_classes': 1000
-    }
-
 
